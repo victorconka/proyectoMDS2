@@ -7,7 +7,6 @@ import bbdd_gestion.Administrador;
 import bbdd_gestion.AdministradorDAO;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 
-
 public class Administradores {
 	public BDPrincipal _bd_prin_administradores;
 	public Administrador[] _conts_administrador = new Administrador[0];
