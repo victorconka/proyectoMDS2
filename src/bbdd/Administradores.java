@@ -3,7 +3,6 @@ package bbdd;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
-import UserInterface.Utils;
 import bbdd_gestion.Administrador;
 import bbdd_gestion.AdministradorDAO;
 import bbdd_gestion.ProjectMDS2PersistentManager;
