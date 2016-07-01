@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Foto" table="Foto" lazy="false">
+		<id name="id_foto" column="Id_foto" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="casa" cascade="lock" column="CasaInmuebleId_Inmueble" class="bbdd_gestion.Casa" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="inmueble" cascade="lock" column="InmuebleId_Inmueble" class="bbdd_gestion.Inmueble" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="linkFoto" column="LinkFoto" type="string" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Mapa" table="Mapa" lazy="false">
+		<id name="id_mapa" column="Id_mapa" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="longitud" column="Longitud" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="latitud" column="Latitud" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="codigoPostal" column="CodigoPostal" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Casas" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="MapaId_mapa" not-null="false"/>
+			<one-to-many class="bbdd_gestion.Casa"/>
+		</set>
+	</class>
+</hibernate-mapping>

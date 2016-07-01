@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Inmueble" table="Inmueble" lazy="false">
+		<id name="id_Inmueble" column="Id_Inmueble" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="codigoPostal" cascade="lock" column="CodigoPostalId_CodigoPostal" class="bbdd_gestion.CodigoPostal" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="provincia" cascade="lock" column="ProvinciaId_provincia" class="bbdd_gestion.Provincia" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="municipio" cascade="lock" column="MunicipioId_Municipio" class="bbdd_gestion.Municipio" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="linkFoto" column="LinkFoto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="direccion" column="Direccion" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Foto" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="InmuebleId_Inmueble" not-null="false"/>
+			<one-to-many class="bbdd_gestion.Foto"/>
+		</set>
+		<set name="ORM_Extra" table="Inmueble_Extra" lazy="true" cascade="save-update,lock">
+			<key column="InmuebleId_Inmueble" not-null="true"/>
+			<many-to-many column="ExtraId_Extra" class="bbdd_gestion.Extra">
+			</many-to-many>
+		</set>
+		<joined-subclass name="bbdd_gestion.Casa" table="Casa" lazy="false">
+			<key>
+				<column name="InmuebleId_Inmueble"/>
+			</key>
+			<property name="id_casa" column="Id_casa" type="integer" length="11" not-null="true" lazy="false"/>
+			<property name="precio" column="Precio" type="double" not-null="true" lazy="false"/>
+			<property name="superficie" column="Superficie" type="double" not-null="false" lazy="false"/>
+			<property name="habitaciones" column="Habitaciones" type="integer" length="11" not-null="true" lazy="false"/>
+			<property name="banios" column="Banios" type="integer" length="11" not-null="true" lazy="false"/>
+			<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="linkMapa" column="LinkMapa" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="estado" column="Estado" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="accion" column="Accion" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="numVisitas" column="NumVisitas" type="integer" length="11" not-null="true" lazy="false"/>
+			<property name="numFavoritos" column="NumFavoritos" type="integer" length="11" not-null="true" lazy="false"/>
+			<property name="visible" column="Visible" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="dCorta" column="DCorta" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="dLarga" column="DLarga" type="string" length="255" not-null="false" lazy="false"/>
+			<set name="ORM_Favorita" table="UsuarioR_Casa" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="CasaInmuebleId_Inmueble" not-null="true"/>
+				<many-to-many column="UsuarioRUsuarioId_Usuario" class="bbdd_gestion.UsuarioR">
+				</many-to-many>
+			</set>
+			<set name="ORM_Correo" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="CasaInmuebleId_Inmueble" not-null="false"/>
+				<one-to-many class="bbdd_gestion.Correo"/>
+			</set>
+			<set name="ORM_Fotos" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="CasaInmuebleId_Inmueble" not-null="false"/>
+				<one-to-many class="bbdd_gestion.Foto"/>
+			</set>
+			<many-to-one name="vende" cascade="lock" column="ClienteUsuarioId_Usuario" class="bbdd_gestion.Cliente" not-null="false" lazy="proxy" access="field">
+			</many-to-one>
+			<many-to-one name="mapa" cascade="lock" column="MapaId_mapa" class="bbdd_gestion.Mapa" not-null="false" lazy="proxy" access="field">
+			</many-to-one>
+			<one-to-one name="alquila" class="bbdd_gestion.UsuarioR" cascade="save-update,lock" property-ref="es_Alquilada" lazy="proxy" access="field"/>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>

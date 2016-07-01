@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Municipio" table="Municipio" lazy="false">
+		<id name="id_Municipio" column="Id_Municipio" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="pertenece" cascade="lock" column="ProvinciaId_provincia" class="bbdd_gestion.Provincia" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="municipio" column="Municipio" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_CodigoPostals" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="MunicipioId_Municipio" not-null="false"/>
+			<one-to-many class="bbdd_gestion.CodigoPostal"/>
+		</set>
+		<set name="ORM_Inmueble" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="MunicipioId_Municipio" not-null="false"/>
+			<one-to-many class="bbdd_gestion.Inmueble"/>
+		</set>
+	</class>
+</hibernate-mapping>
