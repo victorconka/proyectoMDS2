@@ -3,13 +3,8 @@ package bbdd;
 import bbdd_gestion.Casa;
 import bbdd_gestion.Correo;
 import bbdd_gestion.Usuario;
-import bbdd_gestion.UsuarioDAO;
 import bbdd_gestion.UsuarioR;
-import bbdd_gestion.UsuarioRCriteria;
-import bbdd_gestion.UsuarioRDAO;
-
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
