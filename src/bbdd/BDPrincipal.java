@@ -72,9 +72,17 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
             e.printStackTrace();
         }
 	};
-	
-	// METODOS NO IMPLEMENTADOS AUN
-	
+
+	//implementado, sin probar
+	//los datos se guardan tras su modificacion
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) {
+		try {
+			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa);
+		} catch (PersistentException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 	public Casa cargarDatosVivienda(String aId_vivienda) {
 		try {
 			return this.bd_casas.cargarDatosVivienda(aId_vivienda);
@@ -85,18 +93,6 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		return null;
 	}
 	
-
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) {
-		try {
-			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa);
-		} catch (PersistentException e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	//implementado, sin probar
-	//los datos se guardan tras su modificacion
 	public boolean guardarDatos(String aNombre, String aApellidos, String aDireccion, String aMunicipio, String aProvincia, String aCp, String aEmail, String aPassword, String ORMidUsuario) {	
 		UsuarioR u = null;
 		try {

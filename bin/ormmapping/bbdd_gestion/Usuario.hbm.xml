@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Usuario" table="Usuario" lazy="false">
+		<id name="id_Usuario" column="Id_Usuario" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="correo" column="Correo" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="nombre" column="Nombre" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="contrasenia" column="Contrasenia" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Entrada" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="UsuarioId_Usuario" not-null="false"/>
+			<one-to-many class="bbdd_gestion.Correo"/>
+		</set>
+		<set name="ORM_Salida" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="UsuarioId_Usuario2" not-null="false"/>
+			<one-to-many class="bbdd_gestion.Correo"/>
+		</set>
+		<joined-subclass name="bbdd_gestion.Cliente" table="Cliente" lazy="false">
+			<key>
+				<column name="UsuarioId_Usuario"/>
+			</key>
+			<property name="direccion" column="Direccion" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="codigoPostal" column="CodigoPostal" type="string" length="255" not-null="true" lazy="false"/>
+			<set name="ORM_Es_Vendida" lazy="true" cascade="save-update,lock" inverse="true">
+				<key column="ClienteUsuarioId_Usuario" not-null="false"/>
+				<one-to-many class="bbdd_gestion.Casa"/>
+			</set>
+			<joined-subclass name="bbdd_gestion.UsuarioR" table="UsuarioR" lazy="false">
+				<key>
+					<column name="UsuarioId_Usuario"/>
+				</key>
+				<property name="apellidos" column="Apellidos" type="string" length="255" not-null="false" lazy="false"/>
+				<set name="ORM_Es_Favorita" table="UsuarioR_Casa" lazy="true" cascade="save-update,lock">
+					<key column="UsuarioRUsuarioId_Usuario" not-null="true"/>
+					<many-to-many column="CasaInmuebleId_Inmueble" class="bbdd_gestion.Casa">
+					</many-to-many>
+				</set>
+				<many-to-one name="es_Alquilada" column="CasaInmuebleId_Inmueble" class="bbdd_gestion.Casa" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
+				</many-to-one>
+			</joined-subclass>
+		</joined-subclass>
+		<joined-subclass name="bbdd_gestion.Administrador" table="Administrador" lazy="false">
+			<key>
+				<column name="UsuarioId_Usuario"/>
+			</key>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Correo" table="Correo" lazy="false">
+		<id name="id_Correo" column="Id_Correo" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="es_CausaMensaje" cascade="lock" column="CasaInmuebleId_Inmueble" class="bbdd_gestion.Casa" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="envia" cascade="lock" column="UsuarioId_Usuario2" class="bbdd_gestion.Usuario" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="recibe" cascade="lock" column="UsuarioId_Usuario" class="bbdd_gestion.Usuario" not-null="false" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="fuente" column="Fuente" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="destinatario" column="Destinatario" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="asunto" column="Asunto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="texto" column="Texto" type="string" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

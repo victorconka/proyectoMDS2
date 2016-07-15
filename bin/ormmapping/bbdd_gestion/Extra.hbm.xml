@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: University of Almeria
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="bbdd_gestion.Extra" table="Extra" lazy="false">
+		<id name="id_Extra" column="Id_Extra" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="nombreExtra" column="NombreExtra" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Inmueble" table="Inmueble_Extra" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="ExtraId_Extra" not-null="true"/>
+			<many-to-many column="InmuebleId_Inmueble" class="bbdd_gestion.Inmueble">
+			</many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>
