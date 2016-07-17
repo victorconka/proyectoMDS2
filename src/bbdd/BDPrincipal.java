@@ -5,6 +5,7 @@ import bbdd_gestion.Correo;
 import bbdd_gestion.Usuario;
 import bbdd_gestion.UsuarioR;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -82,9 +83,9 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 	}
 	
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) {
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) {
 		try {
-			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa);
+			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 		}
@@ -130,10 +131,11 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		}
 		return false;
 	}
-
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) {
+	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp,
+			String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo,
+			String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) {
 		try {
-			return this.bd_casas.modificarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa);
+			return this.bd_casas.modificarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -282,5 +284,7 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		}
 		return false;
 	}
+
+
 
 }

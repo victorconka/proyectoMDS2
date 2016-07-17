@@ -271,12 +271,12 @@
     <ServerName></ServerName>
     <SelectedForm>true</SelectedForm>
   </Setting>
-  <Setting type="2">
-    <Driver>MySQL5 (Connector/J Driver)</Driver>
-    <DriverFiles>&lt;&lt;MySQL Connector/J 5.1.33&gt;&gt;</DriverFiles>
-    <Dialect>org.hibernate.dialect.MySQL5InnoDBDialect</Dialect>
-    <DriverClass>com.mysql.jdbc.Driver</DriverClass>
-    <URL>jdbc:mysql://localhost:3306/mds2_bbdd</URL>
+  <Setting type="16777216">
+    <Driver>MariaDB</Driver>
+    <DriverFiles>&lt;&lt;MariaDB 1.1.9&gt;&gt;</DriverFiles>
+    <Dialect>org.hibernate.dialect.MySQL5Dialect</Dialect>
+    <DriverClass>org.mariadb.jdbc.Driver</DriverClass>
+    <URL>jdbc:mariadb://localhost:3306/mds2_bbdd</URL>
     <UserName>root</UserName>
     <Password>root</Password>
     <HostName>localhost</HostName>
@@ -286,12 +286,12 @@
     <ServerName></ServerName>
     <SelectedForm>true</SelectedForm>
   </Setting>
-  <Setting type="16777216">
-    <Driver>MariaDB</Driver>
-    <DriverFiles>&lt;&lt;MariaDB 1.1.9&gt;&gt;</DriverFiles>
-    <Dialect>org.hibernate.dialect.MySQL5Dialect</Dialect>
-    <DriverClass>org.mariadb.jdbc.Driver</DriverClass>
-    <URL>jdbc:mariadb://localhost:3306/mds2_bbdd</URL>
+  <Setting type="2">
+    <Driver>MySQL5 (Connector/J Driver)</Driver>
+    <DriverFiles>&lt;&lt;MySQL Connector/J 5.1.33&gt;&gt;</DriverFiles>
+    <Dialect>org.hibernate.dialect.MySQL5InnoDBDialect</Dialect>
+    <DriverClass>com.mysql.jdbc.Driver</DriverClass>
+    <URL>jdbc:mysql://localhost:3306/mds2_bbdd</URL>
     <UserName>root</UserName>
     <Password>root</Password>
     <HostName>localhost</HostName>

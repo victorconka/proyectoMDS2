@@ -30,7 +30,7 @@ public class Casas {
 	public BDPrincipal _bd_prin_casas;
 	public Casa[] _conts_casa = new Casa[0];
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa)   throws PersistentException{
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga)   throws PersistentException{
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;
@@ -289,7 +289,7 @@ public class Casas {
 		return b;
 	}
 
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa)   throws PersistentException {
+	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga)   throws PersistentException {
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;

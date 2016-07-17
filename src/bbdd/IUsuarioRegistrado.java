@@ -9,7 +9,7 @@ public interface IUsuarioRegistrado extends IUsuario {
 
 	public boolean Registrarse(String aNombre, String aApellidos, String aDireccion, String aMunicipio, String aProvincia, String aCp, String aEmail, String aContrasenia) throws RemoteException;
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) throws RemoteException;
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) throws RemoteException;
 
 	public Casa[] obtenerFavoritas(UsuarioR aUsuario) throws RemoteException;
 
@@ -19,7 +19,7 @@ public interface IUsuarioRegistrado extends IUsuario {
 
 	public boolean eliminarVivienda(String aId_usuario, String aId_vivienda) throws RemoteException;
 
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa) throws RemoteException;
+	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) throws RemoteException;
 
 	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado) throws RemoteException;
 

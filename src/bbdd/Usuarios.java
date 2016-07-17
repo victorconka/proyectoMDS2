@@ -53,6 +53,10 @@ public class Usuarios {
 		return false;
 	}
 
+	public boolean eliminarPerfil(String aIdUsuario)  throws PersistentException{
+		throw new UnsupportedOperationException();
+	}
+
 	// El String que se le pasa por parametro sera un email cunado lo llame
 	// el administrador y un numero cuando lo llame el usuario (su propio id)
 	public boolean eliminarUsuario(String aEmail)  throws PersistentException{
