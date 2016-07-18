@@ -14,11 +14,11 @@ public class DarAltaNuevaVivienda extends ZonaDatosVivienda {
 	public DarAltaNuevaVivienda() {
 		
 		volver = new JButton("Volver");
-		volver.setBounds(81, 461, 89, 23);
+		volver.setBounds(81, 516, 89, 23);
 		add(volver);
 		
 		registrarVivienda = new JButton("Registrar Vivienda");
-		registrarVivienda.setBounds(243, 461, 150, 23);
+		registrarVivienda.setBounds(252, 516, 150, 23);
 		add(registrarVivienda);
 	}
 
@@ -45,6 +45,9 @@ public class DarAltaNuevaVivienda extends ZonaDatosVivienda {
 		superficieTF.setText("");
 		numeroHabitacionesTF.setText("");
 		numeroBañosTF.setText("");
+		mapaUrlTF.setText("");
+		dCortaTF.setText("");
+		dLargaTF.setText("");
 	}
 
 }

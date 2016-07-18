@@ -49,6 +49,9 @@ public class ZonaDatosVivienda extends LinkExternos {
 	protected JTextField municipioTF;
 	private JLabel direccionL;
 	protected JTextField direccion;
+	protected JTextField mapaUrlTF;
+	protected JTextField dCortaTF;
+	protected JTextField dLargaTF;
 
 	public ZonaDatosVivienda() {
 		setLayout(null);
@@ -83,12 +86,12 @@ public class ZonaDatosVivienda extends LinkExternos {
 		add(piscinaChB);
 		
 		estadoL = new JLabel("Estado");
-		estadoL.setBounds(29, 363, 62, 14);
+		estadoL.setBounds(29, 351, 62, 14);
 		add(estadoL);
 		
 		estadoCB = new JComboBox();
 		estadoCB.setModel(new DefaultComboBoxModel(new String[] {"Segunda mano", "Nueva"}));
-		estadoCB.setBounds(170, 360, 221, 20);
+		estadoCB.setBounds(170, 348, 221, 20);
 		add(estadoCB);
 		
 		fotosL = new JLabel("Fotos");
@@ -186,16 +189,16 @@ public class ZonaDatosVivienda extends LinkExternos {
 		add(trasteroCB);
 		
 		mapaL = new JLabel("Mapa");
-		mapaL.setBounds(29, 413, 62, 14);
+		mapaL.setBounds(29, 401, 62, 14);
 		add(mapaL);
 		
 		acciónL = new JLabel("Acción");
-		acciónL.setBounds(29, 388, 62, 14);
+		acciónL.setBounds(29, 376, 62, 14);
 		add(acciónL);
 		
 		acciónCB = new JComboBox();
 		acciónCB.setModel(new DefaultComboBoxModel(new String[] {"Vender", "Alquilar"}));
-		acciónCB.setBounds(170, 385, 221, 20);
+		acciónCB.setBounds(170, 373, 221, 20);
 		add(acciónCB);
 		
 		provinciaL = new JLabel("Provincia");
@@ -229,6 +232,27 @@ public class ZonaDatosVivienda extends LinkExternos {
 		direccion = new JTextField();
 		direccion.setBounds(170, 24, 221, 20);
 		add(direccion);
+		
+		mapaUrlTF = new JTextField();
+		mapaUrlTF.setBounds(170, 398, 221, 20);
+		add(mapaUrlTF);
+		
+		JLabel dCortaL = new JLabel("Descripcion Corta");
+		dCortaL.setBounds(29, 425, 84, 14);
+		add(dCortaL);
+		
+		dCortaTF = new JTextField();
+		dCortaTF.setBounds(170, 422, 221, 20);
+		add(dCortaTF);
+		
+		JLabel dLargaL = new JLabel("Descripcion Larga");
+		dLargaL.setBounds(29, 449, 84, 14);
+		add(dLargaL);
+		
+		dLargaTF = new JTextField();
+		dLargaTF.setToolTipText("Descripcion Larga");
+		dLargaTF.setBounds(170, 446, 221, 54);
+		add(dLargaTF);
 		
 	}
 }
