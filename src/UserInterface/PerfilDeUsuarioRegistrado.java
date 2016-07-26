@@ -31,7 +31,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 	public PerfilDeUsuarioRegistrado() {
 		setOpaque(false);
 		setLayout(null);
-		setSize(Utils.wMedio, Utils.hMedio);
+		setSize(Utils.wMedio+15, Utils.hMedio);
 		
 		add(lvp);
 		add(mp).setVisible(false);
@@ -143,7 +143,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
 							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
 							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), null);
+							danv.acciónCB.getSelectedItem().toString(), null, "Casa bonita", "Esta casa es muy bonita");
 				}catch(Exception e1) {
 					e1.printStackTrace();
 				}
@@ -229,11 +229,11 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				try {
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					iu.modificarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
+				/*	iu.modificarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
 							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
 							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
 							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), null);
+							danv.acciónCB.getSelectedItem().toString(), null);*/
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -288,8 +288,8 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 	}
 	
 	protected void resetear() {
-		UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio, Utils.hMedio);
-		setSize(Utils.wMedio, Utils.hMedio);
+		UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio+15, Utils.hMedio);
+		setSize(Utils.wMedio+15, Utils.hMedio);
 		for (Component c: getComponents())
 			c.setVisible(true);
 		mp.setVisible(false);

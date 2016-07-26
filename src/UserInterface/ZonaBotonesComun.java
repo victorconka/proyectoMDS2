@@ -2,6 +2,7 @@ package UserInterface;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,10 +24,10 @@ import java.awt.event.MouseEvent;
 public class ZonaBotonesComun extends JPanel {
 
 	protected Casa casa;
-	private JButton contactar;
-	private JButton cita;
+	protected JButton contactar;
+	protected JButton cita;
 	private JLabel numFavL;
-	private JButton fav;
+	protected JButton fav;
 	private JLabel numVistoL;
 	protected ImageIcon iconoVisitas;
 	private JSeparator separator;
@@ -51,12 +52,9 @@ public class ZonaBotonesComun extends JPanel {
 		contactar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				int confirmed = JOptionPane.showConfirmDialog(null, 
-				        "Prueba funcionalidad boton contactar", "Exit Program Message Box",
-				        JOptionPane.YES_NO_OPTION);
-
-				    if (confirmed == JOptionPane.YES_OPTION) {
-				    }
+				if (Utils.id == 0) 
+					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
+				
 			}
 		});
 		contactar.setLocation(265, 31);

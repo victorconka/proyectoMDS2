@@ -81,31 +81,30 @@ public class UsuarioNoRegistrado extends UsuarioGenerico {
 		});
 
 		zbnr.setBounds(0, 0, 450, 400);
-		getContentPane().add(zbnr).setVisible(false);;
+		getContentPane().add(zbnr).setVisible(false);
 
-		/*
-		 * los actionListener van dentro del panelillo de resultado
-		rc.lcc.contactar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbnr.accion(ent, rc);
-			}
-		});
-
-		rc.lcc.cita.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbnr.accion(ent, rc);
-			}
-		});
-
-		rc.lcc.fav.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbnr.accion(ent, rc);
-			}
-		});
-		*/
+		
+		// los actionListener van dentro del panelillo de resultado
+//		rc.lcc.contactar.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				zbnr.accion(ent, rc);
+//			}
+//		});
+//
+//		rc.lcc.cita.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				zbnr.accion(ent, rc);
+//			}
+//		});
+//
+//		rc.lcc.fav.addActionListener(new ActionListener() {
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				zbnr.accion(ent, rc);
+//			}
+//		});
 
 	}
 }

@@ -103,12 +103,14 @@ public class Usuarios {
 			
 			bbdd_gestion.UsuarioRDAO.delete(u);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		}
 		catch (Exception e) {
 			t.rollback();
 			
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 	
@@ -131,11 +133,10 @@ public class Usuarios {
 	public Casa[] obtenerFavoritas(UsuarioR aU)  throws PersistentException{
 		try{
 			aU = UsuarioRDAO.loadUsuarioRByORMID(Utils.id);
-			UsuarioRCriteria c = new UsuarioRCriteria();
-			c.id_Usuario.eq(aU.getId_Usuario());
-			UsuarioR u = UsuarioRDAO.loadUsuarioRByCriteria(c);
-			if(u!=null){
-				return u.es_Favorita.toArray();
+			System.out.println("id = "+Utils.id);
+			System.out.println(aU.es_Favorita.toArray().length);
+			if(aU!=null){
+				return aU.es_Favorita.toArray();
 			}
 		}catch (Exception e) {		
 			e.printStackTrace();
@@ -168,11 +169,13 @@ public class Usuarios {
 			
 			boolean b = bbdd_gestion.UsuarioRDAO.save(u);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return b;
 		}
 		catch (Exception e) {
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 //implementado, pero sin testear.

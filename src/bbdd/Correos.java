@@ -44,10 +44,12 @@ public class Correos {
 			u2.entrada.add(c);
 			UsuarioDAO.save(u2);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		} catch (Exception e) {
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 
