@@ -182,9 +182,7 @@ public class Usuarios {
 	public String[] cargarUsuariosInteresados(String aId_usuario, String aId_vivienda)  throws PersistentException{
 		String dev[] = null;
 		try{
-			CasaCriteria c = new CasaCriteria();
-			c.id_casa.eq(Integer.valueOf(aId_vivienda));
-			Casa casa = CasaDAO.loadCasaByCriteria(c);
+			Casa casa = CasaDAO.getCasaByORMID(Integer.parseInt(aId_vivienda));
 			UsuarioR[] interesados = casa.favorita.toArray();
 			dev = new String[interesados.length];
 			int i = 0;
@@ -193,6 +191,7 @@ public class Usuarios {
 				i++;
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return dev;
 	}
