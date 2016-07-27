@@ -49,31 +49,11 @@ public class ZonaBotonesComun extends JPanel {
 		this.setSize(Utils.wMedio, 80);
 		
 		contactar = new JButton("Contactar");
-		contactar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (Utils.id == 0) 
-					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
-				
-			}
-		});
 		contactar.setLocation(265, 31);
 		contactar.setSize(91, 23);
 		add(contactar);
 		
 		cita = new JButton("Cita");
-		cita.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				int confirmed = JOptionPane.showConfirmDialog(null, 
-				        "Prueba funcionalidad boton Cita", "Exit Program Message Box",
-				        JOptionPane.YES_NO_OPTION);
-
-				    if (confirmed == JOptionPane.YES_OPTION) {
-				      //dispose();
-				    }
-			}
-		});
 		cita.setLocation(355, 31);
 		cita.setSize(68, 23);
 		add(cita);
@@ -85,36 +65,6 @@ public class ZonaBotonesComun extends JPanel {
 		
 		
 		fav = new JButton();
-		fav.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				PersistentTransaction t = null;
-				try {			
-					t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
-					Casa caserio = CasaDAO.createCasa();
-					caserio = CasaDAO.getCasaByORMID(casa.getORMID());
-					
-					int value = caserio.getNumFavoritos();
-					value ++;
-					caserio.setNumFavoritos(value);	
-					
-					CasaDAO.save(caserio);
-					t.commit();
-
-				} catch (PersistentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				int confirmed = JOptionPane.showConfirmDialog(null, 
-				        "Prueba funcionalidad icono FAV", "Exit Program Message Box",
-				        JOptionPane.YES_NO_OPTION);
-
-				    if (confirmed == JOptionPane.YES_OPTION) {
-				      //dispose();
-				    }
-			}
-		});
 		fav.setLocation(340, 54);
 		fav.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_fav.png")));
 		fav.setSize(18, 22);

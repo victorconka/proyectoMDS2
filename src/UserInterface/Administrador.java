@@ -28,6 +28,7 @@ public class Administrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//int res = JOptionPane.showConfirmDialog(new JFrame(), "Hola Mundo");
 				UsuarioGenerico ug = new UsuarioGenerico();
+				Utils.id = 0;
 				ug.cambiarAdmin(true, false);
 			}
 		});

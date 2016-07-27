@@ -42,6 +42,7 @@ public class UsuarioRegistrado extends UsuarioGenerico {
 		pur.cerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Utils.id = 0;
 				cambiarUsuario(true, false);
 			}
 		});
