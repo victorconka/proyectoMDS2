@@ -20,20 +20,21 @@ public class Estado extends JPanel {
 
 	protected JButton modificarEstado;
 	private JLabel estadoL;
-	private JComboBox estadoCB;
+	protected JComboBox estadoCB;
 	
 	public Estado() {
 		setOpaque(false);
 		setLayout(null);
 		setSize(Utils.wMedio, Utils.hMedio);
 	
-		modificarEstado = new JButton("Modificar estado");
+		modificarEstado = new JButton("Modificar Visibilidad");
 		modificarEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					iu.modificarEstadoVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa), estadoCB.getSelectedItem().toString());
+					String est =  (estadoCB.getSelectedItem().toString().equals("Disponible"))?"si":"no";
+					iu.modificarEstadoVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa), est);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

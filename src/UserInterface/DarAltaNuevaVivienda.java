@@ -14,11 +14,11 @@ public class DarAltaNuevaVivienda extends ZonaDatosVivienda {
 	public DarAltaNuevaVivienda() {
 		
 		volver = new JButton("Volver");
-		volver.setBounds(81, 516, 89, 23);
+		volver.setBounds(70, 492, 89, 23);
 		add(volver);
 		
 		registrarVivienda = new JButton("Registrar Vivienda");
-		registrarVivienda.setBounds(252, 516, 150, 23);
+		registrarVivienda.setBounds(241, 492, 150, 23);
 		add(registrarVivienda);
 	}
 

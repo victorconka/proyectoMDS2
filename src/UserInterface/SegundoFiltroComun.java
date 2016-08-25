@@ -66,6 +66,8 @@ public class SegundoFiltroComun extends JPanel {
 	protected JButton volver;
 
 	public SegundoFiltroComun() {
+		//dimensiones de los resultados de busqueda:
+		//
 		int a = 25;
 		int b = 30;
 		int c = 150;

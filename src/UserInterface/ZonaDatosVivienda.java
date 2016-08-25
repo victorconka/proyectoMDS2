@@ -59,200 +59,209 @@ public class ZonaDatosVivienda extends LinkExternos {
 		setSize(Utils.wGrande, Utils.hGrande);
 		
 		ascensorL = new JLabel("Ascensor");
-		ascensorL.setBounds(247, 274, 70, 14);
+		ascensorL.setBounds(247, 261, 70, 14);
 		add(ascensorL);
 		
 		ascensorChB = new JCheckBox();
-		ascensorChB.setBounds(301, 274, 21, 21);
+		ascensorChB.setBounds(301, 261, 21, 21);
 		ascensorChB.setText("Ascensor");
 		add(ascensorChB);
 		
 		parkingL = new JLabel("Parking");
-		parkingL.setBounds(332, 274, 59, 14);
+		parkingL.setBounds(332, 261, 59, 14);
 		add(parkingL);
 		
 		parkingChB = new JCheckBox();
-		parkingChB.setBounds(381, 274, 21, 21);
+		parkingChB.setBounds(381, 261, 21, 21);
 		parkingChB.setText("Parking");
 		add(parkingChB);
 		
 		piscinaL = new JLabel("Piscina");
-		piscinaL.setBounds(257, 323, 50, 14);
+		piscinaL.setBounds(257, 310, 50, 14);
 		add(piscinaL);
 		
 		piscinaChB = new JCheckBox();
-		piscinaChB.setBounds(304, 319, 21, 21);
+		piscinaChB.setBounds(304, 306, 21, 21);
 		piscinaChB.setText("Piscina");
 		add(piscinaChB);
 		
 		estadoL = new JLabel("Estado");
-		estadoL.setBounds(29, 351, 62, 14);
+		estadoL.setBounds(29, 338, 62, 14);
 		add(estadoL);
 		
 		estadoCB = new JComboBox();
 		estadoCB.setModel(new DefaultComboBoxModel(new String[] {"Segunda mano", "Nueva"}));
-		estadoCB.setBounds(170, 348, 221, 20);
+		estadoCB.setBounds(170, 335, 221, 20);
 		add(estadoCB);
 		
 		fotosL = new JLabel("Fotos");
-		fotosL.setBounds(29, 127, 44, 14);
+		fotosL.setBounds(29, 114, 44, 14);
 		add(fotosL);
 		
 		precioL = new JLabel("Precio");
-		precioL.setBounds(29, 152, 44, 14);
+		precioL.setBounds(29, 139, 44, 14);
 		add(precioL);
 		
 		precioTF = new JTextField();
-		precioTF.setBounds(170, 149, 221, 20);
+		precioTF.setBounds(170, 136, 221, 20);
 		add(precioTF);
 		
 		superficieL = new JLabel("Superficie");
-		superficieL.setBounds(29, 177, 85, 14);
+		superficieL.setBounds(29, 164, 85, 14);
 		add(superficieL);
 		
 		superficieTF = new JTextField();
-		superficieTF.setBounds(170, 174, 221, 20);
+		superficieTF.setBounds(170, 161, 221, 20);
 		add(superficieTF);
 		
 		numeroHabitacionesL = new JLabel("Número habitaciones");
-		numeroHabitacionesL.setBounds(29, 202, 131, 14);
+		numeroHabitacionesL.setBounds(29, 189, 131, 14);
 		add(numeroHabitacionesL);
 		
 		numeroHabitacionesTF = new JTextField();
-		numeroHabitacionesTF.setBounds(170, 199, 221, 20);
+		numeroHabitacionesTF.setBounds(170, 186, 221, 20);
 		add(numeroHabitacionesTF);
 		
 		numeroBañosL = new JLabel("Número baños");
-		numeroBañosL.setBounds(29, 227, 110, 14);
+		numeroBañosL.setBounds(29, 214, 110, 14);
 		add(numeroBañosL);
 		
 		numeroBañosTF = new JTextField();
-		numeroBañosTF.setBounds(170, 224, 221, 20);
+		numeroBañosTF.setBounds(170, 211, 221, 20);
 		add(numeroBañosTF);
 		
 		tipoL = new JLabel("Tipo");
-		tipoL.setBounds(29, 252, 62, 14);
+		tipoL.setBounds(29, 239, 62, 14);
 		add(tipoL);
 		
 		tipoCB = new JComboBox();
 		tipoCB.setModel(new DefaultComboBoxModel(new String[] {"Apartamento", "Piso", "\u00C1tico"}));
-		tipoCB.setBounds(170, 249, 221, 20);
+		tipoCB.setBounds(170, 236, 221, 20);
 		add(tipoCB);
 		
 		terrazaL = new JLabel("Terraza");
-		terrazaL.setBounds(170, 274, 50, 14);
+		terrazaL.setBounds(170, 261, 50, 14);
 		add(terrazaL);
 		
 		terrazaCB = new JCheckBox();
-		terrazaCB.setBounds(220, 274, 21, 21);
+		terrazaCB.setBounds(220, 261, 21, 21);
 		terrazaCB.setText("Terraza");
 		add(terrazaCB);
 		
 		extrasL = new JLabel("Extras");
-		extrasL.setBounds(29, 277, 57, 14);
+		extrasL.setBounds(29, 264, 57, 14);
 		add(extrasL);
 		
 		jardinL = new JLabel("Jardín");
-		jardinL.setBounds(337, 323, 44, 14);
+		jardinL.setBounds(337, 310, 44, 14);
 		add(jardinL);
 		
 		jardinCB = new JCheckBox();
-		jardinCB.setBounds(381, 319, 21, 21);
+		jardinCB.setBounds(381, 306, 21, 21);
 		jardinCB.setText("Jardin");
 		add(jardinCB);
 		
 		amuebladaL = new JLabel("Amueblada");
-		amuebladaL.setBounds(170, 299, 76, 14);
+		amuebladaL.setBounds(170, 286, 76, 14);
 		add(amuebladaL);
 		
 		amuebladaCB = new JCheckBox();
-		amuebladaCB.setBounds(241, 295, 21, 21);
+		amuebladaCB.setBounds(241, 282, 21, 21);
 		amuebladaCB.setText("Amueblada");
 		add(amuebladaCB);
 		
 		calefaccionL = new JLabel("Calefacción");
-		calefaccionL.setBounds(281, 299, 85, 14);
+		calefaccionL.setBounds(281, 286, 85, 14);
 		add(calefaccionL);
 		
 		calefaccionCB = new JCheckBox();
-		calefaccionCB.setBounds(357, 295, 21, 21);
+		calefaccionCB.setBounds(357, 282, 21, 21);
 		calefaccionCB.setText("Calefaccion");
 		add(calefaccionCB);
 		
 		trasteroL = new JLabel("Trastero");
-		trasteroL.setBounds(170, 324, 61, 14);
+		trasteroL.setBounds(170, 311, 61, 14);
 		add(trasteroL);
 		
 		trasteroCB = new JCheckBox();
-		trasteroCB.setBounds(220, 320, 21, 21);
+		trasteroCB.setBounds(220, 307, 21, 21);
 		trasteroCB.setText("Trastero");
 		add(trasteroCB);
 		
 		mapaL = new JLabel("Mapa");
-		mapaL.setBounds(29, 401, 62, 14);
+		mapaL.setBounds(29, 388, 62, 14);
 		add(mapaL);
 		
 		acciónL = new JLabel("Acción");
-		acciónL.setBounds(29, 376, 62, 14);
+		acciónL.setBounds(29, 363, 62, 14);
 		add(acciónL);
 		
 		acciónCB = new JComboBox();
 		acciónCB.setModel(new DefaultComboBoxModel(new String[] {"Vender", "Alquilar"}));
-		acciónCB.setBounds(170, 373, 221, 20);
+		acciónCB.setBounds(170, 360, 221, 20);
 		add(acciónCB);
 		
 		provinciaL = new JLabel("Provincia");
-		provinciaL.setBounds(29, 77, 76, 14);
+		provinciaL.setBounds(29, 64, 76, 14);
 		add(provinciaL);
 		
 		provinciaTF = new JTextField();
-		provinciaTF.setBounds(170, 74, 221, 20);
+		provinciaTF.setBounds(170, 61, 221, 20);
 		add(provinciaTF);
 		
 		cpL = new JLabel("CP");
-		cpL.setBounds(29, 102, 44, 14);
+		cpL.setBounds(29, 89, 44, 14);
 		add(cpL);
 		
 		cpTF = new JTextField();
-		cpTF.setBounds(170, 99, 221, 20);
+		cpTF.setBounds(170, 86, 221, 20);
 		add(cpTF);
 		
 		municipioL = new JLabel("Municipio");
-		municipioL.setBounds(29, 52, 76, 14);
+		municipioL.setBounds(29, 39, 76, 14);
 		add(municipioL);
 		
 		municipioTF = new JTextField();
-		municipioTF.setBounds(170, 49, 221, 20);
+		municipioTF.setBounds(170, 36, 221, 20);
 		add(municipioTF);
 		
 		direccionL = new JLabel("Dirección");
-		direccionL.setBounds(29, 27, 76, 14);
+		direccionL.setBounds(29, 14, 76, 14);
 		add(direccionL);
 		
 		direccion = new JTextField();
-		direccion.setBounds(170, 24, 221, 20);
+		direccion.setBounds(170, 11, 221, 20);
 		add(direccion);
 		
 		mapaUrlTF = new JTextField();
-		mapaUrlTF.setBounds(170, 398, 221, 20);
+		mapaUrlTF.setBounds(170, 385, 221, 20);
 		add(mapaUrlTF);
 		
 		JLabel dCortaL = new JLabel("Descripcion Corta");
-		dCortaL.setBounds(29, 425, 84, 14);
+		dCortaL.setBounds(29, 412, 131, 14);
 		add(dCortaL);
 		
 		dCortaTF = new JTextField();
-		dCortaTF.setBounds(170, 422, 221, 20);
+		dCortaTF.setBounds(170, 409, 221, 20);
 		add(dCortaTF);
 		
 		JLabel dLargaL = new JLabel("Descripcion Larga");
-		dLargaL.setBounds(29, 449, 84, 14);
+		dLargaL.setBounds(29, 436, 131, 14);
 		add(dLargaL);
 		
 		dLargaTF = new JTextField();
 		dLargaTF.setToolTipText("Descripcion Larga");
-		dLargaTF.setBounds(170, 446, 221, 54);
+		dLargaTF.setBounds(170, 433, 221, 30);
 		add(dLargaTF);
+		
+		JLabel visibleL = new JLabel("Mostrar cada en las busquedas");
+		visibleL.setBounds(29, 473, 233, 14);
+		add(visibleL);
+		
+		JCheckBox visibleCB = new JCheckBox();
+		visibleCB.setText("Trastero");
+		visibleCB.setBounds(370, 470, 21, 21);
+		add(visibleCB);
 		
 	}
 }
