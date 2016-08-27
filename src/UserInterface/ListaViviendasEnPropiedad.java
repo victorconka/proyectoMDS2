@@ -39,19 +39,6 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 		add(v).setVisible(false);		
 		verCabecera();
 		map = new HashMap<JButton, Casa>();
-		
-
-		v.eliminarVivienda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Registry r = LocateRegistry.getRegistry(1099);
-					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					iu.eliminarVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
 	}
 	
 	protected void cagarDatos() {
@@ -121,6 +108,7 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 					v.setVisible(true);
 					Utils.idCasa = map.get(e.getSource()).getORMID();
 					v.cargarDatos();
+					v.lc.cargarDatos();
 				}
 			});
 			map.put(botones[i], casas[i]);

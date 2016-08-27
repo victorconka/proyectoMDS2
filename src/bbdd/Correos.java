@@ -20,7 +20,7 @@ public class Correos {
 	public BDPrincipal _bd_prin_correos;
 	public Correo[] _conts_correo = new Correo[0];
 
-	public boolean enviar(String aId_usuario_origen, String aDestinatario, String aAsunto, String aContenido) throws PersistentException {
+	public boolean enviar(String aId_usuario_origen, String aId_casa, String aDestinatario, String aAsunto, String aContenido) throws PersistentException {
 		Usuario u1, u2 = null;
 		Correo c = null;
 		PersistentTransaction t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
@@ -37,6 +37,13 @@ public class Correos {
 			c.setFuente(u1.getCorreo());
 			c.setEnvia(u1);
 			c.setRecibe(u2);
+			
+			Casa ca = null;
+			if (Integer.parseInt(aId_casa) != -1) {
+				ca = CasaDAO.getCasaByORMID(Integer.parseInt(aId_casa));
+				c.setEs_CausaMensaje(ca);
+			}
+			
 			CorreoDAO.save(c);
 			
 			u1.salida.add(c);
@@ -44,43 +51,25 @@ public class Correos {
 			u2.entrada.add(c);
 			UsuarioDAO.save(u2);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		} catch (Exception e) {
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 
 	//metodo no especifica si son correos de entrada o de salida
 	//se ha de devolver una coleccion de correos y no de string
 	public Correo[] cargarListadoCorreos(String aId_vivienda, String aId_usuario)  throws PersistentException {
-		try {
-			/*
-			 //cargar casa
-			Casa casa = CasaDAO.createCasa();
-			CasaCriteria c1 = new CasaCriteria();
-			c1.id_casa.eq(Integer.valueOf(aId_vivienda));
-			casa = CasaDAO.loadCasaByCriteria(c1);
-			*/
-			/*
-			 //cargar usuario
-			Usuario usuario = UsuarioRDAO.createUsuarioR();
-			UsuarioRCriteria c2 = new UsuarioRCriteria();
-			c2.id_Usuario.eq(Integer.valueOf(aId_usuario));
-			usuario = UsuarioRDAO.loadUsuarioRByCriteria(c2);
-			*/
-			
+		try {			
 			//criterio correos : casa
-			Correo[] correos;
-			CorreoCriteria c3 = new CorreoCriteria();
-			c3.es_CausaMensajeId.eq(Integer.valueOf(aId_vivienda));
-			c3.enviaId.eq(Integer.valueOf(aId_usuario));
-			c3.recibeId.eq(Integer.valueOf(aId_usuario));
-			correos = CorreoDAO.listCorreoByCriteria(c3);
-			
-			return correos;
+			Correo[] c = CorreoDAO.listCorreoByQuery("casainmuebleid_inmueble = '"+aId_vivienda+"'", null);			
+			return c;
 					
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

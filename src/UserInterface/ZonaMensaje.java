@@ -20,7 +20,6 @@ public class ZonaMensaje extends JPanel {
 	protected JTextField asuntoTF;
 	private JLabel textoL;
 	protected JTextArea textoTA;
-	private JScrollBar barra;
 	private JScrollPane pane;
 	
 	protected JSeparator separator, separator_1, separator_2, separator_3;
@@ -55,15 +54,9 @@ public class ZonaMensaje extends JPanel {
 		textoL.setBounds(78, 169, 60, 14);
 		add(textoL);
 		
-		barra = new JScrollBar();
-		barra.setLocation(371, 194);
-		barra.setSize(14, 113);
-		//add(barra);
-		
 		textoTA = new JTextArea();
 		textoTA.setBounds(78, 194, 307, 113);
-		//add(textoTA);
-		pane = new JScrollPane(textoTA, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		pane = new JScrollPane(textoTA, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setBounds(78, 194, 307, 113);
 		add(pane);
 		

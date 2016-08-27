@@ -53,7 +53,7 @@ public class Vivienda extends JPanel {
 		try {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-			Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
+			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
 			lui.usuariosL.setModel(new AbstractListModel<String>() {
 				String[] values = iu.cargarUsuariosInteresados(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
 				public int getSize() {
@@ -62,6 +62,7 @@ public class Vivienda extends JPanel {
 					else
 						return 0;
 				}
+				
 				public String getElementAt(int index) {
 					return values[index];
 				}

@@ -141,7 +141,7 @@ public class UsuarioGenerico extends JFrame {
 		/* El metodo setAdmin solo debe llamarse una vez cuando la bd esta 
 		recien creada, ya que solo tendremos un administrador en la aplicacion */
 		
-		setAdmin();
+		//setAdmin();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

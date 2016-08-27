@@ -196,7 +196,7 @@ public class SegundoFiltroComun extends JPanel {
 		this.add(estadoL);
 		
 		this.estadoCB = new JComboBox();
-		estadoCB.setModel(new DefaultComboBoxModel(new String[] {"Segunda mano"}));
+		estadoCB.setModel(new DefaultComboBoxModel(new String[] {"Segunda mano", "Nueva"}));
 		this.estadoCB.setBounds(c, 10*b, 2*w, a);
 		this.add(estadoCB);
 		

@@ -75,7 +75,7 @@ public class Entrar extends JPanel {
 		
 		recordarme = new JCheckBox("Recordarme");
 		recordarme.setBounds(298, 222, 97, 23);
-		add(recordarme);
+		//add(recordarme);
 		
 		usuarioL = new JLabel("Email");
 		usuarioL.setBounds(57, 117, 97, 23);

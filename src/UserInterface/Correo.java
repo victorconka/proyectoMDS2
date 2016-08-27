@@ -4,11 +4,15 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class Correo extends ZonaMensaje {
 	
 	protected JButton responder;
 	protected JButton volver;
+	private JTextArea textArea;
+	private JScrollPane pane;
+	private JLabel respuesta;
 	
 	public Correo() {
 		separator_3.setLocation(415, 45);
@@ -21,15 +25,16 @@ public class Correo extends ZonaMensaje {
 		separator.setLocation(32, 513);
 		this.setSize(Utils.wMedio, Utils.hGrande);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(78, 339, 307, 113);
-		JScrollPane pane = new JScrollPane(textArea);
+		pane = new JScrollPane(textArea);
+		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setBounds(78, 339, 307, 113);
 		add(pane);
 		
-		JLabel lblNewLabel = new JLabel("Respuesta");
-		lblNewLabel.setBounds(78, 314, 89, 14);
-		add(lblNewLabel);
+		respuesta = new JLabel("Respuesta");
+		respuesta.setBounds(78, 314, 89, 14);
+		add(respuesta);
 		
 		volver = new JButton("Volver");
 		volver.setBounds(78, 479, 89, 23);

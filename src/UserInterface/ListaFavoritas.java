@@ -35,7 +35,7 @@ public class ListaFavoritas extends InformaciónListaCasas {
 	public ListaFavoritas() {
 		
 		volverB = new JButton("Volver");
-		volverB.setBounds(10, 334, 89, 23);
+		volverB.setBounds(10, 338, 89, 23);
 		add(volverB);
 		
 		JLabel lblNewLabel = new JLabel("Viviendas Favoritas");
@@ -53,7 +53,7 @@ public class ListaFavoritas extends InformaciónListaCasas {
 		}
 		
 		//tamaño del panel scrollPane
-		this.setBounds(0,0,480,  338);
+		this.setBounds(0,0,Utils.wMedio,  Utils.hMedio);
 		//los layout es aconsejable ponerlos de acuerdo a como
 		//estan puestos aqui
 		setLayout(null);

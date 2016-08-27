@@ -3,7 +3,6 @@ package UserInterface;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -43,6 +42,7 @@ public class UsuarioRegistrado extends UsuarioGenerico {
 		pur.cerrarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				Utils.id = 0;
 				cambiarUsuario(true, false);
 			}
 		});

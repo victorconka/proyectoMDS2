@@ -28,6 +28,7 @@ public class Administrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//int res = JOptionPane.showConfirmDialog(new JFrame(), "Hola Mundo");
 				UsuarioGenerico ug = new UsuarioGenerico();
+				Utils.id = 0;
 				ug.cambiarAdmin(true, false);
 			}
 		});
@@ -49,6 +50,8 @@ public class Administrador extends JFrame {
 		mensaje.volverB.setText("");
 		mensaje.volverB.setBorderPainted(false);
 		getContentPane().add(mensaje);
+		
+		Utils.idCasa = -1;
 		
 		zb = new ZonaBúsqueda();
 		zb.setBounds(1, 88, 451, 47);

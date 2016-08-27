@@ -25,6 +25,7 @@ import bbdd_gestion.ProvinciaDAO;
 import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRCriteria;
 import bbdd_gestion.UsuarioRDAO;
+import bbdd_gestion.UsuarioRSetCollection;
 
 public class Casas {
 	public BDPrincipal _bd_prin_casas;
@@ -120,6 +121,7 @@ public class Casas {
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
+			c.setVisible("Disponible");
 			CasaDAO.save(c);		
 			MapaDAO.save(ma);
 			
@@ -128,12 +130,13 @@ public class Casas {
 			UsuarioRDAO.save(u);
 			
 			t.commit();
-			
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 
@@ -276,15 +279,22 @@ public class Casas {
 	}
 
 	public boolean eliminarVivienda(String aId_usuario, String aId_casa)   throws PersistentException{
-		//PersistentTransaction t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 		Casa c = CasaDAO.loadCasaByQuery("inmuebleid_inmueble = '"+aId_casa+"'", null);
-		if (c != null) System.out.println("No soy nulo " +c.getORMID());
 		UsuarioR u = UsuarioRDAO.loadUsuarioRByORMID(Integer.parseInt(aId_usuario));
 		Iterator i = u.es_Vendida.getIterator();
+		
 		while (i.hasNext())
 			if (i.next().equals(c))
 				u.es_Vendida.remove(c);
-		boolean b = CasaDAO.delete(c);
+		
+		UsuarioR[] urs = c.favorita.toArray();
+		
+		for (int j = 0; j < urs.length; j++) {
+			if (urs[j].es_Favorita.contains(c))
+				urs[j].es_Favorita.remove(c);
+		}
+		boolean b = true;
+		if (c != null) b = CasaDAO.delete(c);
 		//st.commit();
 		return b;
 	}
@@ -383,12 +393,13 @@ public class Casas {
 			MapaDAO.save(ma);
 
 			t.commit();
-
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 
@@ -431,6 +442,7 @@ public class Casas {
 		boolean b = CasaDAO.save(c);
 		PersistentTransaction t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 		t.commit();
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return b;
 	}
 

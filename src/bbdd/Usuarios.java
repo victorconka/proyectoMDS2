@@ -103,12 +103,14 @@ public class Usuarios {
 			
 			bbdd_gestion.UsuarioRDAO.delete(u);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return true;
 		}
 		catch (Exception e) {
 			t.rollback();
 			
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 	
@@ -131,11 +133,8 @@ public class Usuarios {
 	public Casa[] obtenerFavoritas(UsuarioR aU)  throws PersistentException{
 		try{
 			aU = UsuarioRDAO.loadUsuarioRByORMID(Utils.id);
-			UsuarioRCriteria c = new UsuarioRCriteria();
-			c.id_Usuario.eq(aU.getId_Usuario());
-			UsuarioR u = UsuarioRDAO.loadUsuarioRByCriteria(c);
-			if(u!=null){
-				return u.es_Favorita.toArray();
+			if(aU!=null){
+				return aU.es_Favorita.toArray();
 			}
 		}catch (Exception e) {		
 			e.printStackTrace();
@@ -168,20 +167,20 @@ public class Usuarios {
 			
 			boolean b = bbdd_gestion.UsuarioRDAO.save(u);
 			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			return b;
 		}
 		catch (Exception e) {
 			t.rollback();
 		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return false;
 	}
 //implementado, pero sin testear.
 	public String[] cargarUsuariosInteresados(String aId_usuario, String aId_vivienda)  throws PersistentException{
 		String dev[] = null;
 		try{
-			CasaCriteria c = new CasaCriteria();
-			c.id_casa.eq(Integer.valueOf(aId_vivienda));
-			Casa casa = CasaDAO.loadCasaByCriteria(c);
+			Casa casa = CasaDAO.getCasaByORMID(Integer.parseInt(aId_vivienda));
 			UsuarioR[] interesados = casa.favorita.toArray();
 			dev = new String[interesados.length];
 			int i = 0;
@@ -190,6 +189,7 @@ public class Usuarios {
 				i++;
 			}
 		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return dev;
 	}
