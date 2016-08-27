@@ -46,6 +46,8 @@ public class Casas {
 			//evitar inconsistencia y redundancia de datos
 			p = ProvinciaDAO.createProvincia();
 			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
+			//mysql -> select * from  provincias where provincia LIKE 'Almeria';
+			
 			if(p == null){
 				System.out.println("provincia no encontrada");
 				p = ProvinciaDAO.createProvincia();
@@ -158,7 +160,7 @@ public class Casas {
 					aAccion = "Vender";
 				}
 				//System.out.println(aAccion);
-				c.accion.like(aAccion);				
+				c.accion.like(aAccion);
 			}
 			
 			//check codigo postal
@@ -217,7 +219,8 @@ public class Casas {
 			
 			c.visible.like("si");
 			
-			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);	
+			//se realiza la consulta y se obtiene el listado de casas que cumplan los criterios "criteria".
+			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);
 			
 			//ahora hay que eliminar aquellos que no cumplen el requisito
 			if(aExtras != null && casas != null && casas.length > 0 && aExtras.length > 0){
