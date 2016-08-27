@@ -51,6 +51,8 @@ public class Administrador extends JFrame {
 		mensaje.volverB.setBorderPainted(false);
 		getContentPane().add(mensaje);
 		
+		Utils.idCasa = -1;
+		
 		zb = new ZonaBúsqueda();
 		zb.setBounds(1, 88, 451, 47);
 		getContentPane().add(zb);

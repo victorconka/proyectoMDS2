@@ -24,7 +24,7 @@ public class Mensaje extends ZonaMensaje {
 				try {
 					Registry r = LocateRegistry.getRegistry(null);
 					IUsuario iu = (IUsuario) r.lookup("Servidor2");
-					if (iu.enviar(String.valueOf(Utils.id), paraTF.getText(), asuntoTF.getText(), textoTA.getText())) {
+					if (iu.enviar(String.valueOf(Utils.id), String.valueOf(Utils.idCasa), paraTF.getText(), asuntoTF.getText(), textoTA.getText())) {
 						JOptionPane.showMessageDialog(new JFrame(), "Mensaje enviado");
 						paraTF.setText("");
 						asuntoTF.setText("");

@@ -195,6 +195,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				lvp.mostrar();
 				lvp.v.setVisible(false);
 				resetear();
+				lvp.cagarDatos();
 			}
 		});
 		
@@ -245,6 +246,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				lvp.setSize(Utils.wMedio, Utils.hMedio);
 				lvp.v.setSize(Utils.wMedio, Utils.hMedio);
 				lvp.v.mv.setVisible(false);
+				lvp.cagarDatos();
 			}
 		});
 		

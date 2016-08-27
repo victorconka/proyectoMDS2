@@ -221,6 +221,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		mensaje.setVisible(true);
 		dd.setVisible(false);
 		mensaje.asuntoTF.setText(string);
+		Utils.idCasa = this.getCasaId();
 	}
 	
 	private class SwingAction extends AbstractAction {

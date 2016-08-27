@@ -133,8 +133,6 @@ public class Usuarios {
 	public Casa[] obtenerFavoritas(UsuarioR aU)  throws PersistentException{
 		try{
 			aU = UsuarioRDAO.loadUsuarioRByORMID(Utils.id);
-			System.out.println("id = "+Utils.id);
-			System.out.println(aU.es_Favorita.toArray().length);
 			if(aU!=null){
 				return aU.es_Favorita.toArray();
 			}

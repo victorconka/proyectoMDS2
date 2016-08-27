@@ -10,7 +10,7 @@ public interface IUsuario extends Remote {
 	
 	public boolean eliminarUsuario(String aEmail) throws RemoteException;
 	
-	public boolean enviar(String aId_usuario_origen, String aDestinatario, String aAsunto, String aContenido) throws RemoteException;
+	public boolean enviar(String aId_usuario_origen, String aId_casa, String aDestinatario, String aAsunto, String aContenido) throws RemoteException;
 
 	public Usuario acceder(String aEmail, String aContrasenia) throws RemoteException;
 

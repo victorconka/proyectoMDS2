@@ -274,10 +274,10 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		return false;
 	}
 	
-	public boolean enviar(String aId_usuario_origen, String aDestinatario, String aAsunto, String aContenido) {
+	public boolean enviar(String aId_usuario_origen, String aId_casa, String aDestinatario, String aAsunto, String aContenido) {
 		//throw new UnsupportedOperationException();
 		try {
-			return this.bd_correos.enviar(aId_usuario_origen, aDestinatario, aAsunto, aContenido);
+			return this.bd_correos.enviar(aId_usuario_origen, aId_casa, aDestinatario, aAsunto, aContenido);
 		} catch (PersistentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
