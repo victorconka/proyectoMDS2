@@ -95,6 +95,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				for (Component c: getComponents())
 					c.setVisible(false);
 				lf.setVisible(true);
+				lf.verCabecera();
 				lf.cargarDatos();
 			}
 		});
@@ -179,6 +180,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lvp.mostrar();
 				lvp.v.setVisible(false);
+				lvp.v.lc.vaciar();
 				resetear();
 			}
 		});

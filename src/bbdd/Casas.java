@@ -436,8 +436,6 @@ public class Casas {
 		cr.id_casa.eq(Integer.valueOf(aId_vivienda));
 		Casa c = CasaDAO.createCasa();
 		c = CasaDAO.loadCasaByORMID(Integer.parseInt(aId_vivienda));
-		System.out.println(aEstado);
-		System.out.println(c.getORMID());
 		c.setVisible(aEstado);
 		boolean b = CasaDAO.save(c);
 		PersistentTransaction t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();

@@ -163,7 +163,7 @@ public class Usuarios {
 			u.setDireccion(aUsuario.getDireccion());
 			u.setNombre(aUsuario.getNombre());
 			u.setCorreo(aUsuario.getCorreo());
-			
+			UsuarioRDAO.delete(aUsuario);
 			
 			boolean b = bbdd_gestion.UsuarioRDAO.save(u);
 			t.commit();
