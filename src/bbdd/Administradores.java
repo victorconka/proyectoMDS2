@@ -36,6 +36,7 @@ public class Administradores {
 			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 		}
 		bbdd_gestion.ProjectMDS2PersistentManager.instance().disposePersistentManager();

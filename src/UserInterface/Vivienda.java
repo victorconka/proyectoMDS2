@@ -53,7 +53,10 @@ public class Vivienda extends JPanel {
 		try {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
+			//FIXME casa estaba comentada
+			Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
+			//estado es el estado de la visibilidad
+			e.estadoCB.setSelectedIndex(casa.getVisible().equals("si")?0:1);
 			lui.usuariosL.setModel(new AbstractListModel<String>() {
 				String[] values = iu.cargarUsuariosInteresados(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
 				public int getSize() {

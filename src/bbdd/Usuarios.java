@@ -47,6 +47,7 @@ public class Usuarios {
 			return true;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
@@ -107,6 +108,7 @@ public class Usuarios {
 			return true;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 			
 		}
@@ -171,6 +173,7 @@ public class Usuarios {
 			return b;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
