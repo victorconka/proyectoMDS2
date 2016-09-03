@@ -140,11 +140,15 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 					//faltan
 					//fotos[]
 					//mapa
+					String visible = "si";
+					if(danv.isVisible()){
+						visible = "si";
+					}
 					iu.registrarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
 							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
 							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
 							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), null, "Casa bonita", "Esta casa es muy bonita");
+							danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
 				}catch(Exception e1) {
 					e1.printStackTrace();
 				}
@@ -232,11 +236,16 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				try {
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-				/*	iu.modificarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
+					
+					String visible = "si";
+					if(danv.isVisible()){
+						visible = "si";
+					}
+					iu.modificarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
 							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
 							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
 							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), null);*/
+							danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
