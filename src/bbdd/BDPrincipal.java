@@ -83,9 +83,9 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 	}
 	
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) {
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible) {
 		try {
-			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga);
+			return this.bd_casas.registrarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga, aVisible);
 		} catch (PersistentException e) {
 			e.printStackTrace();
 		}
@@ -133,9 +133,10 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 	}
 	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp,
 			String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo,
-			String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga) {
+			String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible) {
 		try {
-			return this.bd_casas.modificarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga);
+			return this.bd_casas.modificarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, 
+					aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga, aVisible);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

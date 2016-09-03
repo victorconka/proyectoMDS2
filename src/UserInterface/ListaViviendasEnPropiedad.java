@@ -27,7 +27,6 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 	private JButton volverB;
 	protected Vivienda v;
 	private Casa[] casas = null;
-	private int i;
 	private HashMap<JButton, Casa> map;
 	//panel que contendrá los resultados de busqueda
 	JPanel panel = new JPanel ();
@@ -86,7 +85,7 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 		panel.setLayout(gl_panel);
 		
 		//Ahora toca agregar nuestros resultados de busqueda al panel
-		for(i = 0; i < casas.length; i++)
+		for(int i = 0; i < casas.length; i++)
 		{
 			InformaciónListaCasas dr1 = new InformaciónListaCasas();
 			dr1.infoEstadoL.setText(casas[i].getEstado());

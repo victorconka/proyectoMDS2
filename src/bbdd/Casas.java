@@ -31,7 +31,7 @@ public class Casas {
 	public BDPrincipal _bd_prin_casas;
 	public Casa[] _conts_casa = new Casa[0];
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga)   throws PersistentException{
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException{
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;
@@ -121,7 +121,10 @@ public class Casas {
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
-			c.setVisible("Disponible");
+			//c.setVisible("Disponible");
+			c.setdCorta(aDCorta);
+			c.setdLarga(aDLarga);
+			c.setVisible(aVisible);
 			CasaDAO.save(c);		
 			MapaDAO.save(ma);
 			
@@ -214,7 +217,11 @@ public class Casas {
 				
 			}
 			
-			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);	
+			//esto es para encontrar casas con atributo visible puesto a si.
+			c.visible.like("si");
+			
+			//se realiza la consulta y se obtiene el listado de casas que cumplan los criterios "criteria".
+			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);
 			
 			//ahora hay que eliminar aquellos que no cumplen el requisito
 			if(aExtras != null && casas != null && casas.length > 0 && aExtras.length > 0){
@@ -299,7 +306,7 @@ public class Casas {
 		return b;
 	}
 
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga)   throws PersistentException {
+	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException {
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;
@@ -347,7 +354,10 @@ public class Casas {
 			}
 
 			ma = MapaDAO.createMapa();						
-
+			/*
+			 * asignar mapa, extraer coordenadas de google maps
+			 * */
+			
 			c = CasaDAO.createCasa();
 			c.setDireccion(aDireccion);
 			c.setMunicipio(m);
@@ -389,6 +399,9 @@ public class Casas {
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
+			c.setdCorta(aDCorta);
+			c.setdLarga(aDLarga);
+			c.setVisible(aVisible);
 			CasaDAO.save(c);		
 			MapaDAO.save(ma);
 
@@ -426,22 +439,54 @@ public class Casas {
 				System.out.println("Casa para fav no existe ?!?!");
 			}
 			}catch(Exception e) {
-			e.printStackTrace();
+				e.printStackTrace();
+				t.rollback();
 		}
 		return false;
 	}
-
+/* version previa
 	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado)   throws PersistentException{
 		CasaCriteria cr = new CasaCriteria();
 		cr.id_casa.eq(Integer.valueOf(aId_vivienda));
 		Casa c = CasaDAO.createCasa();
 		c = CasaDAO.loadCasaByORMID(Integer.parseInt(aId_vivienda));
-		System.out.println(aEstado);
-		System.out.println(c.getORMID());
 		c.setVisible(aEstado);
 		boolean b = CasaDAO.save(c);
 		PersistentTransaction t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 		t.commit();
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
+		return b;
+	}
+*/
+	/*
+	 * Se modifica la visibilidad de la casa
+	 */
+	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado)   throws PersistentException{
+		boolean b = false;
+		PersistentTransaction t =  null;
+		try{
+			ProjectMDS2PersistentManager.instance().getSession().close();
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+			
+			CasaCriteria cr = new CasaCriteria();		
+			cr.id_casa.eq(Integer.valueOf(aId_vivienda));
+						Casa c = CasaDAO.createCasa();
+			c = CasaDAO.loadCasaByORMID(Integer.parseInt(aId_vivienda));
+			Casa c2 = CasaDAO.createCasa();
+			c2 = CasaDAO.loadCasaByQuery("id_inmueble like " + aId_vivienda, null);
+			t.commit();
+			ProjectMDS2PersistentManager.instance().getSession().close();
+			
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
+			c.setVisible(aEstado);		
+			b = CasaDAO.save(c);
+			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			t.rollback();
+		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return b;
 	}

@@ -32,10 +32,10 @@ public class DatosDetallados extends JPanel{
 	
 	private Foto foto;
 	private Mapa mapa;
-	private JLabel descripciónDetallada;
+	private JLabel dLargaL;
 	private JLabel precio;
 	private JList extras;
-	private JLabel dirección;
+	private JLabel direccion;
 	private JLabel estadoL;
 	private int iconoVisitas;
 	private JTable table;
@@ -47,7 +47,7 @@ public class DatosDetallados extends JPanel{
 	protected JButton volver;
 	protected JButton contactar;
 	protected JButton cita;
-	private JLabel dDetalle;
+	private JLabel dLargaTF;
 	private JLabel favoritos;
 	private JLabel fav;
 	private JLabel nVisto;
@@ -83,9 +83,9 @@ public class DatosDetallados extends JPanel{
 			});
 								
 			
-			this.dDetalle.setText(c.getdLarga());
+			this.dLargaTF.setText(c.getdLarga());
 			this.price.setText(String.valueOf(c.getPrecio()));
-			this.dirección.setText(c.getDireccion());
+			this.direccion.setText(c.getDireccion());
 			this.visto.setText(String.valueOf(c.getNumVisitas()));
 			this.fav.setText(String.valueOf(c.getNumFavoritos()));
 			this.estado.setText(c.getEstado());
@@ -130,10 +130,10 @@ public class DatosDetallados extends JPanel{
 		this.add(mapa);
 		
 		
-		descripciónDetallada = new JLabel("Descripcion detallada");
-		descripciónDetallada.setLocation(162, 45);
-		descripciónDetallada.setSize(101, 14);
-		this.add(descripciónDetallada);
+		dLargaL = new JLabel("Descripcion detallada");
+		dLargaL.setLocation(162, 45);
+		dLargaL.setSize(101, 14);
+		this.add(dLargaL);
 		
 		precio = new JLabel("Precio");
 		precio.setLocation(356, 45);
@@ -147,10 +147,10 @@ public class DatosDetallados extends JPanel{
 			
 		
 		
-		dirección = new JLabel("Direccion");
-		dirección.setLocation(156, 286);
-		dirección.setSize(60, 14);
-		this.add(dirección);
+		direccion = new JLabel("Direccion");
+		direccion.setLocation(156, 286);
+		direccion.setSize(60, 14);
+		this.add(direccion);
 		
 		estadoL = new JLabel("Estado");
 		estadoL.setLocation(303, 286);
@@ -159,7 +159,7 @@ public class DatosDetallados extends JPanel{
 		
 		
 		foto = new Foto();
-		foto.setBounds(0,-58,152, 222);
+		foto.setBounds(0,0,152, 167);
 		this.add(foto);
 		
 		JLabel lblExtras = new JLabel("Extras");
@@ -173,9 +173,9 @@ public class DatosDetallados extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		
-		dDetalle = new JLabel("");
-		dDetalle.setBounds(10, 29, 180, 204);
-		panel.add(dDetalle);
+		dLargaTF = new JLabel("");
+		dLargaTF.setBounds(10, 29, 180, 204);
+		panel.add(dLargaTF);
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.ORANGE);
@@ -189,7 +189,7 @@ public class DatosDetallados extends JPanel{
 		panel_2.setLayout(null);
 		
 		estado = new JLabel("");
-		estado.setBounds(10, 23, 46, 14);
+		estado.setBounds(10, 23, 140, 43);
 		panel_2.add(estado);
 		
 		panel_3 = new JPanel();

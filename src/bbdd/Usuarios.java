@@ -47,6 +47,7 @@ public class Usuarios {
 			return true;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
@@ -107,6 +108,7 @@ public class Usuarios {
 			return true;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 			
 		}
@@ -163,7 +165,7 @@ public class Usuarios {
 			u.setDireccion(aUsuario.getDireccion());
 			u.setNombre(aUsuario.getNombre());
 			u.setCorreo(aUsuario.getCorreo());
-			
+			UsuarioRDAO.delete(aUsuario);
 			
 			boolean b = bbdd_gestion.UsuarioRDAO.save(u);
 			t.commit();
@@ -171,6 +173,7 @@ public class Usuarios {
 			return b;
 		}
 		catch (Exception e) {
+			e.printStackTrace();
 			t.rollback();
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
