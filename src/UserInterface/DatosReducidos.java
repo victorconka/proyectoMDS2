@@ -4,7 +4,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import org.orm.PersistentException;
@@ -25,7 +24,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Action;
 
 public class DatosReducidos extends ZonaBotonesComun {
 
@@ -202,7 +200,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		
 		precio = new JLabel("€");
 		precio.setSize(49, 14);
-		precio.setLocation(362, 58);
+		precio.setLocation(365, 58);
 		add(precio);
 
 	}
