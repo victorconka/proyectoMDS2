@@ -40,13 +40,13 @@ public class DatosDetallados extends JPanel{
 	private Mapa mapa;
 	private JLabel dLargaL;
 	private JLabel precio;
+	private JScrollPane extrasSP;
 	private JList extras;
 	private JLabel direccionL;
 	private JLabel estadoL;
 	private ImageIcon iconoVisitas;
 	private JTable table;
 	private JPanel panel;
-	private JPanel panel_1;
 	private JPanel panel_2;
 	private JPanel panel_3;
 	
@@ -69,6 +69,9 @@ public class DatosDetallados extends JPanel{
 	private JLabel nBanios;
 	private JLabel tipoVivL;
 	private JLabel tipoViv;
+	private JSeparator separator_1;
+	private JSeparator separator_2;
+	private JSeparator separator_3;
 	
 
 	public void cargarDatosVivienda(Casa c){
@@ -158,16 +161,13 @@ public class DatosDetallados extends JPanel{
 		dLargaL.setSize(184, 14);
 		this.add(dLargaL);
 		
-		precio = new JLabel("Precio:");
-		precio.setFont(new Font("Tahoma", Font.BOLD, 12));
-		precio.setLocation(356, 8);
-		precio.setSize(84, 14);
-		this.add(precio);
-		
-		extras = new JList();
-		extras.setSize(95, 167);
-		this.add(extras);
-		extras.setLocation(354, 76);
+		extras = new JList();		
+		extras.setSize(95, 85);
+		extrasSP = new JScrollPane(extras);
+		extrasSP.setLocation(353, 18);
+		extrasSP.setBounds(351, 29, 99, 136);
+		this.add(extrasSP);
+		//this.add(extras);
 		
 		
 		foto = new Foto();
@@ -178,12 +178,12 @@ public class DatosDetallados extends JPanel{
 		JLabel lblExtras = new JLabel("Extras:");
 		lblExtras.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblExtras.setBackground(Color.LIGHT_GRAY);
-		lblExtras.setBounds(356, 58, 84, 14);
+		lblExtras.setBounds(355, 8, 84, 14);
 		add(lblExtras);
 		
 		panel = new JPanel();
 		panel.setBackground(Color.YELLOW);
-		panel.setBounds(152, 0, 200, 244);
+		panel.setBounds(152, 0, 200, 328);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -231,88 +231,103 @@ public class DatosDetallados extends JPanel{
 		nBanios.setBounds(115, 225, 80, 15);
 		panel.add(nBanios);
 		
-		panel_1 = new JPanel();
-		panel_1.setBackground(Color.ORANGE);
-		panel_1.setBounds(152, 243, 200, 77);
-		add(panel_1);
-		panel_1.setLayout(null);
-		
 		
 		
 		direccionL = new JLabel("Direccion:");
+		direccionL.setBounds(10, 250, 190, 14);
+		panel.add(direccionL);
 		direccionL.setFont(new Font("Tahoma", Font.BOLD, 12));
-		direccionL.setBounds(10, 11, 190, 14);
-		panel_1.add(direccionL);
 		
 		direccionTF = new JLabel("");
+		direccionTF.setBounds(10, 275, 180, 50);
+		panel.add(direccionTF);
 		direccionTF.setHorizontalAlignment(SwingConstants.LEFT);
 		direccionTF.setVerticalAlignment(SwingConstants.TOP);
-		direccionTF.setBounds(0, 36, 200, 41);
-		panel_1.add(direccionTF);
 		
 		panel_2 = new JPanel();
 		panel_2.setBackground(Color.PINK);
-		panel_2.setBounds(352, 243, 96, 77);
+		panel_2.setBounds(352, 164, 96, 164);
 		add(panel_2);
 		panel_2.setLayout(null);
 		
 		estado = new JLabel("");
 		estado.setHorizontalAlignment(SwingConstants.LEFT);
 		estado.setVerticalAlignment(SwingConstants.TOP);
-		estado.setBounds(0, 52, 95, 14);
+		estado.setBounds(0, 67, 95, 14);
 		panel_2.add(estado);
 		
 		estadoL = new JLabel("Estado:");
 		estadoL.setFont(new Font("Tahoma", Font.BOLD, 12));
-		estadoL.setBounds(0, 40, 95, 14);
+		estadoL.setBounds(0, 53, 95, 14);
 		panel_2.add(estadoL);
 		
 		tipoVivL = new JLabel("Tipo Vivienda");
 		tipoVivL.setFont(new Font("Tahoma", Font.BOLD, 12));
-		tipoVivL.setBounds(0, 0, 95, 14);
+		tipoVivL.setBounds(0, 9, 95, 14);
 		panel_2.add(tipoVivL);
 		
 		tipoViv = new JLabel("");
-		tipoViv.setBounds(0, 15, 95, 14);
+		tipoViv.setBounds(0, 24, 95, 14);
 		panel_2.add(tipoViv);
+		
+		price = new JLabel("");
+		price.setBounds(0, 137, 54, 14);
+		panel_2.add(price);
+		price.setBackground(new Color(204, 255, 153));
+		
+		JLabel priceEuro = new JLabel("\u20AC");
+		priceEuro.setBounds(53, 137, 31, 14);
+		panel_2.add(priceEuro);
+		priceEuro.setFont(new Font("Tahoma", Font.BOLD, 11));
+		priceEuro.setBackground(new Color(204, 255, 153));
+		
+		precio = new JLabel("Precio:");
+		precio.setBounds(0, 122, 84, 14);
+		panel_2.add(precio);
+		precio.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 109, 96, 2);
+		panel_2.add(separator);
+		
+		separator_1 = new JSeparator();
+		separator_1.setBounds(0, 162, 96, 2);
+		panel_2.add(separator_1);
+		
+		separator_2 = new JSeparator();
+		separator_2.setBounds(0, 110, 1, 51);
+		panel_2.add(separator_2);
+		
+		separator_3 = new JSeparator();
+		separator_3.setBounds(94, 113, 1, 51);
+		panel_2.add(separator_3);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.CYAN);
-		panel_3.setBounds(152, 320, 297, 37);
+		panel_3.setBounds(152, 328, 297, 29);
 		add(panel_3);
 		panel_3.setLayout(null);
 		
 		visto = new JLabel("");
-		visto.setBounds(98, 8, 44, 23);
+		visto.setBounds(115, 3, 44, 23);
 		panel_3.add(visto);
 		
 		iconoVisitas = new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_ojo.png"));
 		JLabel vistoL = new JLabel("VISTO:");
 		vistoL.setFont(new Font("Tahoma", Font.BOLD, 11));
-		vistoL.setBounds(10, 8, 86, 23);
+		vistoL.setBounds(27, 3, 86, 23);
 		vistoL.setIcon(iconoVisitas);
 		panel_3.add(vistoL);
 		
 		fav = new JLabel("");
-		fav.setBounds(203, 8, 46, 23);
+		fav.setBounds(220, 3, 46, 23);
 		panel_3.add(fav);
 		
 		favoritos = new JLabel("FAV:");
-		favoritos.setBounds(142, 8, 60, 23);
+		favoritos.setBounds(159, 3, 60, 23);
 		panel_3.add(favoritos);
 		favoritos.setFont(new Font("Tahoma", Font.BOLD, 11));
 		favoritos.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_fav.png")));
-		
-		price = new JLabel("");
-		price.setBackground(new Color(204, 255, 153));
-		price.setBounds(356, 33, 54, 14);
-		add(price);
-		
-		JLabel priceEuro = new JLabel("\u20AC");
-		priceEuro.setFont(new Font("Tahoma", Font.BOLD, 11));
-		priceEuro.setBackground(new Color(204, 255, 153));
-		priceEuro.setBounds(409, 33, 31, 14);
-		add(priceEuro);
 		//iconoVisitas = new JLabel("IV");
 		
 	}
