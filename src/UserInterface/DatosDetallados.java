@@ -3,9 +3,12 @@ package UserInterface;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,11 +54,21 @@ public class DatosDetallados extends JPanel{
 	protected JButton contactar;
 	protected JButton cita;
 	private JLabel dLargaTF;
+	private JScrollPane dLargaSP;
+	protected JTextArea dLargaTA;
 	private JLabel favoritos;
 	private JLabel fav;
 	private JLabel visto;
 	private JLabel estado;
 	private JLabel direccionTF;
+	private JLabel supL;
+	private JLabel nHabL;
+	private JLabel nBaniosL;
+	private JLabel sup;
+	private JLabel nHab;
+	private JLabel nBanios;
+	private JLabel tipoVivL;
+	private JLabel tipoViv;
 	
 
 	public void cargarDatosVivienda(Casa c){
@@ -85,8 +98,11 @@ public class DatosDetallados extends JPanel{
 				}
 			});
 								
-			
-			this.dLargaTF.setText("<html>" + c.getdLarga() + "</html>");
+			this.sup.setText(c.getSuperficie().toString() + " m2");
+			this.nBanios.setText(String.valueOf(c.getBanios()));
+			this.nHab.setText(String.valueOf(c.getHabitaciones()));
+			this.tipoViv.setText(c.getTipo());
+			this.dLargaTA.setText(c.getdLarga());
 			this.price.setText(String.valueOf(c.getPrecio()));
 			this.direccionTF.setText("<html>" + c.getDireccion() + ", " + c.getMunicipio() + ", " + c.getProvincia() + ", " + c.getCodigoPostal() + "</html>");
 			this.visto.setText(String.valueOf(c.getNumVisitas()));
@@ -171,11 +187,49 @@ public class DatosDetallados extends JPanel{
 		add(panel);
 		panel.setLayout(null);
 		
+		/*
 		dLargaTF = new JLabel("");
 		dLargaTF.setVerticalAlignment(SwingConstants.TOP);
 		dLargaTF.setHorizontalAlignment(SwingConstants.LEFT);
 		dLargaTF.setBounds(10, 29, 180, 204);
 		panel.add(dLargaTF);
+		*/
+		
+		dLargaTA = new JTextArea();
+		dLargaTA.setBounds(10, 29, 180, 137);
+		dLargaTA.setLineWrap( true );
+		dLargaTA.setWrapStyleWord( true );
+		dLargaTA.setEditable(false);
+		dLargaSP = new JScrollPane(dLargaTA);
+		dLargaSP.setBounds(10, 29, 180, 135);
+		panel.add(dLargaSP);
+		
+		supL = new JLabel("Superficie");
+		supL.setFont(new Font("Tahoma", Font.BOLD, 11));
+		supL.setBounds(10, 175, 100, 15);
+		panel.add(supL);
+		
+		nHabL = new JLabel("N\u00BA Habitaciones");
+		nHabL.setFont(new Font("Tahoma", Font.BOLD, 11));
+		nHabL.setBounds(10, 200, 100, 15);
+		panel.add(nHabL);
+		
+		nBaniosL = new JLabel("N\u00BA Ba\u00F1os");
+		nBaniosL.setFont(new Font("Tahoma", Font.BOLD, 11));
+		nBaniosL.setBounds(10, 225, 100, 15);
+		panel.add(nBaniosL);
+		
+		sup = new JLabel("");
+		sup.setBounds(115, 175, 80, 15);
+		panel.add(sup);
+		
+		nHab = new JLabel("");
+		nHab.setBounds(115, 200, 80, 15);
+		panel.add(nHab);
+		
+		nBanios = new JLabel("");
+		nBanios.setBounds(115, 225, 80, 15);
+		panel.add(nBanios);
 		
 		panel_1 = new JPanel();
 		panel_1.setBackground(Color.ORANGE);
@@ -205,13 +259,22 @@ public class DatosDetallados extends JPanel{
 		estado = new JLabel("");
 		estado.setHorizontalAlignment(SwingConstants.LEFT);
 		estado.setVerticalAlignment(SwingConstants.TOP);
-		estado.setBounds(0, 36, 95, 41);
+		estado.setBounds(0, 52, 95, 14);
 		panel_2.add(estado);
 		
 		estadoL = new JLabel("Estado:");
 		estadoL.setFont(new Font("Tahoma", Font.BOLD, 12));
-		estadoL.setBounds(0, 11, 95, 14);
+		estadoL.setBounds(0, 40, 95, 14);
 		panel_2.add(estadoL);
+		
+		tipoVivL = new JLabel("Tipo Vivienda");
+		tipoVivL.setFont(new Font("Tahoma", Font.BOLD, 12));
+		tipoVivL.setBounds(0, 0, 95, 14);
+		panel_2.add(tipoVivL);
+		
+		tipoViv = new JLabel("");
+		tipoViv.setBounds(0, 15, 95, 14);
+		panel_2.add(tipoViv);
 		
 		panel_3 = new JPanel();
 		panel_3.setBackground(Color.CYAN);
