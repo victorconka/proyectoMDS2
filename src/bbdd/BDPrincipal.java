@@ -9,6 +9,8 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Arrays;
+
 import org.orm.PersistentException;
 
 public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
@@ -117,7 +119,6 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		try {
 			return bd_casas.favCasa(aId_casa, aId_usuario);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
@@ -178,7 +179,6 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		try {
 			return bd_usuarios.cargarUsuariosInteresados(aId_usuario, aId_vivienda);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -219,6 +219,11 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 	
 
 	public Casa[] Buscar(String aAccion, String aCp, String aProvincia, Double aPrecio, Double aSuperficie, Integer aNHabitaciones, String aTipo, String aEstado, String[] aExtras) {
+		/*
+		 * prueba para verificar la correcta recepcion de los extras
+		if(aExtras!= null)
+			System.out.println("extras entrante --->" + aExtras.length + " : " + Arrays.toString(aExtras));
+		*/
 		try {
 			String price;
 			if(aPrecio == null || aPrecio == 0.0){
@@ -228,7 +233,6 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 			}
 			return this.bd_casas.Buscar(aAccion, aCp, aProvincia, price, aSuperficie, aNHabitaciones, aTipo, aEstado, aExtras);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//consulta sin éxito
@@ -280,7 +284,6 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		try {
 			return this.bd_correos.enviar(aId_usuario_origen, aId_casa, aDestinatario, aAsunto, aContenido);
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;

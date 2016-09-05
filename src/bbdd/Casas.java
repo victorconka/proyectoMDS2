@@ -1,6 +1,7 @@
 package bbdd;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 
@@ -14,6 +15,7 @@ import bbdd_gestion.CasaDAO;
 import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
 import bbdd_gestion.Extra;
+import bbdd_gestion.ExtraCriteria;
 import bbdd_gestion.ExtraDAO;
 import bbdd_gestion.Mapa;
 import bbdd_gestion.MapaDAO;
@@ -106,17 +108,27 @@ public class Casas {
 				for(String s : aExtras){
 					e = ExtraDAO.createExtra();
 					e = ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
+					//si extra no existe crearlo
 					if(e == null){					
 						//crear en la bbdd y añadir
 						e = ExtraDAO.createExtra();
 						e.setNombreExtra(s);
+						//guardamos extra nuevo
 						ExtraDAO.save(e);
+						//hacemos commit
+						t.commit();
+						//reiniciar transaccion
+						t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+						//cargamos dicho extra en el array
+						e = ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
 					}
 					//en cualquier caso añadimos extra
 					//simplemente aniadir
 					el.add(e);
+					c.extra.add(e);
 				}
-			}	
+			}
+			
 			//-----------------------------------------------------------------------			
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
@@ -144,12 +156,11 @@ public class Casas {
 	}
 
 	public Casa[] Buscar(String aAccion, String aCp, String aProvincia, String aPrecio, Double aSuperficie, Integer aNHabitaciones, String aTipo, String aEstado, String[] aExtras)   throws PersistentException{
-		
 		Casa casas[] = null;
 		CasaCriteria c = null;
 		CodigoPostal cp = null;		
 
-		try{
+		try{			
 			//definimos el criterio de busqueda
 			c = new CasaCriteria();
 					
@@ -209,60 +220,42 @@ public class Casas {
 			}
 			//los extras hay que comparar tras recuperar todas las casas
 			if(aExtras != null && aExtras.length > 0){
-				//recuperamos al menos aquellos elementos que son susceptibles
-				//de cumplir el requisito
-				//que no sea empty, al comparar sale error, no es capaz de realizar la comparacion 
-				//por alguna razón...
-				c.extra.isNotEmpty();
-				
+				//no es posible verificar				
+				//c.extra.isNotEmpty();				
 			}
 			
 			//esto es para encontrar casas con atributo visible puesto a si.
 			c.visible.like("si");
 			
 			//se realiza la consulta y se obtiene el listado de casas que cumplan los criterios "criteria".
-			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);
-			
+			casas = bbdd_gestion.CasaDAO.listCasaByCriteria(c);			
+		
 			//ahora hay que eliminar aquellos que no cumplen el requisito
-			if(aExtras != null && casas != null && casas.length > 0 && aExtras.length > 0){
-				
+			if(aExtras != null && casas != null && casas.length > 0 && aExtras.length > 0){		
 				//creamos la lista de extras a comparar
-				ArrayList<Extra> al = new ArrayList<Extra>();
-				Extra ext =  null;
-				//metemos extras en arraylist
-				for(String s : aExtras){
-					ext = bbdd_gestion.ExtraDAO.createExtra();
-					ext = bbdd_gestion.ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
-					if(ext != null){//nos aseguramos de que el extra existe y de paso se hace un test
-						//asi sabemos de donde viene el error
-						al.add(ext);
-					}else{
-						System.out.println("este extra proviene del listado proporcionado por la interfaz y \n no debería de no estar en la bbdd");
-					}
-				}
-				
+				ArrayList<String> extrasCasa;
+				//lista de casas resultante
 				ArrayList<Casa> cs2 = new ArrayList<Casa>();
+				ArrayList<String> aExtrasList = new ArrayList<String>(Arrays.asList(aExtras));
+				Iterator<Extra> it;
+				Extra ex = bbdd_gestion.ExtraDAO.createExtra();
 				for (Casa v : casas){
-					//si numero de extras es suficiente
-					if(v.extra.size() >= al.size()){
-						boolean b = true;
-						//comprobamos que todos los criterios extra estan presentes en la casa resultado
-						for(Extra e : al){
-							if(!v.extra.contains(e)){
-								b = false;
-								break;//no queremos dar vueltas sin sentido
-							}
-						}
-						if(b == true){
-							cs2.add(v);
-						}
-					}	
+					it = v.extra.getIterator();				
+					extrasCasa = new ArrayList<String>();
+					while(it.hasNext()){
+						ex = it.next();
+						extrasCasa.add(ex.getNombreExtra().toLowerCase());
+					}
+					if(extrasCasa.containsAll(aExtrasList)){
+						cs2.add(v);
+					}
+
 				}
-				casas = cs2.toArray(new Casa[cs2.size()]);	
-										
+				casas = cs2.toArray(new Casa[cs2.size()]);									
 			}
 			
-				
+			
+			/*	
 			System.out.println("----------------------");
 			System.out.println("recibo");
 			System.out.println("acc>" + aAccion+"<");
@@ -274,9 +267,9 @@ public class Casas {
 			System.out.println("atipo>" + aTipo+"<");
 			System.out.println("aestado>"+aEstado+"<");
 			System.out.println("extra>" +aExtras+"<");
+			System.out.println("casas.length>" + casas.length);
 			System.out.println("----------------------");
-			System.out.println(casas.length);
-			
+			*/
 			return casas;
 		}catch(Exception e) {
 			e.printStackTrace();

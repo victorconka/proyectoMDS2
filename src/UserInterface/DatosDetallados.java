@@ -80,14 +80,16 @@ public class DatosDetallados extends JPanel{
 		try {			
 			t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			ArrayList<String> al = new ArrayList<String>();
-			System.out.println(c.getPrecio());
 			Casa otra = CasaDAO.getCasaByORMID(c.getORMID());
 			
 			ExtraCriteria crit = new ExtraCriteria();
 			crit.inmueble.equals(c);
-			Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
-
-			for(Extra e : ex){
+			//Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
+			
+			Iterator<Extra> it = otra.extra.getIterator();
+			Extra e = bbdd_gestion.ExtraDAO.createExtra();
+			while(it.hasNext()){
+				e = it.next();
 				al.add(e.getNombreExtra());
 			}
 			
@@ -123,7 +125,6 @@ public class DatosDetallados extends JPanel{
 			CasaDAO.save(caserio);
 			t.commit();
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
