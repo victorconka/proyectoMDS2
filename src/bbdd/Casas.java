@@ -122,6 +122,7 @@ public class Casas {
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
+			//c.setVisible("Disponible");
 			c.setdCorta(aDCorta);
 			c.setdLarga(aDLarga);
 			c.setVisible(aVisible);
