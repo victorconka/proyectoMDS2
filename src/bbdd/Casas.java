@@ -118,6 +118,7 @@ public class Casas {
 				}
 			}	
 			//-----------------------------------------------------------------------			
+			
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
@@ -160,7 +161,7 @@ public class Casas {
 					aAccion = "Vender";
 				}
 				//System.out.println(aAccion);
-				c.accion.like(aAccion);				
+				c.accion.like(aAccion);
 			}
 			
 			//check codigo postal
@@ -341,7 +342,7 @@ public class Casas {
 				cp.setProvincia(p);
 				CodigoPostalDAO.save(cp);			
 			}	
-
+			
 			m = MunicipioDAO.createMunicipio();
 			m = bbdd_gestion.MunicipioDAO.loadMunicipioByQuery("municipio LIKE '"+aMunicipio+"'", null);
 			if(m == null){
@@ -371,7 +372,6 @@ public class Casas {
 				sup = Double.parseDouble(aSuperficie);
 			}
 			c.setSuperficie(sup);
-
 			c.setHabitaciones(Integer.parseInt(aHabitaciones));
 			c.setBanios(Integer.parseInt(aBanios));
 			c.setTipo(aTipo);
@@ -435,6 +435,7 @@ public class Casas {
 				
 				UsuarioRDAO.save(u);
 				t.commit();
+				ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			}else{
 				System.out.println("Casa para fav no existe ?!?!");
 			}

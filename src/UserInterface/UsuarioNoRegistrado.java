@@ -68,7 +68,7 @@ public class UsuarioNoRegistrado extends UsuarioGenerico {
 
 				if (u != null) {
 					Utils.id = u.getORMID();
-					if (ent.usuarioTF.getText().equals("admin@admin.com")) {
+					if (ent.usuarioTF.getText().equals("jbf441@inlumine.ual.es")) {
 						cambiarAdmin(false, true);
 					} else {
 						cambiarUsuario(false, true);
