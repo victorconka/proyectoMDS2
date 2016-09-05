@@ -217,6 +217,7 @@ public class Casas {
 				
 			}
 			
+			//esto es para encontrar casas con atributo visible puesto a si.
 			c.visible.like("si");
 			
 			//se realiza la consulta y se obtiene el listado de casas que cumplan los criterios "criteria".
@@ -443,10 +444,7 @@ public class Casas {
 		}
 		return false;
 	}
-
-	/*
-	 * Se modifica la visibilidad de la casa
-	 */
+/* version previa
 	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado)   throws PersistentException{
 		CasaCriteria cr = new CasaCriteria();
 		cr.id_casa.eq(Integer.valueOf(aId_vivienda));
@@ -456,6 +454,39 @@ public class Casas {
 		boolean b = CasaDAO.save(c);
 		PersistentTransaction t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 		t.commit();
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
+		return b;
+	}
+*/
+	/*
+	 * Se modifica la visibilidad de la casa
+	 */
+	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado)   throws PersistentException{
+		boolean b = false;
+		PersistentTransaction t =  null;
+		try{
+			ProjectMDS2PersistentManager.instance().getSession().close();
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+			
+			CasaCriteria cr = new CasaCriteria();		
+			cr.id_casa.eq(Integer.valueOf(aId_vivienda));
+						Casa c = CasaDAO.createCasa();
+			c = CasaDAO.loadCasaByORMID(Integer.parseInt(aId_vivienda));
+			Casa c2 = CasaDAO.createCasa();
+			c2 = CasaDAO.loadCasaByQuery("id_inmueble like " + aId_vivienda, null);
+			t.commit();
+			ProjectMDS2PersistentManager.instance().getSession().close();
+			
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
+			c.setVisible(aEstado);		
+			b = CasaDAO.save(c);
+			t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			t.rollback();
+		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		return b;
 	}

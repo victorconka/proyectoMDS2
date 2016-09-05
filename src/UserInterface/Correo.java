@@ -16,11 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
+import org.orm.PersistentException;
+
 public class Correo extends ZonaMensaje {
 	
 	protected JButton responder;
 	protected JButton volver;
-	private JTextArea textArea;
+	private JTextArea textRespuesta;
 	private JScrollPane pane;
 	private JLabel respuesta;
 	
@@ -35,9 +37,9 @@ public class Correo extends ZonaMensaje {
 		separator.setLocation(32, 513);
 		this.setSize(Utils.wMedio, Utils.hGrande);
 		
-		textArea = new JTextArea();
-		textArea.setBounds(78, 339, 307, 113);
-		pane = new JScrollPane(textArea);
+		textRespuesta = new JTextArea();
+		textRespuesta.setBounds(78, 339, 307, 113);
+		pane = new JScrollPane(textRespuesta);
 		pane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		pane.setBounds(78, 339, 307, 113);
 		add(pane);
@@ -54,60 +56,49 @@ public class Correo extends ZonaMensaje {
 		responder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// La dirección de envío (to)
-			    String para = "s_vicuk@hotmail.com";
-
+			    String para = paraTF.getText();
 			    // La dirección de la cuenta de envío (from)
-			    String de = "xtremebos@gmail.com";
-
-			    // El servidor (host). En este caso usamos localhost
-			    String host = "localhost";
-
+			    String de = "";
+				try {
+					de = bbdd_gestion.UsuarioDAO.getUsuarioByORMID(Utils.id).getCorreo();
+				} catch (PersistentException e1) {
+					e1.printStackTrace();
+				}
 			    // Obtenemos las propiedades del sistema
-			    Properties propiedades = System.getProperties();
 			    Properties props = new Properties();
 			    props.put("mail.smtp.auth", "true");
 		        props.put("mail.smtp.starttls.enable", "true");
-		        props.put("mail.smtp.host", "smtp.gmail.com");
-		       // props.put("mail.smtp.host", "smtp.live.com");
-		        props.put("mail.smtp.port", "587");
-		       // props.put("mail.smtp.user", de);
 		        
-//		        propiedades.put("mail.smtp.auth", "false");
-//		        propiedades.put("mail.smtp.starttls.enable", "true");
-//		        propiedades.put("mail.smtp.host", "smtp.gmail.com");
-//		        propiedades.put("mail.smtp.port", "587");
-
-			    // Configuramos el servidor de correo
-			    propiedades.setProperty("mail.smtp.host", host);
+		        if (de.contains("hotmail"))
+		        	props.put("mail.smtp.host", "smtp.live.com");
+		        else
+		        	props.put("mail.smtp.host", "smtp.gmail.com");
+		        
+		        props.put("mail.smtp.port", "587");
+		        props.put("mail.smtp.user", de);
 
 			    // Obtenemos la sesión por defecto
 			    Session sesion = Session.getDefaultInstance(props);
-			    sesion.setDebug(true);
+			    //sesion.setDebug(true);
 
 			    try{
-			      // Creamos un objeto mensaje tipo MimeMessage por defecto.
-			      MimeMessage mensaje = new MimeMessage(sesion);
-
-			      // Asignamos el “de o from” al header del correo.
-			      mensaje.setFrom(new InternetAddress(de));
-
-			      // Asignamos el “para o to” al header del correo.
-			      mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
-
-			      // Asignamos el asunto
-			      mensaje.setSubject("Primer correo sencillo");
-
-			      // Asignamos el mensaje como tal
-			      mensaje.setText("Probando correo con JavaMail");
-
-			      // Enviamos el correo
-			      Transport t = sesion.getTransport("smtp");
-			      //t.connect("juanlu_bf@hotmail.com", "JL_02_06_1995");
-			      t.connect("Xtremebos@gmail.com", "lacontraseniadegogle123");
-			      t.sendMessage(mensaje,mensaje.getAllRecipients());
-			      t.close();
-			      System.out.println("Mensaje enviado");
-			    } catch (MessagingException e) {
+			    	// Creamos un objeto mensaje tipo MimeMessage por defecto.
+				    MimeMessage mensaje = new MimeMessage(sesion);
+				    // Asignamos el “de o from” al header del correo.
+				    mensaje.setFrom(new InternetAddress(de));
+				    // Asignamos el “para o to” al header del correo.
+				    mensaje.addRecipient(Message.RecipientType.TO, new InternetAddress(para));
+				    // Asignamos el asunto
+				    mensaje.setSubject(asuntoTF.getText());
+				    // Asignamos el mensaje como tal
+				    mensaje.setText("Texto original:\n" + textoTA.getText() + "\n\nRespuesta:\n" + textRespuesta.getText());
+				    // Enviamos el correo
+				    Transport t = sesion.getTransport("smtp");
+				    t.connect(de, bbdd_gestion.UsuarioDAO.getUsuarioByORMID(Utils.id).getContrasenia());
+				    //t.sendMessage(mensaje,mensaje.getAllRecipients());
+				    t.close();
+				    System.out.println("Mensaje enviado");
+			    } catch (Exception e) {
 			      e.printStackTrace();
 			    }
 			}

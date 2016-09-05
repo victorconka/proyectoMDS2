@@ -59,26 +59,26 @@ public class ZonaBotonesComun extends JPanel {
 		add(cita);
 		
 		numFavL = new JLabel("2");
-		numFavL.setLocation(327, 54);
-		numFavL.setSize(13, 23);
+		numFavL.setLocation(342, 55);
+		numFavL.setSize(20, 23);
 		add(numFavL);
 		
 		
 		fav = new JButton();
-		fav.setLocation(340, 54);
+		fav.setLocation(322, 55);
 		fav.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_fav.png")));
 		fav.setSize(18, 22);
 		add(fav);
 		
 		
 		numVistoL = new JLabel("7");
-		numVistoL.setLocation(277, 54);
-		numVistoL.setSize(20, 20);
+		numVistoL.setLocation(302, 56);
+		numVistoL.setSize(22, 20);
 		add(numVistoL);
 		
 		iconoVisitas = new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_ojo.png"));
 		JLabel iv = new JLabel();
-		iv.setLocation(291, 55);
+		iv.setLocation(268, 55);
 		iv.setIcon(iconoVisitas);
 		iv.setSize(32, 23);
 		add(iv);
