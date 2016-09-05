@@ -2,7 +2,6 @@ package bbdd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Iterator;
 
 import org.orm.PersistentException;
@@ -15,7 +14,6 @@ import bbdd_gestion.CasaDAO;
 import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
 import bbdd_gestion.Extra;
-import bbdd_gestion.ExtraCriteria;
 import bbdd_gestion.ExtraDAO;
 import bbdd_gestion.Mapa;
 import bbdd_gestion.MapaDAO;
@@ -27,7 +25,6 @@ import bbdd_gestion.ProvinciaDAO;
 import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRCriteria;
 import bbdd_gestion.UsuarioRDAO;
-import bbdd_gestion.UsuarioRSetCollection;
 
 public class Casas {
 	public BDPrincipal _bd_prin_casas;
