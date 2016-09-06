@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 
 import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class Vivienda extends JPanel {
 
@@ -53,7 +51,6 @@ public class Vivienda extends JPanel {
 		try {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-			//FIXME casa estaba comentada
 			Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
 			//estado es el estado de la visibilidad
 			e.estadoCB.setSelectedIndex(casa.getVisible().equals("si")?0:1);
@@ -70,6 +67,9 @@ public class Vivienda extends JPanel {
 					return values[index];
 				}
 			});
+			//cargamos los datos en la pantalla de modificar vivienda
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
