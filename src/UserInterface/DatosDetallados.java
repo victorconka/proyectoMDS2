@@ -9,7 +9,6 @@ import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,15 +19,10 @@ import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Extra;
 import bbdd_gestion.ExtraCriteria;
-import bbdd_gestion.ExtraDAO;
-import bbdd_gestion.ExtraSetCollection;
-import bbdd_gestion.Inmueble;
-import bbdd_gestion.InmuebleDAO;
 
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
@@ -80,14 +74,16 @@ public class DatosDetallados extends JPanel{
 		try {			
 			t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			ArrayList<String> al = new ArrayList<String>();
-			System.out.println(c.getPrecio());
 			Casa otra = CasaDAO.getCasaByORMID(c.getORMID());
 			
 			ExtraCriteria crit = new ExtraCriteria();
 			crit.inmueble.equals(c);
-			Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
-
-			for(Extra e : ex){
+			//Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
+			
+			Iterator<Extra> it = otra.extra.getIterator();
+			Extra e = bbdd_gestion.ExtraDAO.createExtra();
+			while(it.hasNext()){
+				e = it.next();
 				al.add(e.getNombreExtra());
 			}
 			
@@ -123,7 +119,6 @@ public class DatosDetallados extends JPanel{
 			CasaDAO.save(caserio);
 			t.commit();
 		} catch (PersistentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
