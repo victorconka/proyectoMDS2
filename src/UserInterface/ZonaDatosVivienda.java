@@ -263,6 +263,7 @@ public class ZonaDatosVivienda extends LinkExternos {
 		add(visibleL);
 		
 		JCheckBox visibleCB = new JCheckBox();
+		visibleCB.setToolTipText("\u00BFHacer la vivienda visible para las busquedas ?");
 		visibleCB.setBounds(370, 522, 21, 21);
 		visibleCB.setText("Trastero");
 		add(visibleCB);
@@ -274,6 +275,19 @@ public class ZonaDatosVivienda extends LinkExternos {
 		fotosSP.setBounds(170, 109, 221, 76);
 		add(fotosSP);	
 		
-		
+		dLargaTF.setToolTipText("Descripcion Larga de la vivienda (255 caracteres).");
+		dCortaTF.setToolTipText("descripcion corta de la vivienda");
+		mapaUrlTF.setToolTipText("URL de google maps de la ubicacion de la vivienda");
+		acciónCB.setToolTipText("proposito del apartamento en la pagina");
+		estadoCB.setToolTipText("estado del apartamento");
+		tipoCB.setToolTipText("tipo de la vivienda");
+		numeroBañosTF.setToolTipText("numero de ba\u00F1os");
+		numeroHabitacionesTF.setToolTipText("numero de habitaciones");
+		superficieTF.setToolTipText("superficie");
+		precioTF.setToolTipText("precio");
+		cpTF.setToolTipText("codigo postal");
+		provinciaTF.setToolTipText("provincia");
+		municipioTF.setToolTipText("municipio");
+		direccion.setToolTipText("direccion");
 	}
 }

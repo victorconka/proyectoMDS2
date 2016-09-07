@@ -76,8 +76,8 @@ public class DatosDetallados extends JPanel{
 			ArrayList<String> al = new ArrayList<String>();
 			Casa otra = CasaDAO.getCasaByORMID(c.getORMID());
 			
-			ExtraCriteria crit = new ExtraCriteria();
-			crit.inmueble.equals(c);
+			/*ExtraCriteria crit = new ExtraCriteria();
+			crit.inmueble.equals(c);*/
 			//Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
 			
 			Iterator<Extra> it = otra.extra.getIterator();

@@ -15,6 +15,7 @@ import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
 import bbdd_gestion.Extra;
 import bbdd_gestion.ExtraDAO;
+import bbdd_gestion.FotoDAO;
 import bbdd_gestion.Mapa;
 import bbdd_gestion.MapaDAO;
 import bbdd_gestion.Municipio;
@@ -84,7 +85,7 @@ public class Casas {
 			c.setMunicipio(m);
 			c.setProvincia(p);
 			c.setCodigoPostal(cp);
-			//c.setLinkFoto(aFotos[0]);
+
 			c.setPrecio(Double.parseDouble(aPrecio));
 			
 			Double sup = null;
@@ -135,9 +136,18 @@ public class Casas {
 			c.setdCorta(aDCorta);
 			c.setdLarga(aDLarga);
 			c.setVisible(aVisible);
-			CasaDAO.save(c);		
-			MapaDAO.save(ma);
-			
+			CasaDAO.save(c);
+			//guardamos las fotos
+			if(aFotos != null && aFotos.length > 0){
+				bbdd_gestion.Foto photo;
+				for(String f : aFotos){
+					photo = new bbdd_gestion.Foto();
+					photo.setLinkFoto(f);
+					photo.setCasa(c);
+					FotoDAO.save(photo);
+				}
+			}			
+			MapaDAO.save(ma);			
 			UsuarioR u = UsuarioRDAO.getUsuarioRByORMID(Utils.id);
 			u.es_Vendida.add(c);
 			UsuarioRDAO.save(u);

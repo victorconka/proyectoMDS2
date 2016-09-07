@@ -12,12 +12,6 @@ public class ModificarVivienda extends ZonaDatosVivienda {
 	protected JButton volver;
 	
 	public ModificarVivienda() {
-		precioTF.setToolTipText("precio");
-		cpTF.setToolTipText("codigo postal");
-		provinciaTF.setToolTipText("provincia");
-		municipioTF.setToolTipText("municipio");
-		direccion.setToolTipText("direccion");
-		
 		setLayout(null);
 		setOpaque(false);
 		setSize(500, 600);
