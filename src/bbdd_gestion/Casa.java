@@ -69,6 +69,8 @@ public class Casa extends bbdd_gestion.Inmueble implements Serializable {
 	
 	private String tipo;
 	
+	private String linkMapa;
+	
 	private String estado;
 	
 	private String accion;
@@ -79,11 +81,9 @@ public class Casa extends bbdd_gestion.Inmueble implements Serializable {
 	
 	private String visible;
 	
-	protected String dCorta;
+	private String dCorta;
 	
-	protected String dLarga;
-	
-	private java.util.Date fecha;
+	private String dLarga;
 	
 	private bbdd_gestion.Cliente vende;
 	
@@ -149,6 +149,14 @@ public class Casa extends bbdd_gestion.Inmueble implements Serializable {
 		return tipo;
 	}
 	
+	public void setLinkMapa(String value) {
+		this.linkMapa = value;
+	}
+	
+	public String getLinkMapa() {
+		return linkMapa;
+	}
+	
 	public void setEstado(String value) {
 		this.estado = value;
 	}
@@ -189,18 +197,10 @@ public class Casa extends bbdd_gestion.Inmueble implements Serializable {
 		return visible;
 	}
 	
-	/**
-	 * 
-	 * @Lob @Column(name="dCorta", length=100) private String content;
-	 */
 	public void setdCorta(String value) {
 		this.dCorta = value;
 	}
 	
-	/**
-	 * 
-	 * @Lob @Column(name="dCorta", length=100) private String content;
-	 */
 	public String getdCorta() {
 		return dCorta;
 	}
@@ -211,14 +211,6 @@ public class Casa extends bbdd_gestion.Inmueble implements Serializable {
 	
 	public String getdLarga() {
 		return dLarga;
-	}
-	
-	public void setFecha(java.util.Date value) {
-		this.fecha = value;
-	}
-	
-	public java.util.Date getFecha() {
-		return fecha;
 	}
 	
 	public void setMapa(bbdd_gestion.Mapa value) {

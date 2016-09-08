@@ -26,7 +26,9 @@ public class InmuebleDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression provincia;
 	public final IntegerExpression municipioId;
 	public final AssociationExpression municipio;
+	public final StringExpression linkFoto;
 	public final StringExpression direccion;
+	public final CollectionExpression foto;
 	public final CollectionExpression extra;
 	
 	public InmuebleDetachedCriteria() {
@@ -38,7 +40,9 @@ public class InmuebleDetachedCriteria extends AbstractORMDetachedCriteria {
 		provincia = new AssociationExpression("provincia", this.getDetachedCriteria());
 		municipioId = new IntegerExpression("municipio.id_Municipio", this.getDetachedCriteria());
 		municipio = new AssociationExpression("municipio", this.getDetachedCriteria());
+		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 		direccion = new StringExpression("direccion", this.getDetachedCriteria());
+		foto = new CollectionExpression("ORM_Foto", this.getDetachedCriteria());
 		extra = new CollectionExpression("ORM_Extra", this.getDetachedCriteria());
 	}
 	
@@ -51,7 +55,9 @@ public class InmuebleDetachedCriteria extends AbstractORMDetachedCriteria {
 		provincia = new AssociationExpression("provincia", this.getDetachedCriteria());
 		municipioId = new IntegerExpression("municipio.id_Municipio", this.getDetachedCriteria());
 		municipio = new AssociationExpression("municipio", this.getDetachedCriteria());
+		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 		direccion = new StringExpression("direccion", this.getDetachedCriteria());
+		foto = new CollectionExpression("ORM_Foto", this.getDetachedCriteria());
 		extra = new CollectionExpression("ORM_Extra", this.getDetachedCriteria());
 	}
 	
@@ -65,6 +71,10 @@ public class InmuebleDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public MunicipioDetachedCriteria createMunicipioCriteria() {
 		return new MunicipioDetachedCriteria(createCriteria("municipio"));
+	}
+	
+	public FotoDetachedCriteria createFotoCriteria() {
+		return new FotoDetachedCriteria(createCriteria("ORM_Foto"));
 	}
 	
 	public ExtraDetachedCriteria createExtraCriteria() {

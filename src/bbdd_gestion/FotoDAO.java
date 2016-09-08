@@ -327,6 +327,10 @@ public class FotoDAO {
 				foto.getCasa().fotos.remove(foto);
 			}
 			
+			if (foto.getInmueble() != null) {
+				foto.getInmueble().foto.remove(foto);
+			}
+			
 			return delete(foto);
 		}
 		catch(Exception e) {
@@ -339,6 +343,10 @@ public class FotoDAO {
 		try {
 			if (foto.getCasa() != null) {
 				foto.getCasa().fotos.remove(foto);
+			}
+			
+			if (foto.getInmueble() != null) {
+				foto.getInmueble().foto.remove(foto);
 			}
 			
 			try {

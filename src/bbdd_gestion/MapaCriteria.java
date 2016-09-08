@@ -22,7 +22,7 @@ public class MapaCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id_mapa;
 	public final StringExpression longitud;
 	public final StringExpression latitud;
-	public final StringExpression url;
+	public final StringExpression codigoPostal;
 	public final CollectionExpression casas;
 	
 	public MapaCriteria(Criteria criteria) {
@@ -30,7 +30,7 @@ public class MapaCriteria extends AbstractORMCriteria {
 		id_mapa = new IntegerExpression("id_mapa", this);
 		longitud = new StringExpression("longitud", this);
 		latitud = new StringExpression("latitud", this);
-		url = new StringExpression("url", this);
+		codigoPostal = new StringExpression("codigoPostal", this);
 		casas = new CollectionExpression("ORM_Casas", this);
 	}
 	
