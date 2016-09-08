@@ -26,9 +26,7 @@ public class CasaCriteria extends AbstractORMCriteria {
 	public final AssociationExpression provincia;
 	public final IntegerExpression municipioId;
 	public final AssociationExpression municipio;
-	public final StringExpression linkFoto;
 	public final StringExpression direccion;
-	public final CollectionExpression foto;
 	public final CollectionExpression extra;
 	public final IntegerExpression id_casa;
 	public final DoubleExpression precio;
@@ -36,7 +34,6 @@ public class CasaCriteria extends AbstractORMCriteria {
 	public final IntegerExpression habitaciones;
 	public final IntegerExpression banios;
 	public final StringExpression tipo;
-	public final StringExpression linkMapa;
 	public final StringExpression estado;
 	public final StringExpression accion;
 	public final IntegerExpression numVisitas;
@@ -44,6 +41,7 @@ public class CasaCriteria extends AbstractORMCriteria {
 	public final StringExpression visible;
 	public final StringExpression dCorta;
 	public final StringExpression dLarga;
+	public final DateExpression fecha;
 	public final IntegerExpression vendeId;
 	public final AssociationExpression vende;
 	public final IntegerExpression mapaId;
@@ -63,9 +61,7 @@ public class CasaCriteria extends AbstractORMCriteria {
 		provincia = new AssociationExpression("provincia", this);
 		municipioId = new IntegerExpression("municipio.id_Municipio", this);
 		municipio = new AssociationExpression("municipio", this);
-		linkFoto = new StringExpression("linkFoto", this);
 		direccion = new StringExpression("direccion", this);
-		foto = new CollectionExpression("ORM_Foto", this);
 		extra = new CollectionExpression("ORM_Extra", this);
 		id_casa = new IntegerExpression("id_casa", this);
 		precio = new DoubleExpression("precio", this);
@@ -73,7 +69,6 @@ public class CasaCriteria extends AbstractORMCriteria {
 		habitaciones = new IntegerExpression("habitaciones", this);
 		banios = new IntegerExpression("banios", this);
 		tipo = new StringExpression("tipo", this);
-		linkMapa = new StringExpression("linkMapa", this);
 		estado = new StringExpression("estado", this);
 		accion = new StringExpression("accion", this);
 		numVisitas = new IntegerExpression("numVisitas", this);
@@ -81,6 +76,7 @@ public class CasaCriteria extends AbstractORMCriteria {
 		visible = new StringExpression("visible", this);
 		dCorta = new StringExpression("dCorta", this);
 		dLarga = new StringExpression("dLarga", this);
+		fecha = new DateExpression("fecha", this);
 		vendeId = new IntegerExpression("vende.", this);
 		vende = new AssociationExpression("vende", this);
 		mapaId = new IntegerExpression("mapa.id_mapa", this);
@@ -134,10 +130,6 @@ public class CasaCriteria extends AbstractORMCriteria {
 	
 	public MunicipioCriteria createMunicipioCriteria() {
 		return new MunicipioCriteria(createCriteria("municipio"));
-	}
-	
-	public FotoCriteria createFotoCriteria() {
-		return new FotoCriteria(createCriteria("ORM_Foto"));
 	}
 	
 	public ExtraCriteria createExtraCriteria() {

@@ -19,11 +19,7 @@ public class Foto implements Serializable {
 	}
 	
 	private void this_setOwner(Object owner, int key) {
-		if (key == bbdd_gestion.ORMConstants.KEY_FOTO_INMUEBLE) {
-			this.inmueble = (bbdd_gestion.Inmueble) owner;
-		}
-		
-		else if (key == bbdd_gestion.ORMConstants.KEY_FOTO_CASA) {
+		if (key == bbdd_gestion.ORMConstants.KEY_FOTO_CASA) {
 			this.casa = (bbdd_gestion.Casa) owner;
 		}
 	}
@@ -38,8 +34,6 @@ public class Foto implements Serializable {
 	private int id_foto;
 	
 	private bbdd_gestion.Casa casa;
-	
-	private bbdd_gestion.Inmueble inmueble;
 	
 	private String linkFoto;
 	
@@ -61,30 +55,6 @@ public class Foto implements Serializable {
 	
 	public String getLinkFoto() {
 		return linkFoto;
-	}
-	
-	public void setInmueble(bbdd_gestion.Inmueble value) {
-		if (inmueble != null) {
-			inmueble.foto.remove(this);
-		}
-		if (value != null) {
-			value.foto.add(this);
-		}
-	}
-	
-	public bbdd_gestion.Inmueble getInmueble() {
-		return inmueble;
-	}
-	
-	/**
-	 * This method is for internal use only.
-	 */
-	public void setORM_Inmueble(bbdd_gestion.Inmueble value) {
-		this.inmueble = value;
-	}
-	
-	private bbdd_gestion.Inmueble getORM_Inmueble() {
-		return inmueble;
 	}
 	
 	public void setCasa(bbdd_gestion.Casa value) {

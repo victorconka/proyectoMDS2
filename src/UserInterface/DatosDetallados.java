@@ -18,7 +18,6 @@ import org.orm.PersistentTransaction;
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Extra;
-import bbdd_gestion.ExtraCriteria;
 
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
@@ -76,10 +75,6 @@ public class DatosDetallados extends JPanel{
 			ArrayList<String> al = new ArrayList<String>();
 			Casa otra = CasaDAO.getCasaByORMID(c.getORMID());
 			
-			/*ExtraCriteria crit = new ExtraCriteria();
-			crit.inmueble.equals(c);*/
-			//Extra[] ex = ExtraDAO.listExtraByCriteria(crit);
-			
 			Iterator<Extra> it = otra.extra.getIterator();
 			Extra e = bbdd_gestion.ExtraDAO.createExtra();
 			while(it.hasNext()){
@@ -96,7 +91,16 @@ public class DatosDetallados extends JPanel{
 					return values[index];
 				}
 			});
-								
+			
+			String[] fotos = new String[otra.fotos.size()];
+			if(fotos.length>0){
+				int i = 0;
+				for(bbdd_gestion.Foto f : otra.fotos.toArray()){
+					fotos[i] = f.getLinkFoto();
+					i++;		
+				}
+			}
+			this.foto.setImages(fotos);
 			this.sup.setText(c.getSuperficie().toString() + " m2");
 			this.nBanios.setText(String.valueOf(c.getBanios()));
 			this.nHab.setText(String.valueOf(c.getHabitaciones()));

@@ -22,8 +22,6 @@ public class FotoCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id_foto;
 	public final IntegerExpression casaId;
 	public final AssociationExpression casa;
-	public final IntegerExpression inmuebleId;
-	public final AssociationExpression inmueble;
 	public final StringExpression linkFoto;
 	
 	public FotoCriteria(Criteria criteria) {
@@ -31,8 +29,6 @@ public class FotoCriteria extends AbstractORMCriteria {
 		id_foto = new IntegerExpression("id_foto", this);
 		casaId = new IntegerExpression("casa.", this);
 		casa = new AssociationExpression("casa", this);
-		inmuebleId = new IntegerExpression("inmueble.id_Inmueble", this);
-		inmueble = new AssociationExpression("inmueble", this);
 		linkFoto = new StringExpression("linkFoto", this);
 	}
 	
@@ -46,10 +42,6 @@ public class FotoCriteria extends AbstractORMCriteria {
 	
 	public CasaCriteria createCasaCriteria() {
 		return new CasaCriteria(createCriteria("casa"));
-	}
-	
-	public InmuebleCriteria createInmuebleCriteria() {
-		return new InmuebleCriteria(createCriteria("inmueble"));
 	}
 	
 	public Foto uniqueFoto() {

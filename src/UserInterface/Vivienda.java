@@ -140,7 +140,7 @@ public class Vivienda extends JPanel {
 				mv.acciónCB.setSelectedIndex(1);
 			}
 			
-			//mv.mapaUrlTF.setText(casa.getMapa()); //FIXME el mapa requiere URL
+			mv.mapaUrlTF.setText(casa.getMapa().getUrl());
 			mv.dCortaTF.setText(casa.getdCorta());
 			mv.dLargaTF.setText(casa.getdLarga());
 			

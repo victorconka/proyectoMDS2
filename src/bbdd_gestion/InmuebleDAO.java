@@ -339,10 +339,6 @@ public class InmuebleDAO {
 				inmueble.getMunicipio().inmueble.remove(inmueble);
 			}
 			
-			bbdd_gestion.Foto[] lFotos = inmueble.foto.toArray();
-			for(int i = 0; i < lFotos.length; i++) {
-				lFotos[i].setInmueble(null);
-			}
 			bbdd_gestion.Extra[] lExtras = inmueble.extra.toArray();
 			for(int i = 0; i < lExtras.length; i++) {
 				lExtras[i].inmueble.remove(inmueble);
@@ -373,10 +369,6 @@ public class InmuebleDAO {
 				inmueble.getMunicipio().inmueble.remove(inmueble);
 			}
 			
-			bbdd_gestion.Foto[] lFotos = inmueble.foto.toArray();
-			for(int i = 0; i < lFotos.length; i++) {
-				lFotos[i].setInmueble(null);
-			}
 			bbdd_gestion.Extra[] lExtras = inmueble.extra.toArray();
 			for(int i = 0; i < lExtras.length; i++) {
 				lExtras[i].inmueble.remove(inmueble);

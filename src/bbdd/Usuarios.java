@@ -27,8 +27,9 @@ public class Usuarios {
 			t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			//codigo aqui
 			//comprobamos unicidad email
-			if (UsuarioDAO.loadUsuarioByQuery("correo = '"+aEmail+"'", null) != null)
+			if (UsuarioDAO.loadUsuarioByQuery("correo = '"+aEmail+"'", null) != null){
 				return false;
+			}
 			//primero se crea el objeto			
 			u = bbdd_gestion.UsuarioRDAO.createUsuarioR();
 			//ahora las propiedades se asignan

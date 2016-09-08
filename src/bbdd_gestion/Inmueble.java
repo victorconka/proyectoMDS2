@@ -19,10 +19,7 @@ public class Inmueble implements Serializable {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == bbdd_gestion.ORMConstants.KEY_INMUEBLE_FOTO) {
-			return ORM_foto;
-		}
-		else if (key == bbdd_gestion.ORMConstants.KEY_INMUEBLE_EXTRA) {
+		if (key == bbdd_gestion.ORMConstants.KEY_INMUEBLE_EXTRA) {
 			return ORM_extra;
 		}
 		
@@ -62,11 +59,7 @@ public class Inmueble implements Serializable {
 	
 	private bbdd_gestion.Municipio municipio;
 	
-	private String linkFoto;
-	
 	private String direccion;
-	
-	private java.util.Set ORM_foto = new java.util.HashSet();
 	
 	private java.util.Set ORM_extra = new java.util.HashSet();
 	
@@ -82,14 +75,6 @@ public class Inmueble implements Serializable {
 		return getId_Inmueble();
 	}
 	
-	public void setLinkFoto(String value) {
-		this.linkFoto = value;
-	}
-	
-	public String getLinkFoto() {
-		return linkFoto;
-	}
-	
 	public void setDireccion(String value) {
 		this.direccion = value;
 	}
@@ -97,16 +82,6 @@ public class Inmueble implements Serializable {
 	public String getDireccion() {
 		return direccion;
 	}
-	
-	private void setORM_Foto(java.util.Set value) {
-		this.ORM_foto = value;
-	}
-	
-	private java.util.Set getORM_Foto() {
-		return ORM_foto;
-	}
-	
-	public final bbdd_gestion.FotoSetCollection foto = new bbdd_gestion.FotoSetCollection(this, _ormAdapter, bbdd_gestion.ORMConstants.KEY_INMUEBLE_FOTO, bbdd_gestion.ORMConstants.KEY_FOTO_INMUEBLE, bbdd_gestion.ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public void setMunicipio(bbdd_gestion.Municipio value) {
 		if (municipio != null) {

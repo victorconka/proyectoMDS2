@@ -76,7 +76,6 @@ public class CasaSetCollection extends org.orm.util.ORMSet {
 	 * <li>habitaciones</li>
 	 * <li>banios</li>
 	 * <li>tipo</li>
-	 * <li>linkMapa</li>
 	 * <li>estado</li>
 	 * <li>accion</li>
 	 * <li>numVisitas</li>
@@ -84,6 +83,7 @@ public class CasaSetCollection extends org.orm.util.ORMSet {
 	 * <li>visible</li>
 	 * <li>dCorta</li>
 	 * <li>dLarga</li>
+	 * <li>fecha</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
 	 */
@@ -100,7 +100,6 @@ public class CasaSetCollection extends org.orm.util.ORMSet {
 	 * <li>habitaciones</li>
 	 * <li>banios</li>
 	 * <li>tipo</li>
-	 * <li>linkMapa</li>
 	 * <li>estado</li>
 	 * <li>accion</li>
 	 * <li>numVisitas</li>
@@ -108,6 +107,7 @@ public class CasaSetCollection extends org.orm.util.ORMSet {
 	 * <li>visible</li>
 	 * <li>dCorta</li>
 	 * <li>dLarga</li>
+	 * <li>fecha</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending
 	 * @return The persistent objects sorted array
