@@ -13,7 +13,8 @@ public class Utils{
 	protected static int hMedio = 400;
 	
 	protected static int wGrande = 500;
-	protected static int hGrande = 550;
+	//protected static int hGrande = 550;
+	protected static int hGrande = 620;
 	protected static int wOffset = 17;
 	protected static int hDR = 80;
 	public static int id = 0;

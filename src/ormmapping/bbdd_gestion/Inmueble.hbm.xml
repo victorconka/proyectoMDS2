@@ -16,12 +16,7 @@ License Type: Academic
 		</many-to-one>
 		<many-to-one name="municipio" cascade="lock" column="MunicipioId_Municipio" class="bbdd_gestion.Municipio" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
-		<property name="linkFoto" column="LinkFoto" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="direccion" column="Direccion" type="string" length="255" not-null="false" lazy="false"/>
-		<set name="ORM_Foto" lazy="true" cascade="save-update,lock" inverse="true">
-			<key column="InmuebleId_Inmueble" not-null="false"/>
-			<one-to-many class="bbdd_gestion.Foto"/>
-		</set>
+		<property name="direccion" column="Direccion" type="string" length="1024" not-null="false" lazy="false"/>
 		<set name="ORM_Extra" table="Inmueble_Extra" lazy="true" cascade="save-update,lock">
 			<key column="InmuebleId_Inmueble" not-null="true"/>
 			<many-to-many column="ExtraId_Extra" class="bbdd_gestion.Extra">
@@ -37,14 +32,19 @@ License Type: Academic
 			<property name="habitaciones" column="Habitaciones" type="integer" length="11" not-null="true" lazy="false"/>
 			<property name="banios" column="Banios" type="integer" length="11" not-null="true" lazy="false"/>
 			<property name="tipo" column="Tipo" type="string" length="255" not-null="false" lazy="false"/>
-			<property name="linkMapa" column="LinkMapa" type="string" length="255" not-null="false" lazy="false"/>
 			<property name="estado" column="Estado" type="string" length="255" not-null="false" lazy="false"/>
 			<property name="accion" column="Accion" type="string" length="255" not-null="false" lazy="false"/>
 			<property name="numVisitas" column="NumVisitas" type="integer" length="11" not-null="true" lazy="false"/>
 			<property name="numFavoritos" column="NumFavoritos" type="integer" length="11" not-null="true" lazy="false"/>
 			<property name="visible" column="Visible" type="string" length="255" not-null="false" lazy="false"/>
-			<property name="dCorta" column="DCorta" type="string" length="255" not-null="false" lazy="false"/>
-			<property name="dLarga" column="DLarga" type="string" length="255" not-null="false" lazy="false"/>
+			<property name="dCorta" column="DCorta" type="string" length="255" not-null="false" lazy="false">
+				<meta attribute="field-description">
+					
+			@Lob&#160;@Column(name="dCorta", length=100)&#160;private&#160;String content;
+				</meta>
+			</property>
+			<property name="dLarga" column="DLarga" type="string" length="1024" not-null="false" lazy="false"/>
+			<property name="fecha" column="Fecha" type="date" not-null="false" lazy="false"/>
 			<set name="ORM_Favorita" table="UsuarioR_Casa" lazy="true" cascade="save-update,lock" inverse="true">
 				<key column="CasaInmuebleId_Inmueble" not-null="true"/>
 				<many-to-many column="UsuarioRUsuarioId_Usuario" class="bbdd_gestion.UsuarioR">

@@ -2,15 +2,20 @@ package UserInterface;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.AbstractListModel;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.orm.PersistentTransaction;
+
 import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import bbdd_gestion.CasaDAO;
+import bbdd_gestion.Extra;
+import bbdd_gestion.ProjectMDS2PersistentManager;
 
 public class Vivienda extends JPanel {
 
@@ -50,11 +55,15 @@ public class Vivienda extends JPanel {
 	}
 	
 	protected void cargarDatos() {
+		PersistentTransaction t = null;
 		try {
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-			//FIXME casa estaba comentada
-			Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
+			
+			
+			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
+			Casa casa = CasaDAO.getCasaByORMID(Utils.idCasa); 
 			//estado es el estado de la visibilidad
 			e.estadoCB.setSelectedIndex(casa.getVisible().equals("si")?0:1);
 			lui.usuariosL.setModel(new AbstractListModel<String>() {
@@ -70,6 +79,73 @@ public class Vivienda extends JPanel {
 					return values[index];
 				}
 			});
+			//cargamos los datos en la pantalla de modificar vivienda
+			mv.direccion.setText(casa.getDireccion());
+			mv.municipioTF.setText(casa.getMunicipio().getMunicipio());
+			mv.provinciaTF.setText(casa.getProvincia().getProvincia());
+			mv.cpTF.setText(casa.getCodigoPostal().getCodigo_postal());
+			
+			//fotos se han de insertar con un bucle
+			Iterator<bbdd_gestion.Foto> it = casa.fotos.getIterator();
+			bbdd_gestion.Foto foto;
+			String link;
+			String ftsTA = "";		
+			while(it.hasNext()){
+				foto = it.next();
+				link = foto.getLinkFoto();
+				if(!link.equals(null) || !link.equals("")){
+					ftsTA += link + "\n";
+				}
+			}
+			
+			mv.fotosTA.setText(ftsTA);
+			mv.precioTF.setText(String.valueOf(casa.getPrecio()));
+			mv.superficieTF.setText(String.valueOf(casa.getSuperficie()));
+			mv.numeroHabitacionesTF.setText(String.valueOf(casa.getHabitaciones()));
+			mv.numeroBañosTF.setText(String.valueOf(casa.getBanios()));
+			
+			//tipo
+			String tipo = casa.getTipo();
+			if(casa.equals("Apartamento")){
+				mv.tipoCB.setSelectedIndex(0);
+			}else if(casa.equals("Piso")){
+				mv.tipoCB.setSelectedIndex(1);
+			}else{
+				mv.tipoCB.setSelectedIndex(2);
+			}
+			
+			//extras
+			ArrayList<String> al = new ArrayList<String>();
+			Iterator<Extra> ite = casa.extra.getIterator();
+			Extra e = bbdd_gestion.ExtraDAO.createExtra();
+			while(ite.hasNext()){
+				e = ite.next();
+				al.add(e.getNombreExtra());
+			}
+			if(al.contains("Ascensor")){mv.ascensorChB.setSelected(true);}
+			if(al.contains("Terraza")){mv.terrazaCB.setSelected(true);}
+			if(al.contains("Trastero")){mv.trasteroCB.setSelected(true);}
+			if(al.contains("Parking")){mv.parkingChB.setSelected(true);}
+			if(al.contains("Piscina")){mv.piscinaChB.setSelected(true);}
+			if(al.contains("Jardin")){mv.jardinCB.setSelected(true);}
+			if(al.contains("Amueblada")){mv.amuebladaCB.setSelected(true);}
+			if(al.contains("Calefaccion")){mv.calefaccionCB.setSelected(true);}
+			
+			String estado = casa.getEstado();
+			if(!estado.equals("Segunda mano")){
+				mv.estadoCB.setSelectedIndex(1);
+			}
+			
+			if(casa.getAccion().equals("Alquilar")){
+				mv.acciónCB.setSelectedIndex(1);
+			}
+			
+			mv.mapaUrlTF.setText(casa.getMapa().getUrl());
+			mv.dCortaTF.setText(casa.getdCorta());
+			mv.dLargaTF.setText(casa.getdLarga());
+			
+			//t.commit();
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
