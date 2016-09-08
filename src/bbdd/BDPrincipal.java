@@ -132,11 +132,11 @@ public class BDPrincipal implements IUsuarioRegistrado, IAdministrador {
 		}
 		return false;
 	}
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp,
+	public boolean modificarVivienda(String aIdCasa, String aDireccion, String aMunicipio, String aProvincia, String aCp,
 			String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo,
 			String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible) {
 		try {
-			return this.bd_casas.modificarVivienda(aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, 
+			return this.bd_casas.modificarVivienda(aIdCasa, aDireccion, aMunicipio, aProvincia, aCp, aFotos, aPrecio, aSuperficie, 
 					aHabitaciones, aBanios, aTipo, aExtras, aEstado, aAccion, aMapa, aDCorta, aDLarga, aVisible);
 		} catch (Exception e) {
 			e.printStackTrace();

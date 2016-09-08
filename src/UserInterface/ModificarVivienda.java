@@ -11,6 +11,14 @@ public class ModificarVivienda extends ZonaDatosVivienda {
 	protected JButton guardarCambios;
 	protected JButton volver;
 	
+	//valores originales de los campos que sirven
+	//para verificar si el campo fue modificado
+	//si es asi, dicho campo será pasado al metodo
+	//modificarVivienda.
+	String aaDireccion, aaMunicipio, aaProvincia, aaCp, aaFotos,
+	aaPrecio, aaSuperficie, aaNHab, aaNBanios, aaTipo, aaExtras, 
+	aaEstado, aaAccion, aaMapa, aaDCorta, aaDLarga, aaVisible;
+	
 	public ModificarVivienda() {
 		setLayout(null);
 		setOpaque(false);
@@ -33,8 +41,10 @@ public class ModificarVivienda extends ZonaDatosVivienda {
 					aux.add(((JCheckBox) c).getText());
 			}
 		}
-		String[] ext = new String[aux.size()];
-		for (int i = 0; i < aux.size(); i++)
+		//el -1 es debido al ultimo checkbox (suponemos que es el ultimo)
+		
+		String[] ext = new String[aux.size()-1];
+		for (int i = 0; i < aux.size()-1; i++)
 			ext[i] = aux.get(i);
 		return ext;
 	}

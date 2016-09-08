@@ -19,7 +19,7 @@ public interface IUsuarioRegistrado extends IUsuario {
 
 	public boolean eliminarVivienda(String aId_usuario, String aId_vivienda) throws RemoteException;
 
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible) throws RemoteException;
+	public boolean modificarVivienda(String aIdCasa, String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible) throws RemoteException;
 
 	public boolean modificarEstadoVivienda(String aId_usuario, String aId_vivienda, String aEstado) throws RemoteException;
 

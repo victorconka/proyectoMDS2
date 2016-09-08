@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -240,12 +241,12 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				try {
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					
-					String visible = "si";
+					/*
+					String visible = "no";
 					if(lvp.v.mv.isVisible()){
 						visible = "si";
 					}
-					
+					*/
 					String[] strFotos = null;;
 					//obtenemos las fotos
 					String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
@@ -253,23 +254,42 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 						strFotos = aFotos.split("\\r?\\n");
 					}
 					
-					iu.modificarVivienda(lvp.v.mv.direccion.getText(), 
-							lvp.v.mv.municipioTF.getText(), 
-							lvp.v.mv.provinciaTF.getText(), 
-							lvp.v.mv.cpTF.getText(), 
-							strFotos, 
-							lvp.v.mv.precioTF.getText(), 
-							lvp.v.mv.superficieTF.getText(), 
-							lvp.v.mv.numeroHabitacionesTF.getText(), 
-							lvp.v.mv.numeroBañosTF.getText(),
-							lvp.v.mv.tipoCB.getSelectedItem().toString(), 
-							extras, 
-							lvp.v.mv.estadoCB.getSelectedItem().toString(),
-							lvp.v.mv.acciónCB.getSelectedItem().toString(), 
-							lvp.v.mv.mapaUrlTF.getText(), 
-							lvp.v.mv.dCortaTF.getText(), 
-							lvp.v.mv.dLargaTF.getText(), 
-							visible);
+					//los valores de los campos modificarVivienda se comparan con
+					//su valor original y se manda null o valor
+					
+					//verificamos los extras
+					//se han añadido mas extras
+					boolean contiene= true;
+					for(int i = 0 ;i < extras.length; i++){
+						//extras[i] = bbdd_gestion.ExtraDAO.getExtraByORMID(Integer.valueOf(extras[i])).getNombreExtra();
+						if(!lvp.v.mv.aaExtras.toLowerCase().contains(extras[i].toLowerCase())){
+							contiene = false;
+						}
+					}//se ha quitado extra
+					int l =(lvp.v.mv.aaExtras.split(",")).length;
+					if( l < extras.length ||  l > extras.length)
+						contiene = false;
+					
+					iu.modificarVivienda(
+							String.valueOf(Utils.idCasa),
+							lvp.v.mv.direccion.getText().equals(lvp.v.mv.aaDireccion) ? null : lvp.v.mv.direccion.getText(), 
+							lvp.v.mv.municipioTF.getText().equals(lvp.v.mv.aaMunicipio) ? null : lvp.v.mv.municipioTF.getText(), 
+							lvp.v.mv.provinciaTF.getText().equals(lvp.v.mv.aaProvincia) ? null : lvp.v.mv.provinciaTF.getText(),
+							lvp.v.mv.cpTF.getText().equals(lvp.v.mv.aaCp) ? null : lvp.v.mv.cpTF.getText(), 
+							aFotos.equals(lvp.v.mv.aaFotos) ? null : strFotos, 
+							lvp.v.mv.precioTF.getText().equals(lvp.v.mv.aaPrecio) ? null : lvp.v.mv.precioTF.getText(), 
+							lvp.v.mv.superficieTF.getText().equals(lvp.v.mv.aaSuperficie) ? null : lvp.v.mv.superficieTF.getText(), 
+							lvp.v.mv.numeroHabitacionesTF.getText().equals(lvp.v.mv.aaNHab) ? null : lvp.v.mv.numeroHabitacionesTF.getText(), 
+							lvp.v.mv.numeroBañosTF.getText().equals(lvp.v.mv.aaNBanios) ? null : lvp.v.mv.numeroBañosTF.getText(),
+							lvp.v.mv.tipoCB.getSelectedItem().toString().equals(lvp.v.mv.aaTipo) ? null : lvp.v.mv.tipoCB.getSelectedItem().toString(), 
+							contiene ? null : extras, //FIXME
+							lvp.v.mv.estadoCB.getSelectedItem().toString().equals(lvp.v.mv.aaEstado) ? null : lvp.v.mv.estadoCB.getSelectedItem().toString(),
+							lvp.v.mv.acciónCB.getSelectedItem().toString().equals(lvp.v.mv.aaAccion) ? null : lvp.v.mv.acciónCB.getSelectedItem().toString(), 
+							lvp.v.mv.mapaUrlTF.getText().equals(lvp.v.mv.aaMapa) ? null : lvp.v.mv.mapaUrlTF.getText(), 
+							lvp.v.mv.dCortaTF.getText().equals(lvp.v.mv.aaDCorta) ? null : lvp.v.mv.dCortaTF.getText(), 
+							lvp.v.mv.dLargaTF.getText().equals(lvp.v.mv.aaDLarga) ? null : lvp.v.mv.dLargaTF.getText(), 
+						   (lvp.v.mv.visibleCB.isSelected() ? "si" : "no").equals(lvp.v.mv.aaVisible) ? null : lvp.v.mv.visibleCB.isSelected() ? "si" : "no" 
+							   );
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
