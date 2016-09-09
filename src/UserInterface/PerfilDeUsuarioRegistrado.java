@@ -137,15 +137,20 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				try {
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor1");
-					//faltan
-					//fotos[]
-					//mapa
 					String visible = "si";
 					if(danv.isVisible()){
 						visible = "si";
 					}
+					
+					String[] strFotos = null;;
+					//obtenemos las fotos
+					String aFotos = danv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
+					if(danv.fotosTA != null){
+						strFotos = aFotos.split("\\r?\\n");
+					}
+					
 					iu.registrarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
-							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
+							danv.provinciaTF.getText(), danv.cpTF.getText(), strFotos, danv.precioTF.getText(), 
 							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
 							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
 							danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
@@ -178,7 +183,6 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		});
 		btnNewButton.setContentAreaFilled(false);
 		btnNewButton.setBounds(10, 69, 363, 143);
-		//add(btnNewButton);
 		
 		lvp.v.volver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -238,14 +242,34 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
 					
 					String visible = "si";
-					if(danv.isVisible()){
+					if(lvp.v.mv.isVisible()){
 						visible = "si";
 					}
-					iu.modificarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
-							danv.provinciaTF.getText(), danv.cpTF.getText(), null, danv.precioTF.getText(), 
-							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
-							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
+					
+					String[] strFotos = null;;
+					//obtenemos las fotos
+					String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
+					if(lvp.v.mv.fotosTA != null){
+						strFotos = aFotos.split("\\r?\\n");
+					}
+					
+					iu.modificarVivienda(lvp.v.mv.direccion.getText(), 
+							lvp.v.mv.municipioTF.getText(), 
+							lvp.v.mv.provinciaTF.getText(), 
+							lvp.v.mv.cpTF.getText(), 
+							strFotos, 
+							lvp.v.mv.precioTF.getText(), 
+							lvp.v.mv.superficieTF.getText(), 
+							lvp.v.mv.numeroHabitacionesTF.getText(), 
+							lvp.v.mv.numeroBañosTF.getText(),
+							lvp.v.mv.tipoCB.getSelectedItem().toString(), 
+							extras, 
+							lvp.v.mv.estadoCB.getSelectedItem().toString(),
+							lvp.v.mv.acciónCB.getSelectedItem().toString(), 
+							lvp.v.mv.mapaUrlTF.getText(), 
+							lvp.v.mv.dCortaTF.getText(), 
+							lvp.v.mv.dLargaTF.getText(), 
+							visible);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

@@ -47,6 +47,8 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
 			casas = iu.cargarViviendasPropias(String.valueOf(Utils.id));
+			if (casas == null)
+				casas = new Casa[0];
 			botones = new JButton[casas.length];
 		} catch (Exception e) {
 			e.printStackTrace();

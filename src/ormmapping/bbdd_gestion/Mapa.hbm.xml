@@ -12,7 +12,7 @@ License Type: Academic
 		</id>
 		<property name="longitud" column="Longitud" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="latitud" column="Latitud" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="codigoPostal" column="CodigoPostal" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="url" column="Url" type="string" length="2000" not-null="false" lazy="false"/>
 		<set name="ORM_Casas" lazy="true" cascade="save-update,lock" inverse="true">
 			<key column="MapaId_mapa" not-null="false"/>
 			<one-to-many class="bbdd_gestion.Casa"/>

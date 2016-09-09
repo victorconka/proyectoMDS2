@@ -19,6 +19,6 @@ License Type: Academic
 		<property name="fuente" column="Fuente" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="destinatario" column="Destinatario" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="asunto" column="Asunto" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="texto" column="Texto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="texto" column="Texto" type="string" length="2048" not-null="false" lazy="false"/>
 	</class>
 </hibernate-mapping>

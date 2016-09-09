@@ -39,7 +39,7 @@ public class Mapa implements Serializable {
 	
 	private String latitud;
 	
-	private String codigoPostal;
+	private String url;
 	
 	private java.util.Set ORM_casas = new java.util.HashSet();
 	
@@ -71,12 +71,12 @@ public class Mapa implements Serializable {
 		return latitud;
 	}
 	
-	public void setCodigoPostal(String value) {
-		this.codigoPostal = value;
+	public void setUrl(String value) {
+		this.url = value;
 	}
 	
-	public String getCodigoPostal() {
-		return codigoPostal;
+	public String getUrl() {
+		return url;
 	}
 	
 	private void setORM_Casas(java.util.Set value) {

@@ -26,9 +26,7 @@ public class InmuebleCriteria extends AbstractORMCriteria {
 	public final AssociationExpression provincia;
 	public final IntegerExpression municipioId;
 	public final AssociationExpression municipio;
-	public final StringExpression linkFoto;
 	public final StringExpression direccion;
-	public final CollectionExpression foto;
 	public final CollectionExpression extra;
 	
 	public InmuebleCriteria(Criteria criteria) {
@@ -40,9 +38,7 @@ public class InmuebleCriteria extends AbstractORMCriteria {
 		provincia = new AssociationExpression("provincia", this);
 		municipioId = new IntegerExpression("municipio.id_Municipio", this);
 		municipio = new AssociationExpression("municipio", this);
-		linkFoto = new StringExpression("linkFoto", this);
 		direccion = new StringExpression("direccion", this);
-		foto = new CollectionExpression("ORM_Foto", this);
 		extra = new CollectionExpression("ORM_Extra", this);
 	}
 	
@@ -64,10 +60,6 @@ public class InmuebleCriteria extends AbstractORMCriteria {
 	
 	public MunicipioCriteria createMunicipioCriteria() {
 		return new MunicipioCriteria(createCriteria("municipio"));
-	}
-	
-	public FotoCriteria createFotoCriteria() {
-		return new FotoCriteria(createCriteria("ORM_Foto"));
 	}
 	
 	public ExtraCriteria createExtraCriteria() {

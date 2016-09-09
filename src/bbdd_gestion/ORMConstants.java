@@ -44,13 +44,9 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	
 	final int KEY_FOTO_CASA = 1350486375;
 	
-	final int KEY_FOTO_INMUEBLE = 228718238;
-	
 	final int KEY_INMUEBLE_CODIGOPOSTAL = 1271740800;
 	
 	final int KEY_INMUEBLE_EXTRA = -1265055020;
-	
-	final int KEY_INMUEBLE_FOTO = -1564807744;
 	
 	final int KEY_INMUEBLE_MUNICIPIO = -254030671;
 	

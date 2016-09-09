@@ -15,7 +15,9 @@ import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
 import bbdd_gestion.Extra;
 import bbdd_gestion.ExtraDAO;
+import bbdd_gestion.FotoDAO;
 import bbdd_gestion.Mapa;
+import bbdd_gestion.MapaCriteria;
 import bbdd_gestion.MapaDAO;
 import bbdd_gestion.Municipio;
 import bbdd_gestion.MunicipioDAO;
@@ -41,19 +43,8 @@ public class Casas {
 		try {
 			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			
-			
 			//es importante asegurarse que los municipios/provincias... no existan de antelacion para
 			//evitar inconsistencia y redundancia de datos
-			p = ProvinciaDAO.createProvincia();
-			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
-			if(p == null){
-				System.out.println("provincia no encontrada");
-				p = ProvinciaDAO.createProvincia();
-				p.setProvincia(aProvincia);
-				p.setCodigoPostal(cp);
-				ProvinciaDAO.save(p);
-			}
-			
 			cp = CodigoPostalDAO.createCodigoPostal();
 			cp = bbdd_gestion.CodigoPostalDAO.loadCodigoPostalByQuery("codigo_postal LIKE '"+aCp+"'", null);
 			//asignamos el valor del codigo postal solo en caso de no existir	
@@ -61,9 +52,19 @@ public class Casas {
 				System.out.println("cp no encontrada");
 				cp = CodigoPostalDAO.createCodigoPostal();
 				cp.setCodigo_postal(aCp);
-				cp.setMunicipio(m); //no es obligatorio
-				cp.setProvincia(p);
+				//cp.setMunicipio(m); //no es obligatorio
+				//cp.setProvincia(p);
 				CodigoPostalDAO.save(cp);			
+			}	
+			
+			p = ProvinciaDAO.createProvincia();
+			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
+			if(p == null){
+				System.out.println("provincia no encontrada");
+				p = ProvinciaDAO.createProvincia();
+				p.setProvincia(aProvincia.toUpperCase());
+				p.setCodigoPostal(cp);
+				ProvinciaDAO.save(p);
 			}	
 			
 			m = MunicipioDAO.createMunicipio();
@@ -72,19 +73,19 @@ public class Casas {
 				//MUNICIPIO NO ENCONTRADO
 				System.out.println("municipio no encontrado");
 				m = MunicipioDAO.createMunicipio();
-				m.setMunicipio(aMunicipio);
+				m.setMunicipio(aMunicipio.toUpperCase());
 				m.setPertenece(p);
 				MunicipioDAO.save(m);
 			}
 			
-			ma = MapaDAO.createMapa();						
+			
 			
 			c = CasaDAO.createCasa();
 			c.setDireccion(aDireccion);
 			c.setMunicipio(m);
 			c.setProvincia(p);
 			c.setCodigoPostal(cp);
-			//c.setLinkFoto(aFotos[0]);
+
 			c.setPrecio(Double.parseDouble(aPrecio));
 			
 			Double sup = null;
@@ -135,9 +136,30 @@ public class Casas {
 			c.setdCorta(aDCorta);
 			c.setdLarga(aDLarga);
 			c.setVisible(aVisible);
-			CasaDAO.save(c);		
-			MapaDAO.save(ma);
+			CasaDAO.save(c);
+			//guardamos las fotos
+			if(aFotos != null && aFotos.length > 0){
+				bbdd_gestion.Foto photo;
+				for(String f : aFotos){
+					photo = new bbdd_gestion.Foto();
+					photo.setLinkFoto(f);
+					photo.setCasa(c);
+					FotoDAO.save(photo);
+				}
+			}
 			
+			MapaCriteria mac = new MapaCriteria();
+			mac.url.eq(aMapa);
+			ma=bbdd_gestion.MapaDAO.loadMapaByCriteria(mac);
+			if(ma!=null){
+				ma.casas.add(c);
+			}else{
+				ma = MapaDAO.createMapa();		
+				ma.setUrl(aMapa);
+				
+			}
+			ma.casas.add(c);
+			MapaDAO.save(ma);
 			UsuarioR u = UsuarioRDAO.getUsuarioRByORMID(Utils.id);
 			u.es_Vendida.add(c);
 			UsuarioRDAO.save(u);
@@ -311,16 +333,6 @@ public class Casas {
 
 			//es importante asegurarse que los municipios/provincias... no existan de antelacion para
 			//evitar inconsistencia y redundancia de datos
-			p = ProvinciaDAO.createProvincia();
-			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
-			if(p == null){
-				System.out.println("provincia no encontrada");
-				p = ProvinciaDAO.createProvincia();
-				p.setProvincia(aProvincia);
-				p.setCodigoPostal(cp);
-				ProvinciaDAO.save(p);
-			}
-
 			cp = CodigoPostalDAO.createCodigoPostal();
 			cp = bbdd_gestion.CodigoPostalDAO.loadCodigoPostalByQuery("codigo_postal LIKE '"+aCp+"'", null);
 			//asignamos el valor del codigo postal solo en caso de no existir	
@@ -328,9 +340,19 @@ public class Casas {
 				System.out.println("cp no encontrada");
 				cp = CodigoPostalDAO.createCodigoPostal();
 				cp.setCodigo_postal(aCp);
-				cp.setMunicipio(m); //no es obligatorio
-				cp.setProvincia(p);
+				//cp.setMunicipio(m); //no es obligatorio
+				//cp.setProvincia(p);
 				CodigoPostalDAO.save(cp);			
+			}	
+			
+			p = ProvinciaDAO.createProvincia();
+			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
+			if(p == null){
+				System.out.println("provincia no encontrada");
+				p = ProvinciaDAO.createProvincia();
+				p.setProvincia(aProvincia.toUpperCase());
+				p.setCodigoPostal(cp);
+				ProvinciaDAO.save(p);
 			}	
 			
 			m = MunicipioDAO.createMunicipio();
@@ -339,7 +361,7 @@ public class Casas {
 				//MUNICIPIO NO ENCONTRADO
 				System.out.println("municipio no encontrado");
 				m = MunicipioDAO.createMunicipio();
-				m.setMunicipio(aMunicipio);
+				m.setMunicipio(aMunicipio.toUpperCase());
 				m.setPertenece(p);
 				MunicipioDAO.save(m);
 			}
@@ -355,11 +377,12 @@ public class Casas {
 			c.setProvincia(p);
 			c.setCodigoPostal(cp);
 			//c.setLinkFoto(aFotos[0]);
+			//System.out.println(">"+aPrecio+"<");
 			c.setPrecio(Double.parseDouble(aPrecio));
 
 			Double sup = null;
 			if(aSuperficie != null && aSuperficie != ""){
-				sup = Double.parseDouble(aSuperficie);
+				//sup = Double.parseDouble(aSuperficie);
 			}
 			c.setSuperficie(sup);
 			c.setHabitaciones(Integer.parseInt(aHabitaciones));

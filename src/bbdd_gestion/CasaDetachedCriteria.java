@@ -26,9 +26,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression provincia;
 	public final IntegerExpression municipioId;
 	public final AssociationExpression municipio;
-	public final StringExpression linkFoto;
 	public final StringExpression direccion;
-	public final CollectionExpression foto;
 	public final CollectionExpression extra;
 	public final IntegerExpression id_casa;
 	public final DoubleExpression precio;
@@ -36,7 +34,6 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression habitaciones;
 	public final IntegerExpression banios;
 	public final StringExpression tipo;
-	public final StringExpression linkMapa;
 	public final StringExpression estado;
 	public final StringExpression accion;
 	public final IntegerExpression numVisitas;
@@ -44,6 +41,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression visible;
 	public final StringExpression dCorta;
 	public final StringExpression dLarga;
+	public final DateExpression fecha;
 	public final IntegerExpression vendeId;
 	public final AssociationExpression vende;
 	public final IntegerExpression mapaId;
@@ -63,9 +61,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		provincia = new AssociationExpression("provincia", this.getDetachedCriteria());
 		municipioId = new IntegerExpression("municipio.id_Municipio", this.getDetachedCriteria());
 		municipio = new AssociationExpression("municipio", this.getDetachedCriteria());
-		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 		direccion = new StringExpression("direccion", this.getDetachedCriteria());
-		foto = new CollectionExpression("ORM_Foto", this.getDetachedCriteria());
 		extra = new CollectionExpression("ORM_Extra", this.getDetachedCriteria());
 		id_casa = new IntegerExpression("id_casa", this.getDetachedCriteria());
 		precio = new DoubleExpression("precio", this.getDetachedCriteria());
@@ -73,7 +69,6 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		habitaciones = new IntegerExpression("habitaciones", this.getDetachedCriteria());
 		banios = new IntegerExpression("banios", this.getDetachedCriteria());
 		tipo = new StringExpression("tipo", this.getDetachedCriteria());
-		linkMapa = new StringExpression("linkMapa", this.getDetachedCriteria());
 		estado = new StringExpression("estado", this.getDetachedCriteria());
 		accion = new StringExpression("accion", this.getDetachedCriteria());
 		numVisitas = new IntegerExpression("numVisitas", this.getDetachedCriteria());
@@ -81,6 +76,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		visible = new StringExpression("visible", this.getDetachedCriteria());
 		dCorta = new StringExpression("dCorta", this.getDetachedCriteria());
 		dLarga = new StringExpression("dLarga", this.getDetachedCriteria());
+		fecha = new DateExpression("fecha", this.getDetachedCriteria());
 		vendeId = new IntegerExpression("vende.", this.getDetachedCriteria());
 		vende = new AssociationExpression("vende", this.getDetachedCriteria());
 		mapaId = new IntegerExpression("mapa.id_mapa", this.getDetachedCriteria());
@@ -101,9 +97,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		provincia = new AssociationExpression("provincia", this.getDetachedCriteria());
 		municipioId = new IntegerExpression("municipio.id_Municipio", this.getDetachedCriteria());
 		municipio = new AssociationExpression("municipio", this.getDetachedCriteria());
-		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 		direccion = new StringExpression("direccion", this.getDetachedCriteria());
-		foto = new CollectionExpression("ORM_Foto", this.getDetachedCriteria());
 		extra = new CollectionExpression("ORM_Extra", this.getDetachedCriteria());
 		id_casa = new IntegerExpression("id_casa", this.getDetachedCriteria());
 		precio = new DoubleExpression("precio", this.getDetachedCriteria());
@@ -111,7 +105,6 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		habitaciones = new IntegerExpression("habitaciones", this.getDetachedCriteria());
 		banios = new IntegerExpression("banios", this.getDetachedCriteria());
 		tipo = new StringExpression("tipo", this.getDetachedCriteria());
-		linkMapa = new StringExpression("linkMapa", this.getDetachedCriteria());
 		estado = new StringExpression("estado", this.getDetachedCriteria());
 		accion = new StringExpression("accion", this.getDetachedCriteria());
 		numVisitas = new IntegerExpression("numVisitas", this.getDetachedCriteria());
@@ -119,6 +112,7 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 		visible = new StringExpression("visible", this.getDetachedCriteria());
 		dCorta = new StringExpression("dCorta", this.getDetachedCriteria());
 		dLarga = new StringExpression("dLarga", this.getDetachedCriteria());
+		fecha = new DateExpression("fecha", this.getDetachedCriteria());
 		vendeId = new IntegerExpression("vende.", this.getDetachedCriteria());
 		vende = new AssociationExpression("vende", this.getDetachedCriteria());
 		mapaId = new IntegerExpression("mapa.id_mapa", this.getDetachedCriteria());
@@ -164,10 +158,6 @@ public class CasaDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public MunicipioDetachedCriteria createMunicipioCriteria() {
 		return new MunicipioDetachedCriteria(createCriteria("municipio"));
-	}
-	
-	public FotoDetachedCriteria createFotoCriteria() {
-		return new FotoDetachedCriteria(createCriteria("ORM_Foto"));
 	}
 	
 	public ExtraDetachedCriteria createExtraCriteria() {

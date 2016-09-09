@@ -22,8 +22,6 @@ public class FotoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id_foto;
 	public final IntegerExpression casaId;
 	public final AssociationExpression casa;
-	public final IntegerExpression inmuebleId;
-	public final AssociationExpression inmueble;
 	public final StringExpression linkFoto;
 	
 	public FotoDetachedCriteria() {
@@ -31,8 +29,6 @@ public class FotoDetachedCriteria extends AbstractORMDetachedCriteria {
 		id_foto = new IntegerExpression("id_foto", this.getDetachedCriteria());
 		casaId = new IntegerExpression("casa.", this.getDetachedCriteria());
 		casa = new AssociationExpression("casa", this.getDetachedCriteria());
-		inmuebleId = new IntegerExpression("inmueble.id_Inmueble", this.getDetachedCriteria());
-		inmueble = new AssociationExpression("inmueble", this.getDetachedCriteria());
 		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 	}
 	
@@ -41,17 +37,11 @@ public class FotoDetachedCriteria extends AbstractORMDetachedCriteria {
 		id_foto = new IntegerExpression("id_foto", this.getDetachedCriteria());
 		casaId = new IntegerExpression("casa.", this.getDetachedCriteria());
 		casa = new AssociationExpression("casa", this.getDetachedCriteria());
-		inmuebleId = new IntegerExpression("inmueble.id_Inmueble", this.getDetachedCriteria());
-		inmueble = new AssociationExpression("inmueble", this.getDetachedCriteria());
 		linkFoto = new StringExpression("linkFoto", this.getDetachedCriteria());
 	}
 	
 	public CasaDetachedCriteria createCasaCriteria() {
 		return new CasaDetachedCriteria(createCriteria("casa"));
-	}
-	
-	public InmuebleDetachedCriteria createInmuebleCriteria() {
-		return new InmuebleDetachedCriteria(createCriteria("inmueble"));
 	}
 	
 	public Foto uniqueFoto(PersistentSession session) {

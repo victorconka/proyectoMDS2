@@ -12,17 +12,16 @@ public class ModificarVivienda extends ZonaDatosVivienda {
 	protected JButton volver;
 	
 	public ModificarVivienda() {
-		
 		setLayout(null);
 		setOpaque(false);
-		setSize(Utils.wGrande, Utils.hGrande);
+		setSize(500, 600);
 		
 		guardarCambios = new JButton("Guardar cambios");
-		guardarCambios.setBounds(241, 492, 150, 23);
+		guardarCambios.setBounds(241, 560, 150, 23);
 		add(guardarCambios);
 		
 		volver = new JButton("Volver");
-		volver.setBounds(70, 492, 89, 21);
+		volver.setBounds(80, 560, 89, 21);
 		add(volver);
 	}
 

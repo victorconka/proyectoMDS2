@@ -190,11 +190,11 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="CodigoPostal">
+    <Column name="Url">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
-      <Length>255</Length>
+      <Length>2000</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -250,22 +250,11 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="LinkFoto">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>27</Type>
-      <Length>255</Length>
-      <Nullable>true</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="Direccion">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
-      <Length>255</Length>
+      <Length>1024</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -297,23 +286,11 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="InmuebleId_Inmueble">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>bbdd_gestion.Inmueble.Id_Inmueble</ReferencedColumn>
-      <Type>9</Type>
-      <Length>11</Length>
-      <Nullable>true</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="LinkFoto">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
-      <Length>255</Length>
+      <Length>2000</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -441,7 +418,7 @@
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
-      <Length>255</Length>
+      <Length>2048</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -588,17 +565,6 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="LinkMapa">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>false</ForeignKey>
-      <Type>27</Type>
-      <Length>255</Length>
-      <Nullable>true</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="Estado">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
@@ -669,7 +635,18 @@
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
       <Type>27</Type>
-      <Length>255</Length>
+      <Length>1024</Length>
+      <Nullable>true</Nullable>
+      <IDGenerator>native</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="Fecha">
+      <PrimaryKey>false</PrimaryKey>
+      <ForeignKey>false</ForeignKey>
+      <Type>17</Type>
+      <Length>0</Length>
       <Nullable>true</Nullable>
       <IDGenerator>native</IDGenerator>
       <Unique>false</Unique>
@@ -847,16 +824,6 @@
     </Columns>
     <RefColumns>
       <Column>Id_provincia</Column>
-    </RefColumns>
-  </ForeignKey>
-  <ForeignKey name="FKFoto99812">
-    <ReferenceTable>Foto</ReferenceTable>
-    <ReferencedTable>Inmueble</ReferencedTable>
-    <Columns>
-      <Column>InmuebleId_Inmueble</Column>
-    </Columns>
-    <RefColumns>
-      <Column>Id_Inmueble</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKInmueble_E704924">

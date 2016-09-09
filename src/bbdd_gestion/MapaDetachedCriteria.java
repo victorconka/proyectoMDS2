@@ -22,7 +22,7 @@ public class MapaDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id_mapa;
 	public final StringExpression longitud;
 	public final StringExpression latitud;
-	public final StringExpression codigoPostal;
+	public final StringExpression url;
 	public final CollectionExpression casas;
 	
 	public MapaDetachedCriteria() {
@@ -30,7 +30,7 @@ public class MapaDetachedCriteria extends AbstractORMDetachedCriteria {
 		id_mapa = new IntegerExpression("id_mapa", this.getDetachedCriteria());
 		longitud = new StringExpression("longitud", this.getDetachedCriteria());
 		latitud = new StringExpression("latitud", this.getDetachedCriteria());
-		codigoPostal = new StringExpression("codigoPostal", this.getDetachedCriteria());
+		url = new StringExpression("url", this.getDetachedCriteria());
 		casas = new CollectionExpression("ORM_Casas", this.getDetachedCriteria());
 	}
 	
@@ -39,7 +39,7 @@ public class MapaDetachedCriteria extends AbstractORMDetachedCriteria {
 		id_mapa = new IntegerExpression("id_mapa", this.getDetachedCriteria());
 		longitud = new StringExpression("longitud", this.getDetachedCriteria());
 		latitud = new StringExpression("latitud", this.getDetachedCriteria());
-		codigoPostal = new StringExpression("codigoPostal", this.getDetachedCriteria());
+		url = new StringExpression("url", this.getDetachedCriteria());
 		casas = new CollectionExpression("ORM_Casas", this.getDetachedCriteria());
 	}
 	
