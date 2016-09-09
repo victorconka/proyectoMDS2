@@ -30,7 +30,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -57,26 +59,25 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
 		this.setDescripcion("Descripcion de " + c.getId_casa());
-		/*
 		PersistentTransaction t = null;
 	
 			try {
+
 				t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 				Registry r = LocateRegistry.getRegistry(1099);
 				//IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
 				
 				Casa c2 = bbdd_gestion.CasaDAO.createCasa();
+				c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(c.getId_Inmueble());
 				if(c2.fotos.size() > 0){
-					c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(c2.getId_casa());
 					bbdd_gestion.Foto f = (Foto) c2.fotos.getIterator().next();
 					this.setFoto(f.getLinkFoto());
 				}			
 				ProjectMDS2PersistentManager.instance().disposePersistentManager();		
 			} catch (PersistentException | RemoteException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
-			*/
+			
 		
 	}
 	protected Casa getCasa(){
@@ -95,14 +96,28 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.precio.setText(precio);
 	}
 	public void setFoto(String foto){
-		Image image = null;
+		this.remove(this.foto);
+		
+		Image im = null;
+		Image imScaled = null;
+		InputStream is = null;
+		
         try {
             URL url = new URL(foto);
-            image = ImageIO.read(url);
+            
+            URLConnection openConnection = url.openConnection();
+    		openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+    		is = openConnection.getInputStream();
+    		
+            im = ImageIO.read(is);
+            imScaled = im.getScaledInstance(80	, 80, Image.SCALE_SMOOTH);
         } catch (IOException e) {
         	e.printStackTrace();
         }
-        this.foto = new JLabel(new ImageIcon(image));
+
+        this.foto.setIcon(new ImageIcon(imScaled));
+  
+        this.add(this.foto);
 	}
 	
 	private JLabel getImageLabel(String location,int xSize, int ySize){

@@ -144,6 +144,7 @@ public class Casas {
 			c.setVisible(aVisible);
 			CasaDAO.save(c);
 			//guardamos las fotos
+			/*
 			if(aFotos != null && aFotos.length > 0){
 				bbdd_gestion.Foto photo;
 				for(String f : aFotos){
@@ -151,6 +152,21 @@ public class Casas {
 					photo.setLinkFoto(f);
 					photo.setCasa(c);
 					FotoDAO.save(photo);
+				}
+			}
+			*/
+			//guardamos fotos de nuevo
+			bbdd_gestion.Foto photo;
+			FotoCriteria fc;
+			HashSet<String> hs = new HashSet<String>(Arrays.asList(aFotos));
+			for(String f : hs){
+				fc = new FotoCriteria();
+				fc.linkFoto.eq(f);
+				if(f.trim().length() > 0){
+					photo = new bbdd_gestion.FotoDAO().createFoto();
+					photo.setLinkFoto(f);
+					FotoDAO.save(photo);
+					c.fotos.add(photo);
 				}
 			}
 			
@@ -355,12 +371,12 @@ public class Casas {
 			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
 			Casa c = bbdd_gestion.CasaDAO.getCasaByORMID(Integer.valueOf(aIdCasa));
 			
-			if(aDireccion != null){
+			if(aDireccion != null && aDireccion.trim().length() > 0){
 				c.setDireccion(aDireccion);
 				modificado = true;
 			}
 			
-			if(aCp != null){
+			if(aCp != null && aCp.trim().length() > 0){
 				bbdd_gestion.CodigoPostal cp = bbdd_gestion.CodigoPostalDAO.getCodigoPostalByORMID(Integer.valueOf(aCp));
 				if(cp!=null){
 					c.setCodigoPostal(cp);
@@ -373,7 +389,7 @@ public class Casas {
 				modificado = true;
 			}
 			
-			if(aProvincia != null){
+			if(aProvincia != null && aProvincia.trim().length() > 0){
 				ProvinciaCriteria pc = new ProvinciaCriteria();
 				pc.provincia.eq(aProvincia);
 				bbdd_gestion.Provincia p = bbdd_gestion.ProvinciaDAO.loadProvinciaByCriteria(pc);
@@ -388,7 +404,7 @@ public class Casas {
 				modificado = true;
 			}
 	
-			if(aMunicipio != null){
+			if(aMunicipio != null && aMunicipio.trim().length() > 0){
 				MunicipioCriteria mc = new MunicipioCriteria();
 				mc.municipio.eq(aMunicipio);
 				bbdd_gestion.Municipio m = bbdd_gestion.MunicipioDAO.loadMunicipioByCriteria(mc);
@@ -430,27 +446,27 @@ public class Casas {
 				
 			}
 	
-			if(aPrecio != null){
+			if(aPrecio != null && aPrecio.trim().length() > 0){
 				c.setPrecio(Double.valueOf(aPrecio));
 				modificado = true;
 			}
 	
-			if(aSuperficie != null){
+			if(aSuperficie != null && aSuperficie.trim().length() > 0){
 				c.setSuperficie(Double.valueOf(aSuperficie));
 				modificado = true;
 			}
 	
-			if(aHabitaciones != null){
+			if(aHabitaciones != null && aHabitaciones.trim().length() > 0){
 				c.setHabitaciones(Integer.valueOf(aHabitaciones));
 				modificado = true;
 			}
 	
-			if(aBanios != null){
+			if(aBanios != null && aBanios.trim().length() > 0){
 				c.setBanios(Integer.valueOf(aBanios));
 				modificado = true;
 			}
 	
-			if(aTipo != null){
+			if(aTipo != null && aTipo.trim().length() > 0){
 				c.setTipo(aTipo);
 				modificado = true;
 			}
@@ -493,12 +509,12 @@ public class Casas {
 				modificado = true;
 			}
 	
-			if(aEstado != null){
+			if(aEstado != null && aEstado.trim().length() > 0){
 				c.setEstado(aEstado);
 				modificado = true;
 			}
 	
-			if(aAccion != null){
+			if(aAccion != null && aAccion.trim().length() > 0){
 				c.setAccion(aAccion);
 				modificado = true;
 			}

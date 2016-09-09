@@ -50,7 +50,7 @@ public class ListaCasasComun extends JPanel {
 				c = casas[i];
 
 				DatosReducidos dr1 = new DatosReducidos();
-				dr1.setCasa(c);
+				//dr1.setCasa(c);
 				dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
 				dr1.setLocation(0,i*Utils.hDR);
 				dr1.setCasa(c);

@@ -30,7 +30,10 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -58,6 +61,7 @@ public class Foto extends JPanel {
     }
     public void setImages(String[] imgs){
     	this.list = imgs;
+    	this.goNext();
     }
     //Metodo para inicializar la lista de imagenes.
     public void initSlider(){   	
@@ -117,11 +121,8 @@ public class Foto extends JPanel {
 	        ImageIcon icon = new ImageIcon(list[i]);
 	        Image img = icon.getImage();
 	        if(list[i].contains("http")){
-	        	try {
-					img = ImageIO.read(new URL(list[i]));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+	        	//img = ImageIO.read(new URL(list[i]));
+				img = readImg(list[i]);
 	        }
 	        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 	        ImageIcon newImc = new ImageIcon(newImg);
@@ -133,18 +134,32 @@ public class Foto extends JPanel {
 	        ImageIcon icon = new ImageIcon(list[i]);
 	        Image img = icon.getImage();
 	        if(list[i].contains("http")){
-	        	try {
-					img = ImageIO.read(new URL(list[i]));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+	        	//img = ImageIO.read(new URL(list[i]));
+				img = readImg(list[i]);
 	        }
 	        Image newImg = img.getScaledInstance(pic.getWidth(), pic.getHeight(), Image.SCALE_SMOOTH);
 	        ImageIcon newImc = new ImageIcon(newImg);
 	        pic.setIcon(newImc);
     	}
     }
-    public void goPrevious(){
+    private Image readImg(String string) {
+    	Image im = null;
+		InputStream is = null;
+        try {
+            URL url = new URL(string);
+            
+            URLConnection openConnection = url.openConnection();
+    		openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+    		is = openConnection.getInputStream();
+    		
+            im = ImageIO.read(is);
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+
+		return im;
+	}
+	public void goPrevious(){
     	if(this.list.length > 0){
 	    	SetImageSize(curImg);
 	    	this.curImg = (curImg - 1) % this.list.length;
