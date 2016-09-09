@@ -99,7 +99,7 @@ public class Vivienda extends JPanel {
 			while(it.hasNext()){
 				foto = it.next();
 				link = foto.getLinkFoto();
-				if(!link.equals(null) || !link.equals("")){
+				if(!link.equals(null) || !link.equals("") || !link.equals(" ")){
 					ftsTA += link + "\n";
 				}
 			}

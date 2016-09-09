@@ -145,14 +145,18 @@ public class Foto extends JPanel {
     	}
     }
     public void goPrevious(){
-    	SetImageSize(curImg);
-    	this.curImg = (curImg - 1) % this.list.length;
-    	if(curImg == -1)
-    		curImg = this.list.length -1;
+    	if(this.list.length > 0){
+	    	SetImageSize(curImg);
+	    	this.curImg = (curImg - 1) % this.list.length;
+	    	if(curImg == -1)
+	    		curImg = this.list.length -1;
+    	}
     }
     
     public void goNext(){
-    	SetImageSize(curImg);
-    	this.curImg = (curImg + 1) % this.list.length;
+    	if(this.list.length > 0){
+	    	SetImageSize(curImg);
+	    	this.curImg = (curImg + 1) % this.list.length;
+    	}
     }
 }

@@ -12,9 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import bbdd.IUsuario;
-import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
-import bbdd_gestion.CasaDAO;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;

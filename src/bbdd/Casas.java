@@ -2,6 +2,7 @@ package bbdd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.orm.PersistentException;
@@ -351,9 +352,9 @@ public class Casas {
 		PersistentTransaction t = null;
 		
 		try {
-			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();	
-			
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
 			Casa c = bbdd_gestion.CasaDAO.getCasaByORMID(Integer.valueOf(aIdCasa));
+			
 			if(aDireccion != null){
 				c.setDireccion(aDireccion);
 				modificado = true;
@@ -402,31 +403,31 @@ public class Casas {
 				c.setMunicipio(m);
 				modificado = true;
 			}
-	
+			
 			if(aFotos != null){
-				//borramos todas las fotos
-				
-				FotoCriteria fc = new FotoCriteria();
-				fc.casa.equals(c);
-				
-				Foto[] fotos = FotoDAO.listFotoByCriteria(fc);
-				for(Foto f : fotos){
-					c.fotos.remove(f);
-					/*
-					f.setCasa(null);
-					bbdd_gestion.FotoDAO.delete(f);
-					*/
+				//borramos todas las fotos			
+				if(c.fotos.size() > 0){
+					Foto[] fotos = c.fotos.toArray();
+					for(Foto f : fotos){
+						FotoDAO.deleteAndDissociate(f);
+					}
 				}
-				
 				//guardamos fotos de nuevo
 				bbdd_gestion.Foto photo;
-				for(String f : aFotos){
-					photo = new bbdd_gestion.Foto();
-					photo.setLinkFoto(f);
-					photo.setCasa(c);
-					FotoDAO.save(photo);
+				FotoCriteria fc;
+				HashSet<String> hs = new HashSet<String>(Arrays.asList(aFotos));
+				for(String f : hs){
+					fc = new FotoCriteria();
+					fc.linkFoto.eq(f);
+					if(/*FotoDAO.listFotoByCriteria(fc).length == 0 &&*/ f.trim().length() > 0){
+						photo = new bbdd_gestion.FotoDAO().createFoto();
+						photo.setLinkFoto(f);
+						FotoDAO.save(photo);
+						c.fotos.add(photo);
+					}
 				}
 				modificado = true;
+				
 			}
 	
 			if(aPrecio != null){

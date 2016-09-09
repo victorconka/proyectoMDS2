@@ -9,8 +9,12 @@ import javax.swing.border.LineBorder;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
+import bbdd.IUsuario;
+import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
+import bbdd_gestion.Foto;
+import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRDAO;
 
@@ -18,11 +22,19 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 
 public class DatosReducidos extends ZonaBotonesComun {
@@ -45,6 +57,27 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
 		this.setDescripcion("Descripcion de " + c.getId_casa());
+		/*
+		PersistentTransaction t = null;
+	
+			try {
+				t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+				Registry r = LocateRegistry.getRegistry(1099);
+				//IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+				
+				Casa c2 = bbdd_gestion.CasaDAO.createCasa();
+				if(c2.fotos.size() > 0){
+					c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(c2.getId_casa());
+					bbdd_gestion.Foto f = (Foto) c2.fotos.getIterator().next();
+					this.setFoto(f.getLinkFoto());
+				}			
+				ProjectMDS2PersistentManager.instance().disposePersistentManager();		
+			} catch (PersistentException | RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+			*/
+		
 	}
 	protected Casa getCasa(){
 		return this.casa;
@@ -61,8 +94,15 @@ public class DatosReducidos extends ZonaBotonesComun {
 	public void setPrecio(String precio){
 		this.precio.setText(precio);
 	}
-	public void setFoto(){
-		//TODO CARGAR FOTO
+	public void setFoto(String foto){
+		Image image = null;
+        try {
+            URL url = new URL(foto);
+            image = ImageIO.read(url);
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+        this.foto = new JLabel(new ImageIcon(image));
 	}
 	
 	private JLabel getImageLabel(String location,int xSize, int ySize){

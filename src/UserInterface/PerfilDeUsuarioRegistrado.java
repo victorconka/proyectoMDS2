@@ -249,7 +249,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 					*/
 					String[] strFotos = null;;
 					//obtenemos las fotos
-					String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
+					String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^\\s*$[\n\r]{1,}", "");//("(?m)^[ \t]*\r?\n", "");
 					if(lvp.v.mv.fotosTA != null){
 						strFotos = aFotos.split("\\r?\\n");
 					}
