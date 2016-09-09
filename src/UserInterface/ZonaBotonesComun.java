@@ -42,6 +42,7 @@ public class ZonaBotonesComun extends JPanel {
 	}
 	
 	public ZonaBotonesComun() {
+
 		setBackground(Color.ORANGE);
 		setBorder(null);
 		setOpaque(false);

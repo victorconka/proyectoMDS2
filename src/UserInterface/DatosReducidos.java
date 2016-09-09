@@ -9,8 +9,6 @@ import javax.swing.border.LineBorder;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
-import bbdd.IUsuario;
-import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Foto;
@@ -28,12 +26,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -58,7 +54,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.setDireccion(c.getDireccion());
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
-		this.setDescripcion("Descripcion de " + c.getId_casa());
+		this.setDescripcion(c.getdCorta());
 		PersistentTransaction t = null;
 	
 			try {
@@ -87,10 +83,10 @@ public class DatosReducidos extends ZonaBotonesComun {
 		return this.casa.getORMID();
 	}
 	public void setDescripcion(String descripcion){
-		this.descripcionCorta.setText(descripcion);
+		this.descripcionCorta.setText("<html>" + descripcion + "</html>");
 	}
 	public void setDireccion(String direccion){
-		this.direccion.setText(direccion);
+		this.direccion.setText("<html>" + direccion + "</html>");
 	}
 	public void setPrecio(String precio){
 		this.precio.setText(precio);
@@ -243,14 +239,14 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.add(foto);
 		
 		descripcionCorta = new JLabel("Descripción corta");
-		descripcionCorta.setLocation(90, 11);
-		descripcionCorta.setSize(321, 14);
+		descripcionCorta.setLocation(85, 5);
+		descripcionCorta.setSize(175, 70);
 		add(descripcionCorta);
 		
 		direccion = new JLabel("Dirección");
 		direccion.setVerticalAlignment(SwingConstants.TOP);
-		direccion.setLocation(91, 34);
-		direccion.setSize(168, 35);
+		direccion.setLocation(265, 0);
+		direccion.setSize(180, 30);
 		add(direccion);
 		
 		precio = new JLabel("€");

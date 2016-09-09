@@ -117,11 +117,12 @@ public class Vivienda extends JPanel {
 			
 			//tipo
 			String tipo = casa.getTipo();
-			if(casa.equals("Apartamento")){
+			if(casa.getTipo().equals("Apartamento")){
 				mv.tipoCB.setSelectedIndex(0);
-			}else if(casa.equals("Piso")){
+			}else if(casa.getTipo().equals("Piso")){
 				mv.tipoCB.setSelectedIndex(1);
 			}else{
+				System.out.println("estoy entrando en else");
 				mv.tipoCB.setSelectedIndex(2);
 			}
 			mv.aaTipo = casa.getTipo();
@@ -161,6 +162,8 @@ public class Vivienda extends JPanel {
 
 			if(casa.getAccion().equals("Alquilar")){
 				mv.acciónCB.setSelectedIndex(1);
+			}else{
+				mv.acciónCB.setSelectedIndex(0);
 			}
 			mv.aaAccion = casa.getAccion();
 			

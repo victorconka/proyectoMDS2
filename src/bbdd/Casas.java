@@ -139,8 +139,21 @@ public class Casas {
 			c.setAccion(aAccion);
 			c.setMapa(ma);
 			//c.setVisible("Disponible");
-			c.setdCorta(aDCorta.substring(0, 255));
-			c.setdLarga(aDLarga.substring(0, 1024));
+			
+			if(aDCorta != null){
+				if(aDCorta.length() > 150){
+					aDCorta = aDCorta.substring(0, 150);
+				}
+				c.setdCorta(aDCorta);
+			}
+			
+			if(aDLarga != null){
+				if(aDLarga.length()>1023){
+					aDLarga = aDLarga.substring(0, 1023);
+				}
+				c.setdLarga(aDLarga);
+			}
+			
 			c.setVisible(aVisible);
 			CasaDAO.save(c);
 			//guardamos las fotos
@@ -528,12 +541,18 @@ public class Casas {
 			}
 			
 			if(aDCorta != null){
-				c.setdCorta(aDCorta.substring(0, 255));
+				if(aDCorta.length() > 150){
+					aDCorta = aDCorta.substring(0, 150);
+				}
+				c.setdCorta(aDCorta);
 				modificado = true;
 			}
 			
 			if(aDLarga != null){
-				c.setdLarga(aDLarga.substring(0, 1024));
+				if(aDLarga.length()>1023){
+					aDLarga = aDLarga.substring(0, 1023);
+				}
+				c.setdLarga(aDLarga);
 				modificado = true;
 			}
 			
