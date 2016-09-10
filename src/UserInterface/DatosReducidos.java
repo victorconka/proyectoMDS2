@@ -51,7 +51,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 	protected void setCasa(Casa c){
 		this.casa = c;
 		this.setPrecio(String.valueOf(c.getPrecio()));
-		this.setDireccion(c.getDireccion());
+		this.setDireccion(c.getDireccion() + ", " + c.getMunicipio().getMunicipio());
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
 		this.setDescripcion(c.getdCorta());
