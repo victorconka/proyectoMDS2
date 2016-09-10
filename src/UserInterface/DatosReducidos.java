@@ -107,6 +107,7 @@ public class DatosReducidos extends ZonaBotonesComun {
     		
             im = ImageIO.read(is);
             imScaled = im.getScaledInstance(80	, 80, Image.SCALE_SMOOTH);
+            is.close();
         } catch (IOException e) {
         	e.printStackTrace();
         }

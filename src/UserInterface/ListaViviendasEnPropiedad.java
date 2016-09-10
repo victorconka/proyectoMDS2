@@ -102,7 +102,8 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 					for(Component c: getParent().getComponents())
 						c.setVisible(false);
 					esconder();
-					panel.setOpaque(true);
+					//panel.setOpaque(true);
+					panel.setVisible(false);
 					setVisible(true);
 					v.setVisible(true);
 					Utils.idCasa = map.get(e.getSource()).getORMID();

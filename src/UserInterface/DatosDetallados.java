@@ -111,6 +111,7 @@ public class DatosDetallados extends JPanel{
 			this.visto.setText(String.valueOf(c.getNumVisitas()));
 			this.fav.setText(String.valueOf(c.getNumFavoritos()));
 			this.estado.setText("<html>" + c.getEstado() + "</html>");
+			this.mapa.loadMapa(c.getMapa().getLongitud(), c.getMapa().getLatitud());
 			
 			int visto = c.getNumVisitas();
 			visto++;
