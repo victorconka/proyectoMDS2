@@ -40,7 +40,7 @@ public class Estado extends JPanel {
 				}
 			}
 		});
-		modificarEstado.setBounds(229, 267, 142, 28);
+		modificarEstado.setBounds(217, 267, 175, 28);
 		
 		add(modificarEstado);
 		
