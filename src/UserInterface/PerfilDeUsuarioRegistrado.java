@@ -293,15 +293,17 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				
+
 				for(Component c: lvp.v.getComponents())
-					c.setVisible(true);
+					c.setVisible(true);	
+				
 				UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio, Utils.hMedio);
 				setSize(Utils.wMedio, Utils.hMedio);
-				lvp.setSize(Utils.wMedio, Utils.hMedio);
+				//lvp.setSize(Utils.wMedio, Utils.hMedio);
 				lvp.v.setSize(Utils.wMedio, Utils.hMedio);
 				lvp.v.mv.setVisible(false);
 				lvp.cagarDatos();
+
 			}
 		});
 		
@@ -332,6 +334,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				for(Component c: lvp.v.getComponents())
 					c.setVisible(true);
+				
 				UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio, Utils.hMedio);
 				setSize(Utils.wMedio, Utils.hMedio);
 				lvp.setSize(Utils.wMedio, Utils.hMedio);
@@ -349,6 +352,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		setSize(Utils.wMedio+15, Utils.hMedio);
 		for (Component c: getComponents())
 			c.setVisible(true);
+		lvp.panel.setVisible(true);
 		mp.setVisible(false);
 		danv.setVisible(false);
 		lf.setVisible(false);

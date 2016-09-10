@@ -9,14 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
-import org.orm.PersistentException;
-
-import bbdd_gestion.CasaCriteria;
-
 import javax.swing.ImageIcon;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import javax.swing.DefaultComboBoxModel;
 
 public class PrimerFiltroComun extends JPanel{
