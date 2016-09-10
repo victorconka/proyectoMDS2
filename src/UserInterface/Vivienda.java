@@ -3,6 +3,7 @@ package UserInterface;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.swing.AbstractListModel;
@@ -63,9 +64,10 @@ public class Vivienda extends JPanel {
 			
 			
 			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
-			Casa casa = CasaDAO.getCasaByORMID(Utils.idCasa); 
+			Casa casa = CasaDAO.getCasaByORMID(Utils.idCasa);
 			//estado es el estado de la visibilidad
 			e.estadoCB.setSelectedIndex(casa.getVisible().equals("si")?0:1);
+			mv.aaVisible = casa.getVisible();
 			lui.usuariosL.setModel(new AbstractListModel<String>() {
 				String[] values = iu.cargarUsuariosInteresados(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
 				public int getSize() {
@@ -81,9 +83,13 @@ public class Vivienda extends JPanel {
 			});
 			//cargamos los datos en la pantalla de modificar vivienda
 			mv.direccion.setText(casa.getDireccion());
+			mv.aaDireccion = casa.getDireccion();
 			mv.municipioTF.setText(casa.getMunicipio().getMunicipio());
+			mv.aaMunicipio = casa.getMunicipio().getMunicipio();
 			mv.provinciaTF.setText(casa.getProvincia().getProvincia());
+			mv.aaProvincia = casa.getProvincia().getProvincia();
 			mv.cpTF.setText(casa.getCodigoPostal().getCodigo_postal());
+			mv.aaCp = casa.getCodigoPostal().getCodigo_postal();
 			
 			//fotos se han de insertar con un bucle
 			Iterator<bbdd_gestion.Foto> it = casa.fotos.getIterator();
@@ -93,28 +99,45 @@ public class Vivienda extends JPanel {
 			while(it.hasNext()){
 				foto = it.next();
 				link = foto.getLinkFoto();
-				if(!link.equals(null) || !link.equals("")){
+				if(!link.equals(null) || !link.equals("") || !link.equals(" ")){
 					ftsTA += link + "\n";
 				}
 			}
 			
 			mv.fotosTA.setText(ftsTA);
+			mv.aaFotos = ftsTA;
 			mv.precioTF.setText(String.valueOf(casa.getPrecio()));
+			mv.aaPrecio = String.valueOf(casa.getPrecio());
 			mv.superficieTF.setText(String.valueOf(casa.getSuperficie()));
+			mv.aaSuperficie = String.valueOf(casa.getSuperficie());
 			mv.numeroHabitacionesTF.setText(String.valueOf(casa.getHabitaciones()));
+			mv.aaNHab = String.valueOf(casa.getHabitaciones());
 			mv.numeroBañosTF.setText(String.valueOf(casa.getBanios()));
+			mv.aaNBanios = String.valueOf(casa.getBanios());
 			
 			//tipo
 			String tipo = casa.getTipo();
-			if(casa.equals("Apartamento")){
+			if(casa.getTipo().equals("Apartamento")){
 				mv.tipoCB.setSelectedIndex(0);
-			}else if(casa.equals("Piso")){
+			}else if(casa.getTipo().equals("Piso")){
 				mv.tipoCB.setSelectedIndex(1);
 			}else{
+				System.out.println("estoy entrando en else");
 				mv.tipoCB.setSelectedIndex(2);
 			}
+			mv.aaTipo = casa.getTipo();
 			
 			//extras
+			//mv.aaExtras = Arrays.toString(casa.extra.toArray());
+			Iterator<bbdd_gestion.Extra> it3 = casa.extra.getIterator();
+			String[] exts = new String[casa.extra.size()];
+			int i = 0;
+			while(it3.hasNext()){
+				exts[i] = it3.next().getNombreExtra();
+				i++;
+			}
+			mv.aaExtras = Arrays.toString(exts);
+			
 			ArrayList<String> al = new ArrayList<String>();
 			Iterator<Extra> ite = casa.extra.getIterator();
 			Extra e = bbdd_gestion.ExtraDAO.createExtra();
@@ -135,15 +158,23 @@ public class Vivienda extends JPanel {
 			if(!estado.equals("Segunda mano")){
 				mv.estadoCB.setSelectedIndex(1);
 			}
-			
+			mv.aaEstado = casa.getEstado();
+
 			if(casa.getAccion().equals("Alquilar")){
 				mv.acciónCB.setSelectedIndex(1);
+			}else{
+				mv.acciónCB.setSelectedIndex(0);
 			}
+			mv.aaAccion = casa.getAccion();
 			
 			mv.mapaUrlTF.setText(casa.getMapa().getUrl());
+			mv.aaMapa = casa.getMapa().getUrl();
 			mv.dCortaTF.setText(casa.getdCorta());
+			mv.aaDCorta = casa.getdCorta();
 			mv.dLargaTF.setText(casa.getdLarga());
-			
+			mv.aaDLarga =casa.getdLarga();
+			mv.visibleCB.setSelected(casa.getVisible().equals("si")?true : false);
+			mv.aaVisible = casa.getVisible();
 			//t.commit();
 			ProjectMDS2PersistentManager.instance().disposePersistentManager();
 		} catch (Exception e) {

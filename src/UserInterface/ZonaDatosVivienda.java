@@ -56,6 +56,7 @@ public class ZonaDatosVivienda extends LinkExternos {
 	protected JTextField mapaUrlTF;
 	protected JTextField dCortaTF;
 	protected JTextField dLargaTF;
+	protected JCheckBox visibleCB;
 
 	public ZonaDatosVivienda() {
 		setOpaque(false);
@@ -262,7 +263,7 @@ public class ZonaDatosVivienda extends LinkExternos {
 		visibleL.setBounds(29, 525, 233, 14);
 		add(visibleL);
 		
-		JCheckBox visibleCB = new JCheckBox();
+		visibleCB = new JCheckBox();
 		visibleCB.setToolTipText("\u00BFHacer la vivienda visible para las busquedas ?");
 		visibleCB.setBounds(370, 522, 21, 21);
 		visibleCB.setText("Trastero");

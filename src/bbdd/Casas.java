@@ -2,6 +2,7 @@ package bbdd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import org.orm.PersistentException;
@@ -14,15 +15,20 @@ import bbdd_gestion.CasaDAO;
 import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
 import bbdd_gestion.Extra;
+import bbdd_gestion.ExtraCriteria;
 import bbdd_gestion.ExtraDAO;
+import bbdd_gestion.Foto;
+import bbdd_gestion.FotoCriteria;
 import bbdd_gestion.FotoDAO;
 import bbdd_gestion.Mapa;
 import bbdd_gestion.MapaCriteria;
 import bbdd_gestion.MapaDAO;
 import bbdd_gestion.Municipio;
+import bbdd_gestion.MunicipioCriteria;
 import bbdd_gestion.MunicipioDAO;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.Provincia;
+import bbdd_gestion.ProvinciaCriteria;
 import bbdd_gestion.ProvinciaDAO;
 import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRCriteria;
@@ -32,7 +38,9 @@ public class Casas {
 	public BDPrincipal _bd_prin_casas;
 	public Casa[] _conts_casa = new Casa[0];
 
-	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException{
+	public boolean registrarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, 
+			String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, 
+			String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException{
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;
@@ -101,7 +109,6 @@ public class Casas {
 			//-----------------------------------------------------------------------
 			//--------EXTRAS
 			if(aExtras != null && aExtras.length > 0){
-				ArrayList<Extra> el = new ArrayList<Extra>();
 				Extra e = null;
 				for(String s : aExtras){
 					e = ExtraDAO.createExtra();
@@ -122,7 +129,6 @@ public class Casas {
 					}
 					//en cualquier caso añadimos extra
 					//simplemente aniadir
-					el.add(e);
 					c.extra.add(e);
 				}
 			}
@@ -133,11 +139,25 @@ public class Casas {
 			c.setAccion(aAccion);
 			c.setMapa(ma);
 			//c.setVisible("Disponible");
-			c.setdCorta(aDCorta);
-			c.setdLarga(aDLarga);
+			
+			if(aDCorta != null){
+				if(aDCorta.length() > 150){
+					aDCorta = aDCorta.substring(0, 150);
+				}
+				c.setdCorta(aDCorta);
+			}
+			
+			if(aDLarga != null){
+				if(aDLarga.length()>1023){
+					aDLarga = aDLarga.substring(0, 1023);
+				}
+				c.setdLarga(aDLarga);
+			}
+			
 			c.setVisible(aVisible);
 			CasaDAO.save(c);
 			//guardamos las fotos
+			/*
 			if(aFotos != null && aFotos.length > 0){
 				bbdd_gestion.Foto photo;
 				for(String f : aFotos){
@@ -145,6 +165,21 @@ public class Casas {
 					photo.setLinkFoto(f);
 					photo.setCasa(c);
 					FotoDAO.save(photo);
+				}
+			}
+			*/
+			//guardamos fotos de nuevo
+			bbdd_gestion.Foto photo;
+			FotoCriteria fc;
+			HashSet<String> hs = new HashSet<String>(Arrays.asList(aFotos));
+			for(String f : hs){
+				fc = new FotoCriteria();
+				fc.linkFoto.eq(f);
+				if(f.trim().length() > 0){
+					photo = new bbdd_gestion.FotoDAO().createFoto();
+					photo.setLinkFoto(f);
+					FotoDAO.save(photo);
+					c.fotos.add(photo);
 				}
 			}
 			
@@ -319,7 +354,226 @@ public class Casas {
 		return b;
 	}
 
-	public boolean modificarVivienda(String aDireccion, String aMunicipio, String aProvincia, String aCp, String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException {
+	public boolean modificarVivienda(String aIdCasa, String aDireccion, String aMunicipio, String aProvincia, String aCp, 
+			String[] aFotos, String aPrecio, String aSuperficie, String aHabitaciones, String aBanios, String aTipo, 
+			String[] aExtras, String aEstado, String aAccion, String aMapa, String aDCorta, String aDLarga, String aVisible)   throws PersistentException {
+		/*
+		System.out.println("idCasa>" + aIdCasa + "<");
+		System.out.println("direccion>" + aDireccion + "<");
+		System.out.println("municipio>" + aMunicipio + "<");
+		System.out.println("provincia>" + aProvincia + "<");
+		System.out.println("cp>" + aCp + "<");
+		System.out.println("fotos>" + Arrays.toString(aFotos) + "<");
+		System.out.println("precio>" + aPrecio + "<");
+		System.out.println("sup>" + aSuperficie + "<");
+		System.out.println("hab>" + aHabitaciones + "<");
+		System.out.println("ban>" + aBanios + "<");
+		System.out.println("tipo>" + aTipo + "<");
+		System.out.println("extras>" + Arrays.toString(aExtras) + "<");
+		System.out.println("estado>" + aEstado + "<");
+		System.out.println("accion>" + aAccion + "<");
+		System.out.println("mapa>" + aMapa + "<");
+		System.out.println("corta>" + aDCorta + "<");
+		System.out.println("larga>" + aDLarga + "<");
+		System.out.println("vsible>" + aVisible + "<");
+		*/
+		boolean modificado = false;
+		PersistentTransaction t = null;
+		
+		try {
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
+			Casa c = bbdd_gestion.CasaDAO.getCasaByORMID(Integer.valueOf(aIdCasa));
+			
+			if(aDireccion != null && aDireccion.trim().length() > 0){
+				c.setDireccion(aDireccion);
+				modificado = true;
+			}
+			
+			if(aCp != null && aCp.trim().length() > 0){
+				bbdd_gestion.CodigoPostal cp = bbdd_gestion.CodigoPostalDAO.getCodigoPostalByORMID(Integer.valueOf(aCp));
+				if(cp!=null){
+					c.setCodigoPostal(cp);
+				}else{
+					cp = bbdd_gestion.CodigoPostalDAO.createCodigoPostal();
+					cp.setCodigo_postal(aCp);
+					bbdd_gestion.CodigoPostalDAO.save(cp);
+				}
+				c.setCodigoPostal(cp);
+				modificado = true;
+			}
+			
+			if(aProvincia != null && aProvincia.trim().length() > 0){
+				ProvinciaCriteria pc = new ProvinciaCriteria();
+				pc.provincia.eq(aProvincia);
+				bbdd_gestion.Provincia p = bbdd_gestion.ProvinciaDAO.loadProvinciaByCriteria(pc);
+				if(p!=null){
+					c.setProvincia(p);
+				}else{
+					p = bbdd_gestion.ProvinciaDAO.createProvincia();
+					p.setProvincia(aProvincia);
+					bbdd_gestion.ProvinciaDAO.save(p);
+				}
+				c.setProvincia(p);
+				modificado = true;
+			}
+	
+			if(aMunicipio != null && aMunicipio.trim().length() > 0){
+				MunicipioCriteria mc = new MunicipioCriteria();
+				mc.municipio.eq(aMunicipio);
+				bbdd_gestion.Municipio m = bbdd_gestion.MunicipioDAO.loadMunicipioByCriteria(mc);
+				if(m!=null){
+					c.setMunicipio(m);
+				}else{
+					m = bbdd_gestion.MunicipioDAO.createMunicipio();
+					m.setMunicipio(aMunicipio);
+					bbdd_gestion.MunicipioDAO.save(m);
+				}
+				m.setPertenece(c.getProvincia());
+				c.setMunicipio(m);
+				modificado = true;
+			}
+			
+			if(aFotos != null){
+				//borramos todas las fotos			
+				if(c.fotos.size() > 0){
+					Foto[] fotos = c.fotos.toArray();
+					for(Foto f : fotos){
+						FotoDAO.deleteAndDissociate(f);
+					}
+				}
+				//guardamos fotos de nuevo
+				bbdd_gestion.Foto photo;
+				FotoCriteria fc;
+				HashSet<String> hs = new HashSet<String>(Arrays.asList(aFotos));
+				for(String f : hs){
+					fc = new FotoCriteria();
+					fc.linkFoto.eq(f);
+					if(/*FotoDAO.listFotoByCriteria(fc).length == 0 &&*/ f.trim().length() > 0){
+						photo = new bbdd_gestion.FotoDAO().createFoto();
+						photo.setLinkFoto(f);
+						FotoDAO.save(photo);
+						c.fotos.add(photo);
+					}
+				}
+				modificado = true;
+				
+			}
+	
+			if(aPrecio != null && aPrecio.trim().length() > 0){
+				c.setPrecio(Double.valueOf(aPrecio));
+				modificado = true;
+			}
+	
+			if(aSuperficie != null && aSuperficie.trim().length() > 0){
+				c.setSuperficie(Double.valueOf(aSuperficie));
+				modificado = true;
+			}
+	
+			if(aHabitaciones != null && aHabitaciones.trim().length() > 0){
+				c.setHabitaciones(Integer.valueOf(aHabitaciones));
+				modificado = true;
+			}
+	
+			if(aBanios != null && aBanios.trim().length() > 0){
+				c.setBanios(Integer.valueOf(aBanios));
+				modificado = true;
+			}
+	
+			if(aTipo != null && aTipo.trim().length() > 0){
+				c.setTipo(aTipo);
+				modificado = true;
+			}
+	
+			if(aExtras != null){
+				//borramos todos los extras
+				ExtraCriteria ec = new ExtraCriteria();
+				ec.inmueble.equals(c);
+				Extra[] el = ExtraDAO.listExtraByCriteria(ec);
+				
+				for(Extra ex : el){
+					c.extra.remove(ex);
+				}
+				
+				
+				//los insertamos de nuevo
+				Extra e = null;
+				for(String s : aExtras){
+					e = ExtraDAO.createExtra();
+					e = ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
+					//si extra no existe crearlo
+					if(e == null){					
+						//crear en la bbdd y añadir
+						e = ExtraDAO.createExtra();
+						e.setNombreExtra(s);
+						//guardamos extra nuevo
+						ExtraDAO.save(e);
+						//hacemos commit
+						//t.commit();
+						//reiniciar transaccion
+						//t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+						//cargamos dicho extra en el array
+						e = ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
+					}
+					//en cualquier caso añadimos extra
+					//simplemente aniadir
+					c.extra.add(e);
+				}
+				
+				modificado = true;
+			}
+	
+			if(aEstado != null && aEstado.trim().length() > 0){
+				c.setEstado(aEstado);
+				modificado = true;
+			}
+	
+			if(aAccion != null && aAccion.trim().length() > 0){
+				c.setAccion(aAccion);
+				modificado = true;
+			}
+			
+			if(aMapa != null){
+				Mapa m = MapaDAO.createMapa();
+				m.setUrl(aMapa);
+				MapaDAO.save(m);
+				c.setMapa(m);
+				modificado = true;
+			}
+			
+			if(aDCorta != null){
+				if(aDCorta.length() > 150){
+					aDCorta = aDCorta.substring(0, 150);
+				}
+				c.setdCorta(aDCorta);
+				modificado = true;
+			}
+			
+			if(aDLarga != null){
+				if(aDLarga.length()>1023){
+					aDLarga = aDLarga.substring(0, 1023);
+				}
+				c.setdLarga(aDLarga);
+				modificado = true;
+			}
+			
+			if(aVisible != null){
+				c.setVisible(aVisible);
+				modificado = true;
+			}
+			
+			if(modificado){
+				bbdd_gestion.CasaDAO.save(c);
+			}
+		t.commit();
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
+		return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			t.rollback();
+		}
+		ProjectMDS2PersistentManager.instance().disposePersistentManager();
+	
+		/*
 		Casa c = null;
 		Municipio m = null;
 		Provincia p = null;
@@ -369,8 +623,8 @@ public class Casas {
 			ma = MapaDAO.createMapa();						
 			/*
 			 * asignar mapa, extraer coordenadas de google maps
-			 * */
-			
+			*/
+			/*
 			c = CasaDAO.createCasa();
 			c.setDireccion(aDireccion);
 			c.setMunicipio(m);
@@ -426,6 +680,7 @@ public class Casas {
 			t.rollback();
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
+		*/
 		return false;
 	}
 

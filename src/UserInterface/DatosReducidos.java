@@ -11,6 +11,8 @@ import org.orm.PersistentTransaction;
 
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
+import bbdd_gestion.Foto;
+import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRDAO;
 
@@ -18,11 +20,19 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 
 public class DatosReducidos extends ZonaBotonesComun {
@@ -44,7 +54,27 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.setDireccion(c.getDireccion());
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
-		this.setDescripcion("Descripcion de " + c.getId_casa());
+		this.setDescripcion(c.getdCorta());
+		PersistentTransaction t = null;
+	
+			try {
+
+				t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+				Registry r = LocateRegistry.getRegistry(1099);
+				//IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+				
+				Casa c2 = bbdd_gestion.CasaDAO.createCasa();
+				c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(c.getId_Inmueble());
+				if(c2.fotos.size() > 0){
+					bbdd_gestion.Foto f = (Foto) c2.fotos.getIterator().next();
+					this.setFoto(f.getLinkFoto());
+				}			
+				ProjectMDS2PersistentManager.instance().disposePersistentManager();		
+			} catch (PersistentException | RemoteException e) {
+				e.printStackTrace();
+			}	
+			
+		
 	}
 	protected Casa getCasa(){
 		return this.casa;
@@ -53,16 +83,37 @@ public class DatosReducidos extends ZonaBotonesComun {
 		return this.casa.getORMID();
 	}
 	public void setDescripcion(String descripcion){
-		this.descripcionCorta.setText(descripcion);
+		this.descripcionCorta.setText("<html>" + descripcion + "</html>");
 	}
 	public void setDireccion(String direccion){
-		this.direccion.setText(direccion);
+		this.direccion.setText("<html>" + direccion + "</html>");
 	}
 	public void setPrecio(String precio){
 		this.precio.setText(precio);
 	}
-	public void setFoto(){
-		//TODO CARGAR FOTO
+	public void setFoto(String foto){
+		this.remove(this.foto);
+		
+		Image im = null;
+		Image imScaled = null;
+		InputStream is = null;
+		
+        try {
+            URL url = new URL(foto);
+            
+            URLConnection openConnection = url.openConnection();
+    		openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+    		is = openConnection.getInputStream();
+    		
+            im = ImageIO.read(is);
+            imScaled = im.getScaledInstance(80	, 80, Image.SCALE_SMOOTH);
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+
+        this.foto.setIcon(new ImageIcon(imScaled));
+  
+        this.add(this.foto);
 	}
 	
 	private JLabel getImageLabel(String location,int xSize, int ySize){
@@ -188,14 +239,14 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.add(foto);
 		
 		descripcionCorta = new JLabel("Descripción corta");
-		descripcionCorta.setLocation(90, 11);
-		descripcionCorta.setSize(321, 14);
+		descripcionCorta.setLocation(85, 5);
+		descripcionCorta.setSize(175, 70);
 		add(descripcionCorta);
 		
 		direccion = new JLabel("Dirección");
 		direccion.setVerticalAlignment(SwingConstants.TOP);
-		direccion.setLocation(91, 34);
-		direccion.setSize(168, 35);
+		direccion.setLocation(265, 0);
+		direccion.setSize(180, 30);
 		add(direccion);
 		
 		precio = new JLabel("€");
