@@ -6,6 +6,8 @@ import javax.swing.JScrollPane;
 import java.awt.EventQueue;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -40,7 +42,6 @@ public class ListaCasasComun extends JPanel {
 			//-------------------------------------------------------------------
 			if(casas != null)
 				nResults = casas.length;   
-			//System.out.println(nResults);
 
 			cargarPanel();
 
@@ -49,9 +50,7 @@ public class ListaCasasComun extends JPanel {
 			for(int i = 0;i < nResults; i++)
 			{
 				c = casas[i];
-
 				DatosReducidos dr1 = new DatosReducidos();
-				//dr1.setCasa(c);
 				dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
 				dr1.setLocation(0,i*Utils.hDR);
 				dr1.setCasa(c);
@@ -64,7 +63,55 @@ public class ListaCasasComun extends JPanel {
 		}
 
 	}
+	/*
+	 * valores entrada [0,7]
+	 * */
+	public void ordenar(int n){
+		Comparator<bbdd_gestion.Casa> comp = null;
+		
+		switch(n){
+		case 0: 
+			comp = new OrdenarLccFechaG();
+			break;
+		case 1: 
+			comp = new OrdenarLccFechaL();
+			break;
+        case 2: 
+        	comp = new OrdenarLccPrecioG();
+        	break;
+        case 3: 
+        	comp = new OrdenarLccPrecioL();
+        	break;
+        case 4: 
+        	comp = new OrdenarLccHabG();
+        	break;
+        case 5: 
+        	comp = new OrdenarLccHabL();
+        	break;
+        case 6: 
+        	comp = new OrdenarLccSupG();
+        	break;
+        case 7: 
+        	comp = new OrdenarLccSupL();
+        	break;
+		}
+		
+		Arrays.sort(this.casas, comp);
+		System.out.println(Arrays.toString(this.casas));	
+		cargarPanel();
+		Casa c = null;
+		//Ahora toca agregar nuestros resultados de busqueda al panel
+		for(int i = 0;i < this.casas.length; i++)
+		{
+			c = this.casas[i];
+			DatosReducidos dr1 = new DatosReducidos();
+			dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
+			dr1.setLocation(0,i*Utils.hDR);
+			dr1.setCasa(c);
+			panel.add(dr1);
 
+		} 
+	}
 	private void cargarPanel() {
 		panel.removeAll();
 		panel.revalidate();
@@ -124,6 +171,7 @@ public class ListaCasasComun extends JPanel {
 	/**
 	 * un pequeño lanzador
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -143,4 +191,5 @@ public class ListaCasasComun extends JPanel {
 			}
 		});
 	}
+	*/
 }

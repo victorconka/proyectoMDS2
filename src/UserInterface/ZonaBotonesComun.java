@@ -40,9 +40,7 @@ public class ZonaBotonesComun extends JPanel {
 	public void setNumVisto(String numVisto){
 		this.numVistoL.setText(numVisto);
 	}
-	public void setCasa(Casa c){
-		this.casa = c;
-	}
+
 	public ZonaBotonesComun() {
 
 		setBackground(Color.ORANGE);
