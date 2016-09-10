@@ -46,7 +46,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 	private JLabel precio;
 	private JLabel foto;
 	public JButton datosDetallados;
-
+	private boolean auxiliar;
 	
 	protected void setCasa(Casa c){
 		this.casa = c;
@@ -137,7 +137,19 @@ public class DatosReducidos extends ZonaBotonesComun {
 		frame.setBounds(200, 200, Utils.wMedio+15, Utils.wMedio);
 		frame.add(dd);
 		frame.add(mensaje);
+		auxiliar = false;
 		
+		mensaje.volverB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mensaje.setVisible(false);
+				if (auxiliar)
+					dd.setVisible(true);
+				else {
+					frame.dispose();
+					frame.setVisible(false);
+				}
+			}
+		});
 		
 		casa = CasaDAO.createCasa();
 		setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -217,20 +229,23 @@ public class DatosReducidos extends ZonaBotonesComun {
 				//getParent().setVisible(true);
 				frame.dispose();
 				frame.setVisible(false);
+				auxiliar = false;
 			}
 		});
 		dd.cita.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//getParent().setVisible(true);
-				frame.dispose();
-				frame.setVisible(false);
+				if (Utils.id == 0) 
+					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
+				else
+					mostrarMensaje("Solicitud de cita");
 			}
 		});
 		dd.contactar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//getParent().setVisible(true);
-				frame.dispose();
-				frame.setVisible(false);
+				if (Utils.id == 0) 
+					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
+				else
+					mostrarMensaje("Solicitud de información");
 			}
 		});
 		
@@ -262,6 +277,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		dd.setVisible(true);
 		dd.cargarDatosVivienda(casa);		
 		//dd.setBounds(0, 0, Utils.hMedio,  Utils.wGrande);
+		auxiliar = true;
 		
 	}
 	
@@ -271,6 +287,10 @@ public class DatosReducidos extends ZonaBotonesComun {
 		dd.setVisible(false);
 		mensaje.asuntoTF.setText(string);
 		Utils.idCasa = this.getCasaId();
+		if (this.casa.getAlquila() != null)
+			mensaje.paraTF.setText(this.casa.getAlquila().getCorreo());
+		else
+			mensaje.paraTF.setText(this.casa.getVende().getCorreo());
 	}
 	
 	private class SwingAction extends AbstractAction {
