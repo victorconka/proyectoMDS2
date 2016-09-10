@@ -153,6 +153,7 @@ public class Foto extends JPanel {
     		is = openConnection.getInputStream();
     		
             im = ImageIO.read(is);
+            is.close();
         } catch (IOException e) {
         	e.printStackTrace();
         }

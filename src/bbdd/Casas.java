@@ -182,17 +182,37 @@ public class Casas {
 					c.fotos.add(photo);
 				}
 			}
-			
+			/*
 			MapaCriteria mac = new MapaCriteria();
 			mac.url.eq(aMapa);
 			ma=bbdd_gestion.MapaDAO.loadMapaByCriteria(mac);
 			if(ma!=null){
 				ma.casas.add(c);
 			}else{
+			*/
 				ma = MapaDAO.createMapa();		
 				ma.setUrl(aMapa);
-				
+				//calculamos la longitud y latitud
+				//nos aseguramos que el mapa contiene long/lat
+				if(aMapa.contains("@")){
+					String[] splitURL = aMapa.split("/");
+					String[] splitXYZ;
+
+					for(String f : splitURL){
+						if(f.contains("@")){
+							f = f.replace("@", "");
+							if(f.contains("z"))
+								f = f.replace("z", "");
+							splitXYZ = f.split(",");
+							ma.setLongitud(splitXYZ[0]);
+							ma.setLatitud(splitXYZ[1]);
+							break;
+						}
+					}
+				}	
+				/*
 			}
+		*/
 			ma.casas.add(c);
 			MapaDAO.save(ma);
 			UsuarioR u = UsuarioRDAO.getUsuarioRByORMID(Utils.id);
@@ -535,8 +555,29 @@ public class Casas {
 			if(aMapa != null){
 				Mapa m = MapaDAO.createMapa();
 				m.setUrl(aMapa);
+				//calculamos la longitud y latitud
+				//nos aseguramos que el mapa contiene long/lat
+				if(aMapa.contains("@")){
+					String[] splitURL = aMapa.split("/");
+					String[] splitXYZ;
+
+					for(String f : splitURL){
+						if(f.contains("@")){
+							f = f.replace("@", "");
+							if(f.contains("z"))
+								f = f.replace("z", "");
+							splitXYZ = f.split(",");
+							m.setLongitud(splitXYZ[0]);
+							m.setLatitud(splitXYZ[1]);
+							break;
+						}
+					}
+				}	
+				Mapa delM = c.getMapa();			
 				MapaDAO.save(m);
 				c.setMapa(m);
+				if(delM != null)
+					MapaDAO.deleteAndDissociate(delM);
 				modificado = true;
 			}
 			
