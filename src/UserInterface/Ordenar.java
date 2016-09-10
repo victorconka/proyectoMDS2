@@ -7,14 +7,15 @@ import javax.swing.JPanel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class Ordenar extends JPanel {
 
-	private JButton fecha;
-	private JComboBox precio;
-	private JButton numeroHabitaciones;
-	private JButton superficie;
-	private JLabel ordenarL;
+	protected JButton fecha;
+	protected JButton precio;
+	protected JButton numeroHabitaciones;
+	protected JButton superficie;
+	protected JLabel ordenarL;
 
 	public Ordenar() {
 		setOpaque(false);
@@ -25,25 +26,29 @@ public class Ordenar extends JPanel {
 		ordenarL.setBounds(10, 41, 79, 14);
 		add(ordenarL);
 		
-		fecha = new JButton("Fecha");
-		fecha.setBounds(10, 66, 68, 23);
+		fecha = new JButton("Fecha ^");
+		fecha.setBackground(Color.WHITE);
+		fecha.setBounds(0, 66, 85, 23);
 		add(fecha);
 		
-		precio = new JComboBox();
-		precio.setModel(new DefaultComboBoxModel(new String[] {"Precio alto", "Precio bajo"}));
-		precio.setBounds(76, 66, 98, 23);
+		precio = new JButton("Precio ^");
+		precio.setBackground(Color.WHITE);
+		//precio.setModel(new DefaultComboBoxModel(new String[] {"Precio alto", "Precio bajo"}));
+		precio.setBounds(85, 66, 85, 23);
 		add(precio);
 		
-		numeroHabitaciones = new JButton("Num habitaciones");
+		numeroHabitaciones = new JButton("Num habitaciones ^");
+		numeroHabitaciones.setBackground(Color.WHITE);
 		numeroHabitaciones.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		numeroHabitaciones.setBounds(171, 66, 145, 23);
+		numeroHabitaciones.setBounds(170, 66, 155, 23);
 		add(numeroHabitaciones);
 		
-		superficie = new JButton("Superficie");
-		superficie.setBounds(311, 66, 98, 23);
+		superficie = new JButton("Superficie ^");
+		superficie.setBackground(Color.WHITE);
+		superficie.setBounds(325, 66, 125, 23);
 		add(superficie);
 	}
 }

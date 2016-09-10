@@ -55,9 +55,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
 		this.setDescripcion(c.getdCorta());
-		this.setFoto();
-			
-		
+		this.setFoto();				
 	}
 	protected void setFoto(){
 		PersistentTransaction t = null;
