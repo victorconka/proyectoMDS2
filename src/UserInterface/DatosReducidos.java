@@ -48,7 +48,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 	public JButton datosDetallados;
 	private boolean auxiliar;
 	
-	protected void setCasaAtt(Casa c){
+	protected void setCasa(Casa c){
 		this.casa = c;
 		this.setPrecio(String.valueOf(c.getPrecio()));
 		this.setDireccion(c.getDireccion() + ", " + c.getMunicipio().getMunicipio());
