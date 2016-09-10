@@ -93,17 +93,12 @@ public class Foto extends JPanel {
          this.fotoPanel.add(btnNext);
          
          //Call The Function SetImageSize
-         SetImageSize(0);
-         
+         SetImageSize(0);    
          this.fotoPanel.add(pic);
-         //tm.start();
          this.setLayout(null);
          this.fotoPanel.setLayout(null);
          setSize(153, 166);
-         this.fotoPanel.setBackground(Color.decode("#bdb67b"));
-         //setLocationRelativeTo(null); //frame
-         //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //frame
-         
+         this.fotoPanel.setBackground(Color.decode("#bdb67b"));     
          this.fotoPanel.setVisible(true);
          this.add(fotoPanel);
     }
@@ -121,7 +116,6 @@ public class Foto extends JPanel {
 	        ImageIcon icon = new ImageIcon(list[i]);
 	        Image img = icon.getImage();
 	        if(list[i].contains("http")){
-	        	//img = ImageIO.read(new URL(list[i]));
 				img = readImg(list[i]);
 	        }
 	        Image newImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -134,7 +128,6 @@ public class Foto extends JPanel {
 	        ImageIcon icon = new ImageIcon(list[i]);
 	        Image img = icon.getImage();
 	        if(list[i].contains("http")){
-	        	//img = ImageIO.read(new URL(list[i]));
 				img = readImg(list[i]);
 	        }
 	        Image newImg = img.getScaledInstance(pic.getWidth(), pic.getHeight(), Image.SCALE_SMOOTH);
@@ -142,6 +135,7 @@ public class Foto extends JPanel {
 	        pic.setIcon(newImc);
     	}
     }
+ 
     private Image readImg(String string) {
     	Image im = null;
 		InputStream is = null;

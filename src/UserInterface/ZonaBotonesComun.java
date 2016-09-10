@@ -40,7 +40,9 @@ public class ZonaBotonesComun extends JPanel {
 	public void setNumVisto(String numVisto){
 		this.numVistoL.setText(numVisto);
 	}
-	
+	public void setCasa(Casa c){
+		this.casa = c;
+	}
 	public ZonaBotonesComun() {
 
 		setBackground(Color.ORANGE);
@@ -84,24 +86,7 @@ public class ZonaBotonesComun extends JPanel {
 		iv.setSize(32, 23);
 		add(iv);
 		
-		/*
-		separator = new JSeparator();
-		separator.setForeground(Color.BLACK);
-		separator.setBounds(265, 76, 159, 2);
-		add(separator);
-		
-		separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setForeground(Color.BLACK);
-		separator_1.setBounds(355, 53, 13, 24);
-		add(separator_1);
-		
-		separator_2 = new JSeparator();
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setForeground(Color.BLACK);
-		separator_2.setBounds(265, 54, 24, 24);
-		add(separator_2);
-		*/
+
 	}
 
 }

@@ -92,8 +92,11 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 			dr1.infoInteresadosL.setText(String.valueOf(casas[i].getNumFavoritos()));
 			dr1.infoVisitasL.setText(String.valueOf(casas[i].getNumVisitas()));
 			dr1.verDatos();
+			dr1.setFoto(casas[i]);
 			dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
 			dr1.setLocation(0,i*Utils.hDR);
+			
+			
 			botones[i] = new JButton();
 			botones[i].setContentAreaFilled(false);
 			botones[i].setBounds(0,i*Utils.hDR, Utils.wMedio, Utils.hDR);

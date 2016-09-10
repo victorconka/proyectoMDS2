@@ -48,33 +48,34 @@ public class DatosReducidos extends ZonaBotonesComun {
 	public JButton datosDetallados;
 	private boolean auxiliar;
 	
-	protected void setCasa(Casa c){
+	protected void setCasaAtt(Casa c){
 		this.casa = c;
 		this.setPrecio(String.valueOf(c.getPrecio()));
 		this.setDireccion(c.getDireccion() + ", " + c.getMunicipio().getMunicipio());
 		this.setNumFav(String.valueOf(c.getNumFavoritos()));
 		this.setNumVisto(String.valueOf(c.getNumVisitas()));
 		this.setDescripcion(c.getdCorta());
-		PersistentTransaction t = null;
-	
-			try {
-
-				t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
-				Registry r = LocateRegistry.getRegistry(1099);
-				//IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-				
-				Casa c2 = bbdd_gestion.CasaDAO.createCasa();
-				c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(c.getId_Inmueble());
-				if(c2.fotos.size() > 0){
-					bbdd_gestion.Foto f = (Foto) c2.fotos.getIterator().next();
-					this.setFoto(f.getLinkFoto());
-				}			
-				ProjectMDS2PersistentManager.instance().disposePersistentManager();		
-			} catch (PersistentException | RemoteException e) {
-				e.printStackTrace();
-			}	
+		this.setFoto();
 			
 		
+	}
+	protected void setFoto(){
+		PersistentTransaction t = null;
+		
+		try {
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+			Registry r = LocateRegistry.getRegistry(1099);
+			
+			Casa c2 = bbdd_gestion.CasaDAO.createCasa();
+			c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(this.casa.getId_Inmueble());
+			if(c2.fotos.size() > 0){
+				bbdd_gestion.Foto f = (Foto) c2.fotos.getIterator().next();
+				this.setFoto(f.getLinkFoto());
+			}			
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();		
+		} catch (PersistentException | RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 	protected Casa getCasa(){
 		return this.casa;

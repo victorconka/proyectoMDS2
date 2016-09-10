@@ -2,6 +2,8 @@ package bbdd;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
@@ -138,7 +140,9 @@ public class Casas {
 			c.setEstado(aEstado);
 			c.setAccion(aAccion);
 			c.setMapa(ma);
-			//c.setVisible("Disponible");
+			
+			Date date = Calendar.getInstance().getTime();
+			c.setFecha(date);
 			
 			if(aDCorta != null){
 				if(aDCorta.length() > 150){
@@ -603,6 +607,8 @@ public class Casas {
 			}
 			
 			if(modificado){
+				Date date = Calendar.getInstance().getTime();
+				c.setFecha(date);
 				bbdd_gestion.CasaDAO.save(c);
 			}
 		t.commit();

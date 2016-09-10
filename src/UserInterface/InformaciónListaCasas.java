@@ -3,12 +3,26 @@ package UserInterface;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollBar;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
+
+import bbdd_gestion.Casa;
+import bbdd_gestion.ProjectMDS2PersistentManager;
 
 public class InformaciónListaCasas extends Foto {
 
@@ -68,7 +82,49 @@ public class InformaciónListaCasas extends Foto {
 		label.setIcon(newIcon);
 		return label;
 	}
-	
+	protected void setFoto(Casa casa){
+		PersistentTransaction t = null;
+		
+		try {
+			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+			Registry r = LocateRegistry.getRegistry(1099);
+			
+			Casa c2 = bbdd_gestion.CasaDAO.createCasa();
+			c2 = bbdd_gestion.CasaDAO.loadCasaByORMID(casa.getId_Inmueble());
+			if(c2.fotos.size() > 0){
+				bbdd_gestion.Foto f = (bbdd_gestion.Foto) c2.fotos.getIterator().next();
+				this.setFoto(f.getLinkFoto());
+			}			
+			ProjectMDS2PersistentManager.instance().disposePersistentManager();		
+		} catch (PersistentException | RemoteException e) {
+			e.printStackTrace();
+		}
+	}
+	public void setFoto(String foto){
+		this.remove(this.f);
+		
+		Image im = null;
+		Image imScaled = null;
+		InputStream is = null;
+		
+        try {
+            URL url = new URL(foto);
+            
+            URLConnection openConnection = url.openConnection();
+    		openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
+    		is = openConnection.getInputStream();
+    		
+            im = ImageIO.read(is);
+            imScaled = im.getScaledInstance(80	, 80, Image.SCALE_SMOOTH);
+            is.close();
+        } catch (IOException e) {
+        	e.printStackTrace();
+        }
+
+        this.f.setIcon(new ImageIcon(imScaled));
+  
+        this.add(this.f);
+	}
 	protected void verCabecera() {
 		add(fotoL);
 		add(estadoL);
