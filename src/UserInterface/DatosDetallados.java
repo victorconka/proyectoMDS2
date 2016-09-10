@@ -107,7 +107,7 @@ public class DatosDetallados extends JPanel{
 			this.tipoViv.setText(c.getTipo());
 			this.dLargaTA.setText(c.getdLarga());
 			this.price.setText(String.valueOf(c.getPrecio()));
-			this.direccionTF.setText("<html>" + c.getDireccion() + ", " + c.getMunicipio() + ", " + c.getProvincia() + ", " + c.getCodigoPostal() + "</html>");
+			this.direccionTF.setText("<html>" + c.getDireccion() + ", " + c.getMunicipio().getMunicipio() + ", " + c.getProvincia().getProvincia() + ", " + c.getCodigoPostal() + "</html>");
 			this.visto.setText(String.valueOf(c.getNumVisitas()));
 			this.fav.setText(String.valueOf(c.getNumFavoritos()));
 			this.estado.setText("<html>" + c.getEstado() + "</html>");
@@ -150,7 +150,7 @@ public class DatosDetallados extends JPanel{
 		this.add(cita);
 		
 		mapa = new Mapa();
-		mapa.setBackground(Color.PINK);
+		//mapa.setBackground(Color.PINK);
 		mapa.setBounds(0,164,152, 193);
 		this.add(mapa);
 		
@@ -177,12 +177,12 @@ public class DatosDetallados extends JPanel{
 		
 		JLabel lblExtras = new JLabel("Extras:");
 		lblExtras.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblExtras.setBackground(Color.LIGHT_GRAY);
+		//lblExtras.setBackground(Color.LIGHT_GRAY);
 		lblExtras.setBounds(355, 8, 84, 14);
 		add(lblExtras);
 		
 		panel = new JPanel();
-		panel.setBackground(Color.YELLOW);
+		//panel.setBackground(Color.YELLOW);
 		panel.setBounds(152, 0, 200, 328);
 		add(panel);
 		panel.setLayout(null);
@@ -245,7 +245,7 @@ public class DatosDetallados extends JPanel{
 		direccionTF.setVerticalAlignment(SwingConstants.TOP);
 		
 		panel_2 = new JPanel();
-		panel_2.setBackground(Color.PINK);
+		//panel_2.setBackground(Color.PINK);
 		panel_2.setBounds(352, 164, 96, 164);
 		add(panel_2);
 		panel_2.setLayout(null);
@@ -273,13 +273,13 @@ public class DatosDetallados extends JPanel{
 		price = new JLabel("");
 		price.setBounds(0, 137, 54, 14);
 		panel_2.add(price);
-		price.setBackground(new Color(204, 255, 153));
+		//price.setBackground(new Color(204, 255, 153));
 		
 		JLabel priceEuro = new JLabel("\u20AC");
 		priceEuro.setBounds(53, 137, 31, 14);
 		panel_2.add(priceEuro);
 		priceEuro.setFont(new Font("Tahoma", Font.BOLD, 11));
-		priceEuro.setBackground(new Color(204, 255, 153));
+		//priceEuro.setBackground(new Color(204, 255, 153));
 		
 		precio = new JLabel("Precio:");
 		precio.setBounds(0, 122, 84, 14);
@@ -287,11 +287,11 @@ public class DatosDetallados extends JPanel{
 		precio.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 109, 96, 2);
+		separator.setBounds(-195, 110, 291, 2);
 		panel_2.add(separator);
 		
 		separator_1 = new JSeparator();
-		separator_1.setBounds(0, 162, 96, 2);
+		separator_1.setBounds(-195, 162, 291, 2);
 		panel_2.add(separator_1);
 		
 		separator_2 = new JSeparator();
@@ -303,7 +303,7 @@ public class DatosDetallados extends JPanel{
 		panel_2.add(separator_3);
 		
 		panel_3 = new JPanel();
-		panel_3.setBackground(Color.CYAN);
+		//panel_3.setBackground(Color.CYAN);
 		panel_3.setBounds(152, 328, 297, 29);
 		add(panel_3);
 		panel_3.setLayout(null);
