@@ -9,7 +9,6 @@ public class OrdenarLccFechaL implements Comparator<bbdd_gestion.Casa> {
 	@Override
 	public int compare(Casa arg0, Casa arg1) {
 		Date d0 = null, d1 = null;
-		System.out.println(arg0.getId_Inmueble() + " - " + arg1.getId_Inmueble());
 		int ret = 0;
 		if(arg0 != null){
 			d0 = arg0.getFecha();

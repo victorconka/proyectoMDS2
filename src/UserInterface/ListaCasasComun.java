@@ -27,12 +27,13 @@ public class ListaCasasComun extends JPanel {
 	private int nResults = 0; //7
 	protected JPanel panel = null;
 	protected JScrollPane scroll = null;
+	private Casa[] casas;
 
 
 	public void cargarCasas(String aAccion, String aCp, String aProvincia, Double aPrecio, Double aSuperficie, Integer aNHabitaciones, String aTipo, String aEstado, String[] aExtras){
 
 		//---------------------------------------------------------------------------------------------------------- 
-		Casa casas[] = null;
+		casas = null;
 		try {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuario iu = (IUsuario) r.lookup("Servidor2");
