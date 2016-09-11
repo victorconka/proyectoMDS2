@@ -1,5 +1,7 @@
 package UserInterface;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -45,6 +47,12 @@ public class Vivienda extends JPanel {
 		modificarVivienda.setBounds(110, 332, 143, 29);
 		add(modificarVivienda);
 		
+		e.modificarEstado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				modificarEstadoVivienda();
+			}
+		});
+		
 		add(e);
 		
 		add(lc);
@@ -55,15 +63,30 @@ public class Vivienda extends JPanel {
 		
 	}
 	
-	protected void cargarDatos() {
+	private void modificarEstadoVivienda(){
+		try {
+			Registry r = LocateRegistry.getRegistry(1099);
+			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+			String est =  (e.estadoCB.getSelectedItem().toString().equals("Disponible"))?"si":"no";
+			iu.modificarEstadoVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa), est);
+			
+			volver.doClick();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	protected void cargarDatosVivienda() {
 		PersistentTransaction t = null;
 		try {
 			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
 			
+			//este metodo genera problemas debido a que al transmitir
+			//el objeto se pierde la sesion.
+			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));			
 			
-			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));
 			Casa casa = CasaDAO.getCasaByORMID(Utils.idCasa);
 			//estado es el estado de la visibilidad
 			e.estadoCB.setSelectedIndex(casa.getVisible().equals("si")?0:1);

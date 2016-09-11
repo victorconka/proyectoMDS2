@@ -62,7 +62,7 @@ public class ListaCorreos extends JPanel {
 		add(co).setVisible(false);		
 	}
 	
-	protected void cargarDatos() {
+	protected void cargarListadoCorreos() {
 		JButton[] botones = null;
 		bbdd_gestion.Correo[] c = null;
 		try {

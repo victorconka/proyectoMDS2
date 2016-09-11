@@ -28,6 +28,7 @@ public class Estado extends JPanel {
 		setSize(Utils.wMedio, Utils.hMedio);
 	
 		modificarEstado = new JButton("Modificar Visibilidad");
+		/*
 		modificarEstado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -40,6 +41,7 @@ public class Estado extends JPanel {
 				}
 			}
 		});
+		*/
 		modificarEstado.setBounds(217, 267, 175, 28);
 		
 		add(modificarEstado);

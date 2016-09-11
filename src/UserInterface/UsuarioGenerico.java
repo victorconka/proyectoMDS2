@@ -123,7 +123,7 @@ public class UsuarioGenerico extends JFrame {
 		window.setVisible(unr);
 		window2.setVisible(ur);
 		if (ur){
-			window2.pur.lvp.cagarDatos();
+			window2.pur.lvp.cargarViviendasPropias();
 		}
 	}
 	

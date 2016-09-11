@@ -4,7 +4,6 @@ import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
 import bbdd_gestion.Casa;
-import bbdd_gestion.CasaCriteria;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Correo;
 import bbdd_gestion.CorreoCriteria;
@@ -12,9 +11,7 @@ import bbdd_gestion.CorreoDAO;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.Usuario;
 import bbdd_gestion.UsuarioDAO;
-import bbdd_gestion.UsuarioR;
-import bbdd_gestion.UsuarioRCriteria;
-import bbdd_gestion.UsuarioRDAO;
+
 
 public class Correos {
 	public BDPrincipal _bd_prin_correos;

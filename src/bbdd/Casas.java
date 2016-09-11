@@ -16,6 +16,8 @@ import bbdd_gestion.CasaCriteria;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.CodigoPostal;
 import bbdd_gestion.CodigoPostalDAO;
+import bbdd_gestion.Correo;
+import bbdd_gestion.CorreoDAO;
 import bbdd_gestion.Extra;
 import bbdd_gestion.ExtraCriteria;
 import bbdd_gestion.ExtraDAO;
@@ -359,6 +361,31 @@ public class Casas {
 		UsuarioR u = UsuarioRDAO.loadUsuarioRByORMID(Integer.parseInt(aId_usuario));
 		Iterator i = u.es_Vendida.getIterator();
 		
+		//eliminar mapa
+		Mapa m  = c.getMapa();		
+		//eliminar correos
+		Correo[] correos = null;
+		if(c.correo.size() > 0)
+			correos = c.correo.toArray();
+		//eliminar fotos
+		Foto[] fotos = null;
+		if(c.fotos.size()> 0)
+			 fotos = c.fotos.toArray();
+		
+		boolean b = CasaDAO.deleteAndDissociate(c);
+		if(m!= null)
+			MapaDAO.delete(m);
+		if(correos!=null){
+			for(Correo co : correos)
+				CorreoDAO.deleteAndDissociate(co);
+		}
+		if(fotos!= null){
+			for(Foto f : fotos){
+				FotoDAO.delete(f);
+			}
+		}
+		
+		/*
 		while (i.hasNext())
 			if (i.next().equals(c))
 				u.es_Vendida.remove(c);
@@ -371,6 +398,7 @@ public class Casas {
 		}
 		boolean b = true;
 		if (c != null) b = CasaDAO.delete(c);
+		*/
 		//st.commit();
 		return b;
 	}

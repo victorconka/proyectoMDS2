@@ -40,7 +40,7 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 		map = new HashMap<JButton, Casa>();
 	}
 	
-	protected void cagarDatos() {
+	protected void cargarViviendasPropias() {
 		JButton[] botones = null;
 		
 		try {
@@ -110,8 +110,8 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 					setVisible(true);
 					v.setVisible(true);
 					Utils.idCasa = map.get(e.getSource()).getORMID();
-					v.cargarDatos();
-					v.lc.cargarDatos();
+					v.cargarDatosVivienda();
+					v.lc.cargarListadoCorreos();
 				}
 			});
 			map.put(botones[i], casas[i]);

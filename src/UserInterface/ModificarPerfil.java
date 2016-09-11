@@ -36,7 +36,7 @@ public class ModificarPerfil extends DatosUsuario {
 		
 	}
 
-	public void cargarDatos() {
+	public void cargarDatosUsuario() {
 		UsuarioR u = null;
 		String[] dir;
 		try {

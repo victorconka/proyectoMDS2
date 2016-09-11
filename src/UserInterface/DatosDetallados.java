@@ -4,26 +4,26 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.AbstractListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
+import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Extra;
 
-import javax.swing.AbstractListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.Font;
+
 
 //el extends no tiene que estar, visual paradigm dejó enlaces residuo
 public class DatosDetallados extends JPanel{
@@ -73,6 +73,12 @@ public class DatosDetallados extends JPanel{
 		try {			
 			t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			ArrayList<String> al = new ArrayList<String>();
+			
+			//IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+			//este metodo genera problemas debido a que al transmitir
+			//el objeto se pierde la sesion.
+			//Casa casa = iu.cargarDatosVivienda(String.valueOf(Utils.idCasa));	
+			
 			Casa otra = CasaDAO.getCasaByORMID(c.getORMID());
 			
 			Iterator<Extra> it = otra.extra.getIterator();

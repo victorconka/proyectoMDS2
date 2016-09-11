@@ -34,7 +34,7 @@ public class UsuarioRegistrado extends UsuarioGenerico {
 				for (Component jc: getContentPane().getComponents())
 					jc.setVisible(false);
 				pur.setVisible(true);
-				pur.lvp.cagarDatos();
+				pur.lvp.cargarViviendasPropias();
 			}
 		});
 		add(perfil).setVisible(false);;

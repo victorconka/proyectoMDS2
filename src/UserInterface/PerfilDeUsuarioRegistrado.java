@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Arrays;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -52,7 +50,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				UsuarioGenerico.getFrames()[1].setSize(Utils.wGrande, Utils.hGrande);
 				setSize(Utils.wGrande, Utils.hGrande);
 				mp.setVisible(true);
-				mp.cargarDatos();
+				mp.cargarDatosUsuario();
 			}
 		});
 		add(modificarPerfil);
@@ -187,7 +185,8 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				}
 				danv.resetear();
 				resetear();
-				lvp.cagarDatos();
+				//lvp.cagarDatos();
+				cargarViviendasPropias();
 			}else{
 				JOptionPane.showMessageDialog(null, "Verifique los campos");
 			}
@@ -235,8 +234,10 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				}
 				lvp.mostrar();
 				lvp.v.setVisible(false);
+				lvp.v.volver.doClick();
 				resetear();
-				lvp.cagarDatos();
+				//lvp.cagarDatos();
+				cargarViviendasPropias();
 			}
 		});
 		
@@ -329,11 +330,11 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				
 				UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio, Utils.hMedio);
 				setSize(Utils.wMedio, Utils.hMedio);
-				//lvp.setSize(Utils.wMedio, Utils.hMedio);
+
 				lvp.v.setSize(Utils.wMedio, Utils.hMedio);
 				lvp.v.mv.setVisible(false);
-				lvp.cagarDatos();
-
+				//lvp.cagarDatos();
+				cargarViviendasPropias();
 			}
 		});
 		
@@ -376,7 +377,9 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		});
 		
 	}
-	
+	protected void cargarViviendasPropias(){
+		lvp.cargarViviendasPropias();
+	}
 	protected void resetear() {
 		UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio+15, Utils.hMedio);
 		setSize(Utils.wMedio+15, Utils.hMedio);
