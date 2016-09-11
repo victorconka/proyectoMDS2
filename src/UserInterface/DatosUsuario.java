@@ -32,7 +32,7 @@ public class DatosUsuario extends JPanel {
 
 	public DatosUsuario() {
 		setLayout(null);
-		setSize(Utils.wGrande, Utils.hGrande);
+		this.setSize(Utils.wGrande, Utils.hGrande);
 		
 		nombrePanel = new JLabel("Datos Usuario");
 		nombrePanel.setBounds(62, 36, 109, 27);

@@ -9,9 +9,7 @@ import java.rmi.registry.Registry;
 import javax.swing.JFrame;
 
 import bbdd.IAdministrador;
-import bbdd.IUsuario;
 import bbdd.IUsuarioRegistrado;
-import bbdd_gestion.UsuarioDAO;
 
 public class UsuarioGenerico extends JFrame {
 	
@@ -112,14 +110,34 @@ public class UsuarioGenerico extends JFrame {
 	}
 	
 	protected void cambiarUsuario(boolean unr, boolean ur) {
-		if (unr) window = new UsuarioNoRegistrado();
+		if (unr){
+			boolean e = false;
+			for(int n = 0;n <UsuarioGenerico.getFrames().length; n++){
+				if(UsuarioGenerico.getFrames()[n].toString().contains("UsuarioNoRegistrado")){
+					e = true;
+				}
+			}
+			if(!e)
+				window = new UsuarioNoRegistrado();
+		}
 		window.setVisible(unr);
 		window2.setVisible(ur);
-		if (ur) window2.pur.lvp.cagarDatos();
+		if (ur){
+			window2.pur.lvp.cagarDatos();
+		}
 	}
 	
 	public void cambiarAdmin(boolean unr, boolean admin) {
-		if (unr) window = new UsuarioNoRegistrado();
+		if (unr){
+			boolean e = false;
+			for(int n = 0;n <UsuarioGenerico.getFrames().length; n++){
+				if(UsuarioGenerico.getFrames()[n].toString().contains("UsuarioNoRegistrado")){
+					e = true;
+				}
+			}
+			if(!e)
+				window = new UsuarioNoRegistrado();
+		}
 		window.setVisible(unr);
 		window3.setVisible(admin);
 	}

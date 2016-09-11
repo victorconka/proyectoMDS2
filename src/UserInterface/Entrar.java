@@ -13,7 +13,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class Entrar extends JPanel {
@@ -46,6 +45,7 @@ public class Entrar extends JPanel {
 				UsuarioGenerico.getFrames()[0].setSize(Utils.wMedio, Utils.hMedio);
 				setSize(Utils.wMedio, Utils.hMedio);
 				ru.setVisible(false);
+				
 			}
 		});
 		
@@ -60,7 +60,9 @@ public class Entrar extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				for (Component c: getComponents())
 					c.setVisible(false);
-				UsuarioGenerico.getFrames()[0].setSize(Utils.wGrande, Utils.hGrande);
+				
+				
+				UsuarioGenerico.getFrames()[0].setSize(Utils.wGrande, Utils.hGrande);				
 				setSize(Utils.wGrande, Utils.hGrande);
 				ru.setVisible(true);
 			}

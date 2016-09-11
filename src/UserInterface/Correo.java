@@ -95,8 +95,12 @@ public class Correo extends ZonaMensaje {
 				    // Enviamos el correo
 				    Transport t = sesion.getTransport("smtp");
 				    t.connect(de, bbdd_gestion.UsuarioDAO.getUsuarioByORMID(Utils.id).getContrasenia());
-				    //t.sendMessage(mensaje,mensaje.getAllRecipients());
+				    t.sendMessage(mensaje,mensaje.getAllRecipients());
 				    t.close();
+				    
+				    //al mandar mensaje volvemos e limpiamos el campo responder
+				    textRespuesta.setText("");
+				    volver.doClick();
 				    System.out.println("Mensaje enviado");
 			    } catch (Exception e) {
 			      e.printStackTrace();

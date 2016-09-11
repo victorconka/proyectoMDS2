@@ -17,6 +17,8 @@ import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRDAO;
 
 import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -85,7 +87,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 		this.descripcionCorta.setText("<html>" + descripcion + "</html>");
 	}
 	public void setDireccion(String direccion){
-		this.direccion.setText("<html>" + direccion + "</html>");
+		this.direccion.setText("<html> " + direccion + " </html>");
 	}
 	public void setPrecio(String precio){
 		this.precio.setText(precio);
@@ -259,6 +261,8 @@ public class DatosReducidos extends ZonaBotonesComun {
 		add(descripcionCorta);
 		
 		direccion = new JLabel("Dirección");
+		direccion.setHorizontalAlignment(SwingConstants.LEFT);
+		direccion.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		direccion.setVerticalAlignment(SwingConstants.TOP);
 		direccion.setLocation(265, 0);
 		direccion.setSize(180, 30);

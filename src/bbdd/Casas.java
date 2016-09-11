@@ -809,10 +809,15 @@ public class Casas {
 	}
 
 	public Casa[] cargarViviendasPropias(String aId_usuario)  throws PersistentException {
-		UsuarioRCriteria c1 = new UsuarioRCriteria();
-		c1.id_Usuario.eq(Integer.valueOf(aId_usuario));
-		UsuarioR u = UsuarioRDAO.createUsuarioR();
-		u = UsuarioRDAO.loadUsuarioRByCriteria(c1);
-		return u.es_Vendida.toArray();
+		if(aId_usuario!= null){
+			UsuarioRCriteria c1 = new UsuarioRCriteria();
+			c1.id_Usuario.eq(Integer.valueOf(aId_usuario));
+			UsuarioR u = UsuarioRDAO.createUsuarioR();
+			if(u != null && u.es_Vendida != null){
+				u = UsuarioRDAO.loadUsuarioRByCriteria(c1);
+				return u.es_Vendida.toArray();
+			}
+		}
+		return new Casa[0];
 	}
 }

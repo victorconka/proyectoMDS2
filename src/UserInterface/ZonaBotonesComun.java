@@ -2,24 +2,12 @@ package UserInterface;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import java.awt.Color;
-import javax.swing.SwingConstants;
-
-import org.orm.PersistentException;
-import org.orm.PersistentManager;
-import org.orm.PersistentTransaction;
 
 import bbdd_gestion.Casa;
-import bbdd_gestion.CasaCriteria;
-import bbdd_gestion.CasaDAO;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class ZonaBotonesComun extends JPanel {
 
@@ -30,9 +18,7 @@ public class ZonaBotonesComun extends JPanel {
 	protected JButton fav;
 	private JLabel numVistoL;
 	protected ImageIcon iconoVisitas;
-	private JSeparator separator;
-	private JSeparator separator_1;
-	private JSeparator separator_2;
+
 
 	public void setNumFav(String numFav){
 		this.numFavL.setText(numFav);
@@ -42,7 +28,7 @@ public class ZonaBotonesComun extends JPanel {
 	}
 
 	public ZonaBotonesComun() {
-
+		
 		setBackground(Color.ORANGE);
 		setBorder(null);
 		setOpaque(false);
