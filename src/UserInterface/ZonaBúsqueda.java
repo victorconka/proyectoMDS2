@@ -23,21 +23,18 @@ public class ZonaBúsqueda extends JPanel {
 		
 		delUser = new EliminarUsuario();
 		delUser.setBounds(228,0,200,50);
+		
 		delUser.eliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int res = JOptionPane.showConfirmDialog(new JFrame(), "Desea eliminar usuario?");
 				if (res == 0) {
-					try {
-						Registry r = LocateRegistry.getRegistry(null);
-						IUsuario iu = (IUsuario) r.lookup("Servidor2");
-						if (iu.eliminarUsuario(buscador.txtBuscarUsuario.getText()))
+
+						if (delUser.eliminarUsuario(buscador.txtBuscarUsuario.getText()))
 							JOptionPane.showMessageDialog(new JFrame(), "Usuario eliminado");
 						else
 							JOptionPane.showMessageDialog(new JFrame(), "Usuario NO eliminado");	
 						buscador.txtBuscarUsuario.setText("");
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
+
 				}
 			}
 		});
