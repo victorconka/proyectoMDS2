@@ -71,15 +71,7 @@ public class UsuarioRegistrado extends UsuarioGenerico {
 		
 		pur.mp.eliminarPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Registry r = LocateRegistry.getRegistry(null);
-					IUsuario iu = (IUsuario) r.lookup("Servidor2");
-					iu.eliminarUsuario(String.valueOf(Utils.id));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				pur.resetear();	
-				cambiarUsuario(true, false);
+				eliminarPerfil();
 			}
 		});
 
@@ -106,27 +98,17 @@ public class UsuarioRegistrado extends UsuarioGenerico {
 				rc.setVisible(true);
 			}
 		});
-		/*
-		rc.lcc.contactar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbr.accionContactar(rc);
-			}
-		});
-		rc.lcc.cita.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbr.accionCita(rc);
-			}
-		});
-		//esto lo agregue integrando panel con interfaz
-		rc.lcc.fav.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				zbr.accion(ent, rc);
-			}
-		});
-		*/
 	}
 
+	public void eliminarPerfil() {
+		try {
+			Registry r = LocateRegistry.getRegistry(null);
+			IUsuario iu = (IUsuario) r.lookup("Servidor2");
+			iu.eliminarUsuario(String.valueOf(Utils.id));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		pur.resetear();	
+		cambiarUsuario(true, false);
+	}
 }

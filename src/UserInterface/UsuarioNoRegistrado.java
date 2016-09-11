@@ -53,58 +53,38 @@ public class UsuarioNoRegistrado extends UsuarioGenerico {
 
 		ent.acceder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IUsuario iu = null;
-				Registry r = null;
-				Usuario u = null;
-
-				try {
-					r = LocateRegistry.getRegistry(null);
-					iu = (IUsuario) r.lookup("Servidor3");
-					String pass = String.valueOf(ent.passPF.getPassword());
-					u = iu.acceder(ent.usuarioTF.getText(), pass);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-				if (u != null) {
-					Utils.id = u.getORMID();
-					if (ent.usuarioTF.getText().equals("jbf441@inlumine.ual.es")) {
-						cambiarAdmin(false, true);
-					} else {
-						cambiarUsuario(false, true);
-					}
-				}
-
-				ent.usuarioTF.setText("");
-				ent.passPF.setText("");
+				acceder();
 			}
 		});
 
 		zbnr.setBounds(0, 0, 450, 400);
 		getContentPane().add(zbnr).setVisible(false);
+	}
+	
+	public void acceder() {
+		IUsuario iu = null;
+		Registry r = null;
+		Usuario u = null;
 
-		
-		// los actionListener van dentro del panelillo de resultado
-//		rc.lcc.contactar.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				zbnr.accion(ent, rc);
-//			}
-//		});
-//
-//		rc.lcc.cita.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				zbnr.accion(ent, rc);
-//			}
-//		});
-//
-//		rc.lcc.fav.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				zbnr.accion(ent, rc);
-//			}
-//		});
+		try {
+			r = LocateRegistry.getRegistry(null);
+			iu = (IUsuario) r.lookup("Servidor3");
+			String pass = String.valueOf(ent.passPF.getPassword());
+			u = iu.acceder(ent.usuarioTF.getText(), pass);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 
+		if (u != null) {
+			Utils.id = u.getORMID();
+			if (ent.usuarioTF.getText().equals("jbf441@inlumine.ual.es")) {
+				cambiarAdmin(false, true);
+			} else {
+				cambiarUsuario(false, true);
+			}
+		}
+
+		ent.usuarioTF.setText("");
+		ent.passPF.setText("");
 	}
 }
