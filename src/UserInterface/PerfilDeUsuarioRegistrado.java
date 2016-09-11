@@ -132,10 +132,37 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		});
 		
 		danv.registrarVivienda.addActionListener(new ActionListener() {
-			String[] extras;
+			
 			public void actionPerformed(ActionEvent e) {
-				extras = danv.obtenerExtras();
+				boolean camposVerificados = true;
+				if(danv.direccion.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.municipioTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.provinciaTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.cpTF.getText().isEmpty() || danv.cpTF.getText().length() != 5 ){
+					camposVerificados = false;
+				}
+				if( danv.precioTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.superficieTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.numeroHabitacionesTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+				if(danv.numeroBañosTF.getText().isEmpty()){
+					camposVerificados = false;
+				}
+			
+				if(camposVerificados){	
 				try {
+					String[] extras = danv.obtenerExtras();
 					Registry r = LocateRegistry.getRegistry(1099);
 					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor1");
 					String visible = "si";
@@ -161,7 +188,10 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				danv.resetear();
 				resetear();
 				lvp.cagarDatos();
+			}else{
+				JOptionPane.showMessageDialog(null, "Verifique los campos");
 			}
+		}
 		});
 		
 		cerrarSesion = new JButton("Cerrar sesión");

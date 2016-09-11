@@ -23,7 +23,6 @@ import bbdd_gestion.Foto;
 import bbdd_gestion.FotoCriteria;
 import bbdd_gestion.FotoDAO;
 import bbdd_gestion.Mapa;
-import bbdd_gestion.MapaCriteria;
 import bbdd_gestion.MapaDAO;
 import bbdd_gestion.Municipio;
 import bbdd_gestion.MunicipioCriteria;
@@ -59,11 +58,9 @@ public class Casas {
 			cp = bbdd_gestion.CodigoPostalDAO.loadCodigoPostalByQuery("codigo_postal LIKE '"+aCp+"'", null);
 			//asignamos el valor del codigo postal solo en caso de no existir	
 			if(cp == null){
-				System.out.println("cp no encontrada");
+				//System.out.println("cp no encontrada");
 				cp = CodigoPostalDAO.createCodigoPostal();
 				cp.setCodigo_postal(aCp);
-				//cp.setMunicipio(m); //no es obligatorio
-				//cp.setProvincia(p);
 				CodigoPostalDAO.save(cp);			
 			}	
 			

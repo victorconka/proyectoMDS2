@@ -277,7 +277,7 @@ public class ZonaDatosVivienda extends LinkExternos {
 		add(fotosSP);	
 		
 		dLargaTF.setToolTipText("Descripcion Larga de la vivienda (1024 caracteres).");
-		dCortaTF.setToolTipText("descripcion corta de la vivienda (255 caracteres). ");
+		dCortaTF.setToolTipText("descripcion corta de la vivienda (150 caracteres). ");
 		mapaUrlTF.setToolTipText("URL de google maps de la ubicacion de la vivienda");
 		acciónCB.setToolTipText("proposito del apartamento en la pagina");
 		estadoCB.setToolTipText("estado del apartamento");
