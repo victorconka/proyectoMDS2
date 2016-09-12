@@ -54,7 +54,7 @@ public class InformaciónListaCasas extends Foto {
 		
 		
 		infoEstadoL = new JLabel("En venta");
-		infoEstadoL.setBounds(114, 47, 72, 23);
+		infoEstadoL.setBounds(100, 47, 106, 23);
 		
 		infoVisitasL = new JLabel("8");
 		infoVisitasL.setBounds(221, 41, 34, 34);

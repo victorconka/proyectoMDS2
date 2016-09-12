@@ -34,7 +34,7 @@ public class Mapa extends JPanel{
 			if(y != null && y != "")
 				this.y = Double.valueOf(y);
 			
-            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center="+ this.x +","+ this.y +"&size=" + this.getWidth() + "x" + this.getHeight() + "&sensor=true&zoom=18";
+            String imageUrl = "https://maps.googleapis.com/maps/api/staticmap?center="+ this.x +","+ this.y +"&size=" + this.getWidth() + "x" + this.getHeight() + "&sensor=true&zoom=15";
             String destinationFile = "image.jpg";
             String str = destinationFile;
             URL url = new URL(imageUrl);
