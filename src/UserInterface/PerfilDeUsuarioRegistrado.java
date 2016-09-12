@@ -63,27 +63,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		
 		mp.guardarCambios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Registry r = null;
-				IUsuarioRegistrado u = null;
-				String pass = String.valueOf(mp.contraseñaTF.getPassword());
-				String pass2 = String.valueOf(mp.repContraseñaTF.getPassword());
-				
-				if (pass.isEmpty() || (!pass.equals(pass2))) {
-					JOptionPane.showMessageDialog(new JFrame(), "Las contraseñas no pueden estar vacias y deben coincidir");
-				} else {
-					try {
-						r = LocateRegistry.getRegistry(1099);
-						u = (IUsuarioRegistrado) r.lookup("Servidor3");
-						u.guardarDatos(mp.nombreTF.getText(), mp.apellidosTF.getText(), 
-								mp.direccion.getText(), mp.municipioTF.getText(),
-								mp.provinciaTF.getText(), mp.cpTF.getText(), 
-								mp.emailTF.getText(), pass, String.valueOf(Utils.id));
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					mp.resetear();
-					resetear();
-				}
+				modificarPerfil();
 			}
 		});
 		
@@ -159,38 +139,14 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 				}
 			
 				if(camposVerificados){	
-				try {
-					String[] extras = danv.obtenerExtras();
-					Registry r = LocateRegistry.getRegistry(1099);
-					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor1");
-					String visible = "si";
-					if(danv.isVisible()){
-						visible = "si";
-					}
-					
-					String[] strFotos = null;;
-					//obtenemos las fotos
-					String aFotos = danv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
-					if(danv.fotosTA != null){
-						strFotos = aFotos.split("\\r?\\n");
-					}
-					
-					iu.registrarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
-							danv.provinciaTF.getText(), danv.cpTF.getText(), strFotos, danv.precioTF.getText(), 
-							danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
-							danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
-							danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
-				}catch(Exception e1) {
-					e1.printStackTrace();
+					darAltaVivienda();
+					danv.resetear();
+					resetear();
+					lvp.cargarViviendasPropias();
+				}else{
+					JOptionPane.showMessageDialog(null, "Verifique los campos");
 				}
-				danv.resetear();
-				resetear();
-				//lvp.cagarDatos();
-				cargarViviendasPropias();
-			}else{
-				JOptionPane.showMessageDialog(null, "Verifique los campos");
 			}
-		}
 		});
 		
 		cerrarSesion = new JButton("Cerrar sesión");
@@ -225,19 +181,7 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		
 		lvp.v.eliminarVivienda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Registry r = LocateRegistry.getRegistry(1099);
-					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					iu.eliminarVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				lvp.mostrar();
-				lvp.v.setVisible(false);
-				lvp.v.volver.doClick();
-				resetear();
-				//lvp.cagarDatos();
-				cargarViviendasPropias();
+				eliminarVivienda();
 			}
 		});
 		
@@ -266,65 +210,8 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 		});
 		
 		lvp.v.mv.guardarCambios.addActionListener(new ActionListener() {
-			String[] extras;
 			public void actionPerformed(ActionEvent e) {
-				extras = lvp.v.mv.obtenerExtras();
-				try {
-					Registry r = LocateRegistry.getRegistry(1099);
-					IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
-					/*
-					String visible = "no";
-					if(lvp.v.mv.isVisible()){
-						visible = "si";
-					}
-					*/
-					String[] strFotos = null;;
-					//obtenemos las fotos
-					String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^\\s*$[\n\r]{1,}", "");//("(?m)^[ \t]*\r?\n", "");
-					if(lvp.v.mv.fotosTA != null){
-						strFotos = aFotos.split("\\r?\\n");
-					}
-					
-					//los valores de los campos modificarVivienda se comparan con
-					//su valor original y se manda null o valor
-					
-					//verificamos los extras
-					//se han añadido mas extras
-					boolean contiene= true;
-					for(int i = 0 ;i < extras.length; i++){
-						//extras[i] = bbdd_gestion.ExtraDAO.getExtraByORMID(Integer.valueOf(extras[i])).getNombreExtra();
-						if(!lvp.v.mv.aaExtras.toLowerCase().contains(extras[i].toLowerCase())){
-							contiene = false;
-						}
-					}//se ha quitado extra
-					int l =(lvp.v.mv.aaExtras.split(",")).length;
-					if( l < extras.length ||  l > extras.length)
-						contiene = false;
-					
-					iu.modificarVivienda(
-							String.valueOf(Utils.idCasa),
-							lvp.v.mv.direccion.getText().equals(lvp.v.mv.aaDireccion) ? null : lvp.v.mv.direccion.getText(), 
-							lvp.v.mv.municipioTF.getText().equals(lvp.v.mv.aaMunicipio) ? null : lvp.v.mv.municipioTF.getText(), 
-							lvp.v.mv.provinciaTF.getText().equals(lvp.v.mv.aaProvincia) ? null : lvp.v.mv.provinciaTF.getText(),
-							lvp.v.mv.cpTF.getText().equals(lvp.v.mv.aaCp) ? null : lvp.v.mv.cpTF.getText(), 
-							aFotos.equals(lvp.v.mv.aaFotos) ? null : strFotos, 
-							lvp.v.mv.precioTF.getText().equals(lvp.v.mv.aaPrecio) ? null : lvp.v.mv.precioTF.getText(), 
-							lvp.v.mv.superficieTF.getText().equals(lvp.v.mv.aaSuperficie) ? null : lvp.v.mv.superficieTF.getText(), 
-							lvp.v.mv.numeroHabitacionesTF.getText().equals(lvp.v.mv.aaNHab) ? null : lvp.v.mv.numeroHabitacionesTF.getText(), 
-							lvp.v.mv.numeroBañosTF.getText().equals(lvp.v.mv.aaNBanios) ? null : lvp.v.mv.numeroBañosTF.getText(),
-							lvp.v.mv.tipoCB.getSelectedItem().toString().equals(lvp.v.mv.aaTipo) ? null : lvp.v.mv.tipoCB.getSelectedItem().toString(), 
-							contiene ? null : extras, //FIXME
-							lvp.v.mv.estadoCB.getSelectedItem().toString().equals(lvp.v.mv.aaEstado) ? null : lvp.v.mv.estadoCB.getSelectedItem().toString(),
-							lvp.v.mv.acciónCB.getSelectedItem().toString().equals(lvp.v.mv.aaAccion) ? null : lvp.v.mv.acciónCB.getSelectedItem().toString(), 
-							lvp.v.mv.mapaUrlTF.getText().equals(lvp.v.mv.aaMapa) ? null : lvp.v.mv.mapaUrlTF.getText(), 
-							lvp.v.mv.dCortaTF.getText().equals(lvp.v.mv.aaDCorta) ? null : lvp.v.mv.dCortaTF.getText(), 
-							lvp.v.mv.dLargaTF.getText().equals(lvp.v.mv.aaDLarga) ? null : lvp.v.mv.dLargaTF.getText(), 
-						   (lvp.v.mv.visibleCB.isSelected() ? "si" : "no").equals(lvp.v.mv.aaVisible) ? null : lvp.v.mv.visibleCB.isSelected() ? "si" : "no" 
-							   );
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
+				modificarVivienda();
 				for(Component c: lvp.v.getComponents())
 					c.setVisible(true);	
 				
@@ -380,6 +267,131 @@ public class PerfilDeUsuarioRegistrado extends JPanel {
 	protected void cargarViviendasPropias(){
 		lvp.cargarViviendasPropias();
 	}
+	public void eliminarVivienda() {
+		try {
+			Registry r = LocateRegistry.getRegistry(1099);
+			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+			iu.eliminarVivienda(String.valueOf(Utils.id), String.valueOf(Utils.idCasa));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		lvp.mostrar();
+		lvp.v.setVisible(false);
+		resetear();
+		lvp.cargarViviendasPropias();
+	}
+	
+	public void modificarPerfil() {
+		Registry r = null;
+		IUsuarioRegistrado u = null;
+		String pass = String.valueOf(mp.contraseñaTF.getPassword());
+		String pass2 = String.valueOf(mp.repContraseñaTF.getPassword());
+		
+		if (pass.isEmpty() || (!pass.equals(pass2))) {
+			JOptionPane.showMessageDialog(new JFrame(), "Las contraseñas no pueden estar vacias y deben coincidir");
+		} else {
+			try {
+				r = LocateRegistry.getRegistry(1099);
+				u = (IUsuarioRegistrado) r.lookup("Servidor3");
+				u.guardarDatos(mp.nombreTF.getText(), mp.apellidosTF.getText(), 
+						mp.direccion.getText(), mp.municipioTF.getText(),
+						mp.provinciaTF.getText(), mp.cpTF.getText(), 
+						mp.emailTF.getText(), pass, String.valueOf(Utils.id));
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			mp.resetear();
+			resetear();
+		}
+	}
+	
+	public void modificarVivienda() {
+		String[] extras;
+		extras = lvp.v.mv.obtenerExtras();
+		try {
+			Registry r = LocateRegistry.getRegistry(1099);
+			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor3");
+			/*
+			String visible = "no";
+			if(lvp.v.mv.isVisible()){
+				visible = "si";
+			}
+			*/
+			String[] strFotos = null;;
+			//obtenemos las fotos
+			String aFotos = lvp.v.mv.fotosTA.getText().replaceAll("(?m)^\\s*$[\n\r]{1,}", "");//("(?m)^[ \t]*\r?\n", "");
+			if(lvp.v.mv.fotosTA != null){
+				strFotos = aFotos.split("\\r?\\n");
+			}
+			
+			//los valores de los campos modificarVivienda se comparan con
+			//su valor original y se manda null o valor
+			
+			//verificamos los extras
+			//se han añadido mas extras
+			boolean contiene= true;
+			for(int i = 0 ;i < extras.length; i++){
+				//extras[i] = bbdd_gestion.ExtraDAO.getExtraByORMID(Integer.valueOf(extras[i])).getNombreExtra();
+				if(!lvp.v.mv.aaExtras.toLowerCase().contains(extras[i].toLowerCase())){
+					contiene = false;
+				}
+			}//se ha quitado extra
+			int l =(lvp.v.mv.aaExtras.split(",")).length;
+			if( l < extras.length ||  l > extras.length)
+				contiene = false;
+			
+			iu.modificarVivienda(
+					String.valueOf(Utils.idCasa),
+					lvp.v.mv.direccion.getText().equals(lvp.v.mv.aaDireccion) ? null : lvp.v.mv.direccion.getText(), 
+					lvp.v.mv.municipioTF.getText().equals(lvp.v.mv.aaMunicipio) ? null : lvp.v.mv.municipioTF.getText(), 
+					lvp.v.mv.provinciaTF.getText().equals(lvp.v.mv.aaProvincia) ? null : lvp.v.mv.provinciaTF.getText(),
+					lvp.v.mv.cpTF.getText().equals(lvp.v.mv.aaCp) ? null : lvp.v.mv.cpTF.getText(), 
+					aFotos.equals(lvp.v.mv.aaFotos) ? null : strFotos, 
+					lvp.v.mv.precioTF.getText().equals(lvp.v.mv.aaPrecio) ? null : lvp.v.mv.precioTF.getText(), 
+					lvp.v.mv.superficieTF.getText().equals(lvp.v.mv.aaSuperficie) ? null : lvp.v.mv.superficieTF.getText(), 
+					lvp.v.mv.numeroHabitacionesTF.getText().equals(lvp.v.mv.aaNHab) ? null : lvp.v.mv.numeroHabitacionesTF.getText(), 
+					lvp.v.mv.numeroBañosTF.getText().equals(lvp.v.mv.aaNBanios) ? null : lvp.v.mv.numeroBañosTF.getText(),
+					lvp.v.mv.tipoCB.getSelectedItem().toString().equals(lvp.v.mv.aaTipo) ? null : lvp.v.mv.tipoCB.getSelectedItem().toString(), 
+					contiene ? null : extras, //FIXME
+					lvp.v.mv.estadoCB.getSelectedItem().toString().equals(lvp.v.mv.aaEstado) ? null : lvp.v.mv.estadoCB.getSelectedItem().toString(),
+					lvp.v.mv.acciónCB.getSelectedItem().toString().equals(lvp.v.mv.aaAccion) ? null : lvp.v.mv.acciónCB.getSelectedItem().toString(), 
+					lvp.v.mv.mapaUrlTF.getText().equals(lvp.v.mv.aaMapa) ? null : lvp.v.mv.mapaUrlTF.getText(), 
+					lvp.v.mv.dCortaTF.getText().equals(lvp.v.mv.aaDCorta) ? null : lvp.v.mv.dCortaTF.getText(), 
+					lvp.v.mv.dLargaTF.getText().equals(lvp.v.mv.aaDLarga) ? null : lvp.v.mv.dLargaTF.getText(), 
+				   (lvp.v.mv.visibleCB.isSelected() ? "si" : "no").equals(lvp.v.mv.aaVisible) ? null : lvp.v.mv.visibleCB.isSelected() ? "si" : "no" 
+					   );
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void darAltaVivienda() {
+		try {
+			String[] extras = danv.obtenerExtras();
+			Registry r = LocateRegistry.getRegistry(1099);
+			IUsuarioRegistrado iu = (IUsuarioRegistrado) r.lookup("Servidor1");
+			String visible = "si";
+			if(danv.isVisible()){
+				visible = "si";
+			}
+
+			String[] strFotos = null;;
+			//obtenemos las fotos
+			String aFotos = danv.fotosTA.getText().replaceAll("(?m)^[ \t]*\r?\n", "");
+			if(danv.fotosTA != null){
+				strFotos = aFotos.split("\\r?\\n");
+			}
+
+			iu.registrarVivienda(danv.direccion.getText(), danv.municipioTF.getText(), 
+					danv.provinciaTF.getText(), danv.cpTF.getText(), strFotos, danv.precioTF.getText(), 
+					danv.superficieTF.getText(), danv.numeroHabitacionesTF.getText(), danv.numeroBañosTF.getText(),
+					danv.tipoCB.getSelectedItem().toString(), extras, danv.estadoCB.getSelectedItem().toString(),
+					danv.acciónCB.getSelectedItem().toString(), danv.mapaUrlTF.getText(), danv.dCortaTF.getText(), danv.dLargaTF.getText(), visible);
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+	}
+	
 	protected void resetear() {
 		UsuarioGenerico.getFrames()[1].setSize(Utils.wMedio+15, Utils.hMedio);
 		setSize(Utils.wMedio+15, Utils.hMedio);

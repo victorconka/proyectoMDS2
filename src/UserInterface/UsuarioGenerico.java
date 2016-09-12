@@ -50,40 +50,7 @@ public class UsuarioGenerico extends JFrame {
 		sfc.buscar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sfc.setVisible(false);
-				rc.setVisible(true);
-//---------------------------------------------------------------------------------------------------------- 
-////////////////OBTENEMOS DATOS Y LLAMAMOS LA BUSQUEDA
-//---------------------------------------------------------------------------------------------------------- 
-				//Primer filtro
-				String accion = pfc.getAccion();
-				String cp = pfc.getCP();
-				String prov = pfc.getProvincia();
-				//Segundo filtro
-				String pre = sfc.getPrecioTF();
-				String sup = sfc.getSuperficieTF();
-				String nHab = sfc.getHabitacionesTF();
-				String banios = sfc.getBañosTF();
-				String tipo = sfc.getTipoCB();
-				String estado = sfc.getEstadoCB();
-				//segundo filtro extras
-				String extras[] = sfc.getExtras();
-//---------------------------------------------------------------------------------------------------------- 
-////////////////LLAMAMOS EL METODO
-//----------------------------------------------------------------------------------------------------------
-				Double precio = null;
-				if(pre!= null && pre != ""){
-					precio = Double.valueOf(pre);
-				}
-				Double superficie = null;
-				if(sup!= null && sup != ""){
-					superficie = Double.valueOf(sup);
-				}	
-				int n = 0;
-				if(nHab != null && nHab!= "")
-					n = Integer.valueOf(nHab);
-				
-				rc.lcc.cargarCasas(accion, cp, prov, precio, superficie, n, tipo, estado, extras);
+				buscar();
 			}
 		});
 		
@@ -153,6 +120,43 @@ public class UsuarioGenerico extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void buscar() {
+		sfc.setVisible(false);
+		rc.setVisible(true);
+//---------------------------------------------------------------------------------------------------------- 
+////////////////OBTENEMOS DATOS Y LLAMAMOS LA BUSQUEDA
+//---------------------------------------------------------------------------------------------------------- 
+		//Primer filtro
+		String accion = pfc.getAccion();
+		String cp = pfc.getCP();
+		String prov = pfc.getProvincia();
+		//Segundo filtro
+		String pre = sfc.getPrecioTF();
+		String sup = sfc.getSuperficieTF();
+		String nHab = sfc.getHabitacionesTF();
+		String banios = sfc.getBañosTF();
+		String tipo = sfc.getTipoCB();
+		String estado = sfc.getEstadoCB();
+		//segundo filtro extras
+		String extras[] = sfc.getExtras();
+//---------------------------------------------------------------------------------------------------------- 
+////////////////LLAMAMOS EL METODO
+//----------------------------------------------------------------------------------------------------------
+		Double precio = null;
+		if(pre!= null && pre != ""){
+			precio = Double.valueOf(pre);
+		}
+		Double superficie = null;
+		if(sup!= null && sup != ""){
+			superficie = Double.valueOf(sup);
+		}	
+		int n = 0;
+		if(nHab != null && nHab!= "")
+			n = Integer.valueOf(nHab);
+		
+		rc.lcc.cargarCasas(accion, cp, prov, precio, superficie, n, tipo, estado, extras);
 	}
 	
 	public static void main(String[] args) {

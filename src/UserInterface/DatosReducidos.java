@@ -167,7 +167,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else
-					mostrarMensaje("Solicitud de información");
+					enviar("Solicitud de información");
 			}
 		});
 
@@ -177,7 +177,7 @@ public class DatosReducidos extends ZonaBotonesComun {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else
-					mostrarMensaje("Solicitud de cita");
+					enviar("Solicitud de cita");
 			}
 		});
 		
@@ -189,24 +189,6 @@ public class DatosReducidos extends ZonaBotonesComun {
 				else {
 					PersistentTransaction t = null;
 					try {
-						/*
-						t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
-						Casa caserio = CasaDAO.createCasa();
-						caserio = CasaDAO.getCasaByORMID(casa.getORMID());
-						UsuarioR ur = UsuarioRDAO.createUsuarioR();
-						ur = UsuarioRDAO.getUsuarioRByORMID(Utils.id);
-
-						int value = caserio.getNumFavoritos();
-						value ++;
-						caserio.setNumFavoritos(value);	
-						caserio.favorita.add(ur);
-						ur.es_Favorita.add(caserio);
-
-						CasaDAO.save(caserio);
-						t.commit();
-
-						setNumFav(String.valueOf(value));
-						*/
 						t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 
 						Casa c= CasaDAO.createCasa();
@@ -268,15 +250,12 @@ public class DatosReducidos extends ZonaBotonesComun {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else
-					mostrarMensaje("Solicitud de cita");
+					enviar("Solicitud de cita");
 			}
 		});
 		dd.contactar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (Utils.id == 0) 
-					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
-				else
-					mostrarMensaje("Solicitud de información");
+					enviar("Solicitud de información");
 			}
 		});
 		
@@ -314,16 +293,20 @@ public class DatosReducidos extends ZonaBotonesComun {
 		
 	}
 	
-	private void mostrarMensaje(String string) {
-		frame.setVisible(true);
-		mensaje.setVisible(true);
-		dd.setVisible(false);
-		mensaje.asuntoTF.setText(string);
-		Utils.idCasa = this.getCasaId();
-		if (this.casa.getAlquila() != null)
-			mensaje.paraTF.setText(this.casa.getAlquila().getCorreo());
-		else
-			mensaje.paraTF.setText(this.casa.getVende().getCorreo());
+	private void enviar(String string) {
+		if (Utils.id == 0) 
+			JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
+		else {
+			frame.setVisible(true);
+			mensaje.setVisible(true);
+			dd.setVisible(false);
+			mensaje.asuntoTF.setText(string);
+			Utils.idCasa = this.getCasaId();
+			if (this.casa.getAlquila() != null)
+				mensaje.paraTF.setText(this.casa.getAlquila().getCorreo());
+			else
+				mensaje.paraTF.setText(this.casa.getVende().getCorreo());
+		}
 	}
 	
 	private class SwingAction extends AbstractAction {

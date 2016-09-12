@@ -2,11 +2,22 @@ package UserInterface;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import org.orm.PersistentException;
+import org.orm.PersistentTransaction;
+
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import bbdd_gestion.Casa;
+import bbdd_gestion.CasaDAO;
+import bbdd_gestion.UsuarioR;
+import bbdd_gestion.UsuarioRDAO;
 
 
 public class ZonaBotonesComun extends JPanel {
@@ -55,6 +66,12 @@ public class ZonaBotonesComun extends JPanel {
 		fav.setLocation(322, 55);
 		fav.setIcon(new ImageIcon(getClass().getClassLoader().getResource("Iconos/icono_fav.png")));
 		fav.setSize(18, 22);
+		fav.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				favCasa(String.valueOf(Utils.idCasa), String.valueOf(Utils.id));
+			}
+		});
 		add(fav);
 		
 		
@@ -71,6 +88,34 @@ public class ZonaBotonesComun extends JPanel {
 		add(iv);
 		
 
+	}
+	
+	public void favCasa(String id_casa, String id_usuario) {
+		if (Utils.id == 0) 
+			JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
+		else {
+			PersistentTransaction t = null;
+			try {			
+				t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+				Casa caserio = CasaDAO.createCasa();
+				caserio = CasaDAO.getCasaByORMID(casa.getORMID());
+				UsuarioR ur = UsuarioRDAO.createUsuarioR();
+				ur = UsuarioRDAO.getUsuarioRByORMID(Utils.id);
+
+				int value = caserio.getNumFavoritos();
+				value ++;
+				caserio.setNumFavoritos(value);	
+				caserio.favorita.add(ur);
+				ur.es_Favorita.add(caserio);
+
+				CasaDAO.save(caserio);
+				t.commit();
+
+				setNumFav(String.valueOf(value));
+			} catch (PersistentException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
