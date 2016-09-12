@@ -22,6 +22,7 @@ public class Mensaje extends ZonaMensaje {
 		enviarB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enviar();
+				volverB.doClick();
 			}
 		});
 		enviarB.setLocation(316, 332);

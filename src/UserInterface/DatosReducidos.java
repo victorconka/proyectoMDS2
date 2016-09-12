@@ -10,10 +10,12 @@ import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
 import bbdd_gestion.Casa;
+import bbdd_gestion.CasaCriteria;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Foto;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.UsuarioR;
+import bbdd_gestion.UsuarioRCriteria;
 import bbdd_gestion.UsuarioRDAO;
 
 import java.awt.Color;
@@ -159,9 +161,9 @@ public class DatosReducidos extends ZonaBotonesComun {
 		setLayout(null);
 		this.setSize(Utils.wMedio, 80);
 		
-		contactar.addMouseListener(new MouseAdapter() {
+		contactar.addActionListener( new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else
@@ -169,9 +171,9 @@ public class DatosReducidos extends ZonaBotonesComun {
 			}
 		});
 
-		cita.addMouseListener(new MouseAdapter() {
+		cita.addActionListener( new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else
@@ -179,14 +181,15 @@ public class DatosReducidos extends ZonaBotonesComun {
 			}
 		});
 		
-		fav.addMouseListener(new MouseAdapter() {
+		fav.addActionListener( new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
 				if (Utils.id == 0) 
 					JOptionPane.showMessageDialog(new JFrame(), "Debes estar registrado para hacer esto.");
 				else {
 					PersistentTransaction t = null;
-					try {			
+					try {
+						/*
 						t = bbdd_gestion.ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 						Casa caserio = CasaDAO.createCasa();
 						caserio = CasaDAO.getCasaByORMID(casa.getORMID());
@@ -203,8 +206,34 @@ public class DatosReducidos extends ZonaBotonesComun {
 						t.commit();
 
 						setNumFav(String.valueOf(value));
-					} catch (PersistentException e) {
-						e.printStackTrace();
+						*/
+						t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
+
+						Casa c= CasaDAO.createCasa();
+						c = CasaDAO.loadCasaByORMID(casa.getId_Inmueble());
+
+						if(c != null){
+							UsuarioR u = UsuarioRDAO.loadUsuarioRByORMID(Utils.id);							
+							if(!u.es_Favorita.contains(c)){										
+								int value = c.favorita.size();	
+								u.es_Favorita.add(c);	
+								value ++;
+								setNumFav(String.valueOf(value));
+								c.setNumFavoritos(value);
+								
+								CasaDAO.save(c);
+								UsuarioRDAO.save(u);
+								t.commit();
+							}else{
+								JOptionPane.showMessageDialog(new JFrame(), "Te gustará un monton, pero no puede gustarte mas de 1 vez.");
+							}
+							ProjectMDS2PersistentManager.instance().disposePersistentManager();
+						}else{
+							System.out.println("Casa para fav no existe ?!?!");
+						}
+						
+					} catch (PersistentException ex) {
+						ex.printStackTrace();
 					}
 				}
 			}

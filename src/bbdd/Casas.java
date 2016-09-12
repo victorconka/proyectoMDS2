@@ -385,21 +385,6 @@ public class Casas {
 			}
 		}
 		
-		/*
-		while (i.hasNext())
-			if (i.next().equals(c))
-				u.es_Vendida.remove(c);
-		
-		UsuarioR[] urs = c.favorita.toArray();
-		
-		for (int j = 0; j < urs.length; j++) {
-			if (urs[j].es_Favorita.contains(c))
-				urs[j].es_Favorita.remove(c);
-		}
-		boolean b = true;
-		if (c != null) b = CasaDAO.delete(c);
-		*/
-		//st.commit();
 		return b;
 	}
 
@@ -601,7 +586,7 @@ public class Casas {
 							break;
 						}
 					}
-				}	
+				}
 				Mapa delM = c.getMapa();			
 				MapaDAO.save(m);
 				c.setMapa(m);
@@ -645,114 +630,6 @@ public class Casas {
 		}
 		ProjectMDS2PersistentManager.instance().disposePersistentManager();
 	
-		/*
-		Casa c = null;
-		Municipio m = null;
-		Provincia p = null;
-		CodigoPostal cp = null;
-		Mapa ma = null;
-		PersistentTransaction t = null;
-
-		try {
-			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
-
-
-			//es importante asegurarse que los municipios/provincias... no existan de antelacion para
-			//evitar inconsistencia y redundancia de datos
-			cp = CodigoPostalDAO.createCodigoPostal();
-			cp = bbdd_gestion.CodigoPostalDAO.loadCodigoPostalByQuery("codigo_postal LIKE '"+aCp+"'", null);
-			//asignamos el valor del codigo postal solo en caso de no existir	
-			if(cp == null){
-				System.out.println("cp no encontrada");
-				cp = CodigoPostalDAO.createCodigoPostal();
-				cp.setCodigo_postal(aCp);
-				//cp.setMunicipio(m); //no es obligatorio
-				//cp.setProvincia(p);
-				CodigoPostalDAO.save(cp);			
-			}	
-			
-			p = ProvinciaDAO.createProvincia();
-			p = bbdd_gestion.ProvinciaDAO.loadProvinciaByQuery("provincia LIKE '"+aProvincia+"'", null);
-			if(p == null){
-				System.out.println("provincia no encontrada");
-				p = ProvinciaDAO.createProvincia();
-				p.setProvincia(aProvincia.toUpperCase());
-				p.setCodigoPostal(cp);
-				ProvinciaDAO.save(p);
-			}	
-			
-			m = MunicipioDAO.createMunicipio();
-			m = bbdd_gestion.MunicipioDAO.loadMunicipioByQuery("municipio LIKE '"+aMunicipio+"'", null);
-			if(m == null){
-				//MUNICIPIO NO ENCONTRADO
-				System.out.println("municipio no encontrado");
-				m = MunicipioDAO.createMunicipio();
-				m.setMunicipio(aMunicipio.toUpperCase());
-				m.setPertenece(p);
-				MunicipioDAO.save(m);
-			}
-
-			ma = MapaDAO.createMapa();						
-			/*
-			 * asignar mapa, extraer coordenadas de google maps
-			*/
-			/*
-			c = CasaDAO.createCasa();
-			c.setDireccion(aDireccion);
-			c.setMunicipio(m);
-			c.setProvincia(p);
-			c.setCodigoPostal(cp);
-			//c.setLinkFoto(aFotos[0]);
-			//System.out.println(">"+aPrecio+"<");
-			c.setPrecio(Double.parseDouble(aPrecio));
-
-			Double sup = null;
-			if(aSuperficie != null && aSuperficie != ""){
-				//sup = Double.parseDouble(aSuperficie);
-			}
-			c.setSuperficie(sup);
-			c.setHabitaciones(Integer.parseInt(aHabitaciones));
-			c.setBanios(Integer.parseInt(aBanios));
-			c.setTipo(aTipo);
-			//c.setExtras;
-			//-----------------------------------------------------------------------
-			//--------EXTRAS
-			if(aExtras != null && aExtras.length > 0){
-				ArrayList<Extra> el = new ArrayList<Extra>();
-				Extra e = null;
-				for(String s : aExtras){
-					e = ExtraDAO.createExtra();
-					e = ExtraDAO.loadExtraByQuery("nombreextra LIKE '"+s+"'", null);
-					if(e == null){					
-						//crear en la bbdd y añadir
-						e = ExtraDAO.createExtra();
-						e.setNombreExtra(s);
-						ExtraDAO.save(e);
-					}
-					//en cualquier caso añadimos extra
-					//simplemente aniadir
-					el.add(e);
-				}
-			}	
-			//-----------------------------------------------------------------------			
-			c.setEstado(aEstado);
-			c.setAccion(aAccion);
-			c.setMapa(ma);
-			c.setdCorta(aDCorta);
-			c.setdLarga(aDLarga);
-			c.setVisible(aVisible);
-			CasaDAO.save(c);		
-			MapaDAO.save(ma);
-
-			t.commit();
-			ProjectMDS2PersistentManager.instance().disposePersistentManager();
-			return true;
-		}catch(Exception e) {
-			e.printStackTrace();
-			t.rollback();
-		}
-		ProjectMDS2PersistentManager.instance().disposePersistentManager();
-		*/
 		return false;
 	}
 
@@ -761,20 +638,23 @@ public class Casas {
 		try{
 			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();
 			CasaCriteria c = new CasaCriteria();
-			c.id_casa.eq(Integer.valueOf(aId_casa));
+			
+			c.id_Inmueble.eq(Integer.valueOf(aId_casa));
 			Casa casa = CasaDAO.createCasa();
 			casa = CasaDAO.loadCasaByCriteria(c);
-			
+			System.out.println("null");
 			if(casa != null){
+				System.out.println("not null");
 				UsuarioRCriteria c1 = new UsuarioRCriteria();
 				c1.id_Usuario.eq(Integer.valueOf(aId_usuario));
 				UsuarioR u = UsuarioRDAO.createUsuarioR();
 				u = UsuarioRDAO.loadUsuarioRByCriteria(c1);
 				
-				u.es_Favorita.add(casa);
-				
-				UsuarioRDAO.save(u);
-				t.commit();
+				if(!u.es_Favorita.contains(casa)){
+					u.es_Favorita.add(casa);					
+					UsuarioRDAO.save(u);
+					t.commit();
+				}
 				ProjectMDS2PersistentManager.instance().disposePersistentManager();
 			}else{
 				System.out.println("Casa para fav no existe ?!?!");
@@ -811,15 +691,19 @@ public class Casas {
 			
 			CasaCriteria cr = new CasaCriteria();		
 			cr.id_casa.eq(Integer.valueOf(aId_vivienda));
-						Casa c = CasaDAO.createCasa();
+			
+			Casa c = CasaDAO.createCasa();
 			c = CasaDAO.loadCasaByORMID(Integer.parseInt(aId_vivienda));
+			
 			Casa c2 = CasaDAO.createCasa();
 			c2 = CasaDAO.loadCasaByQuery("id_inmueble like " + aId_vivienda, null);
+			
 			t.commit();
 			ProjectMDS2PersistentManager.instance().getSession().close();
 			
 			t = ProjectMDS2PersistentManager.instance().getSession().beginTransaction();			
-			c.setVisible(aEstado);		
+			c.setVisible(aEstado);
+			
 			b = CasaDAO.save(c);
 			t.commit();
 			ProjectMDS2PersistentManager.instance().disposePersistentManager();

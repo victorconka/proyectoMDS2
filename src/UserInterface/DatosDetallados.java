@@ -18,7 +18,6 @@ import java.util.Iterator;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
-import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Extra;
@@ -107,27 +106,26 @@ public class DatosDetallados extends JPanel{
 				}
 			}
 			this.foto.setImages(fotos);
-			this.sup.setText(c.getSuperficie().toString() + " m2");
-			this.nBanios.setText(String.valueOf(c.getBanios()));
-			this.nHab.setText(String.valueOf(c.getHabitaciones()));
-			this.tipoViv.setText(c.getTipo());
-			this.dLargaTA.setText(c.getdLarga());
-			this.price.setText(String.valueOf(c.getPrecio()));
-			this.direccionTF.setText("<html>" + c.getDireccion() + ", " + c.getMunicipio().getMunicipio() + ", " + c.getProvincia().getProvincia() + ", " + c.getCodigoPostal() + "</html>");
-			this.visto.setText(String.valueOf(c.getNumVisitas()));
-			this.fav.setText(String.valueOf(c.getNumFavoritos()));
-			this.estado.setText("<html>" + c.getEstado() + "</html>");
-			this.mapa.loadMapa(c.getMapa().getLongitud(), c.getMapa().getLatitud());
+			this.sup.setText(otra.getSuperficie().toString() + " m2");
+			this.nBanios.setText(String.valueOf(otra.getBanios()));
+			this.nHab.setText(String.valueOf(otra.getHabitaciones()));
+			this.tipoViv.setText(otra.getTipo());
+			this.dLargaTA.setText(otra.getdLarga());
+			this.price.setText(String.valueOf(otra.getPrecio()));
+			this.direccionTF.setText("<html>" + otra.getDireccion() + ", " + otra.getMunicipio().getMunicipio() + ", " + otra.getProvincia().getProvincia() + ", " + otra.getCodigoPostal() + "</html>");
+			this.visto.setText(String.valueOf(otra.getNumVisitas()));
+			this.fav.setText(String.valueOf(otra.favorita.size()));
+			this.estado.setText("<html>" + otra.getEstado() + "</html>");
+			this.mapa.loadMapa(otra.getMapa().getLongitud(), otra.getMapa().getLatitud());
 			
-			int visto = c.getNumVisitas();
+			int visto = otra.getNumVisitas();
 			visto++;
 			
-			Casa caserio = CasaDAO.createCasa();
-			caserio = CasaDAO.getCasaByORMID(c.getORMID());
-			caserio.setNumVisitas(visto);
+
+			otra.setNumVisitas(visto);
 			
 			
-			CasaDAO.save(caserio);
+			CasaDAO.save(otra);
 			t.commit();
 		} catch (PersistentException e) {
 			e.printStackTrace();
