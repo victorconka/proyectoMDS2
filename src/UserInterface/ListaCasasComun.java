@@ -2,23 +2,23 @@ package UserInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import javax.swing.JScrollPane;
-import java.awt.EventQueue;
+
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Arrays;
 import java.util.Comparator;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
-import bbdd.IUsuario;
-import bbdd_gestion.Casa;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.JScrollPane;
+import bbdd.IUsuario;
+import bbdd_gestion.Casa;
+import bbdd_gestion.Usuario;
+import bbdd_gestion.UsuarioR;
+
+
 
 
 public class ListaCasasComun extends JPanel {
@@ -38,7 +38,12 @@ public class ListaCasasComun extends JPanel {
 			Registry r = LocateRegistry.getRegistry(1099);
 			IUsuario iu = (IUsuario) r.lookup("Servidor2");
 			casas = iu.Buscar(aAccion, aCp, aProvincia, aPrecio, aSuperficie, aNHabitaciones, aTipo, aEstado, aExtras);
-
+			UsuarioR ur = null;
+			String lCasas="";
+			if(Utils.id != 0){
+				ur = bbdd_gestion.UsuarioRDAO.loadUsuarioRByORMID(Utils.id);
+				lCasas = Arrays.toString(ur.es_Vendida.toArray());
+			}
 			//-------------------------------------------------------------------
 			if(casas != null)
 				nResults = casas.length;   
@@ -47,16 +52,32 @@ public class ListaCasasComun extends JPanel {
 
 			Casa c = null;
 			//Ahora toca agregar nuestros resultados de busqueda al panel
-			for(int i = 0;i < nResults; i++)
-			{
-				c = casas[i];
-				DatosReducidos dr1 = new DatosReducidos();
-				dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
-				dr1.setLocation(0,i*Utils.hDR);
-				dr1.setCasa(c);
-				panel.add(dr1);
-
-			}  
+			if(Utils.id != 0){
+				int it = 0;
+				for(int i = 0;i < nResults; i++)
+					{
+					c = casas[i];	
+					if(!lCasas.contains(String.valueOf(c.getId_Inmueble()))){
+						DatosReducidos dr1 = new DatosReducidos();
+						dr1.setBorder(new LineBorder(new Color(it*25, 0, 0), 2, true));
+						dr1.setLocation(0,it*Utils.hDR);
+						dr1.setCasa(c);
+						panel.add(dr1);
+						it++;
+					}
+				}
+			}else{
+				for(int i = 0;i < nResults; i++)
+				{
+					c = casas[i];
+					DatosReducidos dr1 = new DatosReducidos();
+					dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
+					dr1.setLocation(0,i*Utils.hDR);
+					dr1.setCasa(c);
+					panel.add(dr1);
+	
+				}
+			}
 			//-------------------------------------------------------------------
 		} catch (Exception e) {
 			e.printStackTrace();
