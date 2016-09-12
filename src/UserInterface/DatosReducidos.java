@@ -280,10 +280,10 @@ public class DatosReducidos extends ZonaBotonesComun {
 	protected void selectionButtonPressed() {
 		
 		frame.setVisible(true);
+		frame.setResizable(false);
 		mensaje.setVisible(false);
 		dd.setVisible(true);
 		dd.cargarDatosVivienda(casa);		
-		//dd.setBounds(0, 0, Utils.hMedio,  Utils.wGrande);
 		auxiliar = true;
 		
 	}
