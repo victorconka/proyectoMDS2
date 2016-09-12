@@ -1,26 +1,23 @@
 package UserInterface;
 
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
+
 
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 
 import bbdd_gestion.Casa;
-import bbdd_gestion.CasaCriteria;
 import bbdd_gestion.CasaDAO;
 import bbdd_gestion.Foto;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.UsuarioR;
-import bbdd_gestion.UsuarioRCriteria;
 import bbdd_gestion.UsuarioRDAO;
-
 import java.awt.Color;
 import java.awt.Font;
-
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,8 +25,6 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;

@@ -108,12 +108,10 @@ public class InformaciónListaCasas extends Foto {
 		InputStream is = null;
 		
         try {
-            URL url = new URL(foto);
-            
+            URL url = new URL(foto);          
             URLConnection openConnection = url.openConnection();
     		openConnection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0");
-    		is = openConnection.getInputStream();
-    		
+    		is = openConnection.getInputStream();		
             im = ImageIO.read(is);
             imScaled = im.getScaledInstance(80	, 80, Image.SCALE_SMOOTH);
             is.close();

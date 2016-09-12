@@ -94,8 +94,7 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 			dr1.verDatos();
 			dr1.setFoto(casas[i]);
 			dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
-			dr1.setLocation(0,i*Utils.hDR);
-			
+			dr1.setLocation(0,i*Utils.hDR);			
 			
 			botones[i] = new JButton();
 			botones[i].setContentAreaFilled(false);
@@ -115,7 +114,7 @@ public class ListaViviendasEnPropiedad extends InformaciónListaCasas {
 				}
 			});
 			map.put(botones[i], casas[i]);
-			dr1.verDatos();
+			//dr1.verDatos();
 			panel.add(dr1).setVisible(true);
 			panel.add(botones[i]).setVisible(true);
 		}  

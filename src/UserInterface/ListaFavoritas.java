@@ -2,9 +2,6 @@ package UserInterface;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
@@ -19,7 +16,6 @@ import javax.swing.border.LineBorder;
 import bbdd.IUsuarioRegistrado;
 import bbdd_gestion.Casa;
 import bbdd_gestion.UsuarioR;
-import bbdd_gestion.UsuarioRDAO;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -64,9 +60,6 @@ public class ListaFavoritas extends InformaciónListaCasas {
 		panel.removeAll();
         panel.revalidate();
         panel.repaint();
-        
-        scroll.revalidate();
-        scroll.repaint();
 		
 		//esta agrupación es SUPER IMPRESCINDIBLE
 		//no se como, pero es la responsable de que todo funcione
@@ -92,10 +85,10 @@ public class ListaFavoritas extends InformaciónListaCasas {
 			dr1.infoEstadoL.setText(casas[i].getEstado());
 			dr1.infoInteresadosL.setText(String.valueOf(casas[i].getNumFavoritos()));
 			dr1.infoVisitasL.setText(String.valueOf(casas[i].getNumVisitas()));
-			dr1.verDatos();
 			dr1.setBorder(new LineBorder(new Color(i*25, 0, 0), 2, true));
 			dr1.setLocation(0,i*Utils.hDR);
 			dr1.verDatos();
+			dr1.setFoto(casas[i]);
 			panel.add(dr1).setVisible(true);
 		}  
 		//-------------------------------------------------------------------
