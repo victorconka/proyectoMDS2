@@ -113,7 +113,7 @@ public class SegundoFiltroComun extends JPanel {
 		this.add(tipoL);
 		
 		this.tipoCB = new JComboBox();
-		tipoCB.setModel(new DefaultComboBoxModel(new String[] {"Apartamento", "\u00C1tico"}));
+		tipoCB.setModel(new DefaultComboBoxModel(new String[] {"Apartamento", "\u00C1tico", "Piso"}));
 		this.tipoCB.setBounds(c, 6*b, 2*w, a);
 		this.add(tipoCB);
 //-------------------------------------------------------------------------------------------------		
