@@ -115,6 +115,7 @@ public class UsuarioGenerico extends JFrame {
 			Registry registry = LocateRegistry.getRegistry(1099);
 			ia = (IAdministrador) registry.lookup("Servidor1");
 			ia.registrarAdmin("admin", "jbf441@inlumine.ual.es", "z43j7mn7");
+			ia.registrarAdmin("admin2", "vs613@inlumine.ual.es", "User1234");
 			IUsuarioRegistrado u = (IUsuarioRegistrado) registry.lookup("Servidor3");
 			//u.Registrarse("nombre", "apellido", "direccion", "municipio", "provincia", "cp", "email@hotmail.com", "pass");
 		} catch (Exception e) {

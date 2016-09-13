@@ -725,9 +725,10 @@ public class Casas {
 			UsuarioRCriteria c1 = new UsuarioRCriteria();
 			c1.id_Usuario.eq(Integer.valueOf(aId_usuario));
 			UsuarioR u = UsuarioRDAO.createUsuarioR();
-			if(u != null && u.es_Vendida != null){
-				u = UsuarioRDAO.loadUsuarioRByCriteria(c1);
-				return u.es_Vendida.toArray();
+			u = UsuarioRDAO.loadUsuarioRByCriteria(c1);
+			if(u != null && u.es_Vendida != null){			
+				if(u.es_Vendida!= null && u.es_Vendida.size() >0)
+					return u.es_Vendida.toArray();
 			}
 		}
 		return new Casa[0];
