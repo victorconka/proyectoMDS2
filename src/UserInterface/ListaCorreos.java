@@ -26,6 +26,7 @@ public class ListaCorreos extends JPanel {
 	private JTable tabla;
 	private JScrollPane p;
 	private DefaultTableModel dtm;
+	private JButton[] botones;
 	
 	public ListaCorreos() {
 		setOpaque(false);
@@ -62,8 +63,23 @@ public class ListaCorreos extends JPanel {
 		add(co).setVisible(false);		
 	}
 	
-	protected void cargarListadoCorreos() {
-		JButton[] botones = null;
+	protected void cargarListadoCorreos(){
+		
+		if(botones != null && botones.length > 0){
+			for(int i = 0; i< botones.length; i++){
+				if(botones[i] != null){
+					botones[i].remove(coBoton);
+					remove(botones[i]);
+					for(int n = 0;n <UsuarioGenerico.getFrames().length; n++){
+						if(UsuarioGenerico.getFrames()[n].toString().contains("UsuarioRegistrado")){
+							UsuarioGenerico.getFrames()[n].remove(botones[i]);
+						}
+					}
+				}
+			}
+		}
+		
+		botones = null;
 		bbdd_gestion.Correo[] c = null;
 		try {
 			Registry r = LocateRegistry.getRegistry(1099);
@@ -77,12 +93,13 @@ public class ListaCorreos extends JPanel {
 		}
 		
 		String[][] datos = new String[c.length][3];
-		//map.clear();
-		
+		map.clear();
+
 		for (int i = 0; i < datos.length; i++) {
 			datos[i][0] = c[i].getFuente();
 			datos[i][1] = c[i].getAsunto();
 			datos[i][2] = c[i].getTexto();
+			
 			botones[i] = new JButton("");
 			botones[i].setContentAreaFilled(false);
 			botones[i].addActionListener(coBoton.getActionListeners()[0]);

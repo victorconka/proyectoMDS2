@@ -4,8 +4,13 @@ import bbdd_gestion.UsuarioR;
 import bbdd_gestion.UsuarioRCriteria;
 import bbdd_gestion.UsuarioRDAO;
 import bbdd_gestion.Casa;
-import bbdd_gestion.CasaCriteria;
 import bbdd_gestion.CasaDAO;
+import bbdd_gestion.Correo;
+import bbdd_gestion.CorreoDAO;
+import bbdd_gestion.Foto;
+import bbdd_gestion.FotoDAO;
+import bbdd_gestion.Mapa;
+import bbdd_gestion.MapaDAO;
 import bbdd_gestion.ProjectMDS2PersistentManager;
 import bbdd_gestion.Usuario;
 import bbdd_gestion.UsuarioDAO;
@@ -78,13 +83,15 @@ public class Usuarios {
 			//eliminar casas que alquila
 			bbdd_gestion.Casa casa = u.getEs_Alquilada();
 			if (casa != null)
-				bbdd_gestion.CasaDAO.delete(casa);
+				eliminarVivienda(aEmail,String.valueOf(casa.getId_Inmueble()));
 			
 			//eliminar casas que vende			
-			Iterator<Casa> it = u.es_Vendida.getIterator();
-			while (it.hasNext()){
-				casa = it.next();
-				bbdd_gestion.CasaDAO.delete(casa);
+			if(u.es_Vendida != null && u.es_Vendida.size() > 0)
+			{
+				Casa[] casas = u.es_Vendida.toArray();
+				for(Casa c1 : casas){
+					eliminarVivienda(aEmail,String.valueOf(c1.getId_Inmueble()));
+				}
 			}
 			
 			//eliminar correos de entrada
@@ -94,7 +101,7 @@ public class Usuarios {
 				correo = it2.next();
 				bbdd_gestion.CorreoDAO.delete(correo);
 			}
-			
+						
 			//eliminar correos de salida
 			it2 = u.salida.getIterator();
 			while(it2.hasNext()){
@@ -200,5 +207,41 @@ public class Usuarios {
 
 	public UsuarioR cargarDatosUsuario(String aId_usuario)  throws PersistentException{
 		return UsuarioRDAO.getUsuarioRByORMID(Integer.parseInt(aId_usuario));
+	}
+	private boolean eliminarVivienda(String aEmail, String aId_casa)   throws PersistentException{
+		Casa c = CasaDAO.loadCasaByQuery("inmuebleid_inmueble = '"+aId_casa+"'", null);
+		UsuarioR u = null;
+		if (aEmail.contains("@"))				
+			u = UsuarioRDAO.loadUsuarioRByQuery("correo = '"+aEmail+"'", null);
+		else {
+			int ID = Integer.parseInt(aEmail);
+			u = UsuarioRDAO.loadUsuarioRByORMID(ID);
+		}
+		
+		//eliminar mapa
+		Mapa m  = c.getMapa();		
+		//eliminar correos
+		Correo[] correos = null;
+		if(c.correo.size() > 0)
+			correos = c.correo.toArray();
+		//eliminar fotos
+		Foto[] fotos = null;
+		if(c.fotos.size()> 0)
+			 fotos = c.fotos.toArray();
+		
+		boolean b = CasaDAO.deleteAndDissociate(c);
+		if(m!= null)
+			MapaDAO.delete(m);
+		if(correos!=null){
+			for(Correo co : correos)
+				CorreoDAO.deleteAndDissociate(co);
+		}
+		if(fotos!= null){
+			for(Foto f : fotos){
+				FotoDAO.delete(f);
+			}
+		}
+		
+		return b;
 	}
 }
